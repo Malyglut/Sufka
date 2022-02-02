@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 6459217742537868494}
   - component: {fileID: 8446383953912178180}
   - component: {fileID: 8134961970097355855}
+  - component: {fileID: -7191824013191887533}
   m_Layer: 5
   m_Name: Letter
   m_TagString: Untagged
@@ -330,3 +331,16 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &-7191824013191887533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459217742537868495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fafeddf895487dbb32ef777dbfac1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _letterText: {fileID: 6459217740569812646}

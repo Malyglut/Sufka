@@ -1,3 +1,13 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: d282fa2519f0413aaef127fec0108434
-timeCreated: 1643774881
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _letterPrefab: {fileID: -7191824013191887533, guid: 1f029826af4756446a01496c84d4127c, type: 3}
+  - _lettersParent: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
