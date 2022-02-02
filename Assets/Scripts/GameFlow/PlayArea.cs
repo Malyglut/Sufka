@@ -85,6 +85,8 @@ namespace Sufka.GameFlow
                 {
                     Debug.Log("WIN!");
                 }
+
+                CurrentRow.Display(result);
                 
                 _currentRowIdx++;
             }

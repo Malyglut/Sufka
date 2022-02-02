@@ -344,3 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _letterText: {fileID: 6459217740569812646}
+  _background: {fileID: 6459217741137732664}
+  _fullCorrectColor: {r: 0.59607846, g: 0.78431374, b: 0.32941177, a: 1}
+  _partialCorrectColor: {r: 0.9607843, g: 0.8509804, b: 0.4509804, a: 1}
+  _noneCorrectColor: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 1}

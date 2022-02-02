@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sufka.Validation;
 using UnityEngine;
 
 namespace Sufka.GameFlow
@@ -54,6 +55,14 @@ namespace Sufka.GameFlow
                 }
 
                 return word;
+            }
+        }
+
+        public void Display(ValidationResult result)
+        {
+            for (int i = 0; i < +_letters.Count; i++)
+            {
+                _letters[i].Display(result[i]);
             }
         }
     }
