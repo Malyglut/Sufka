@@ -23,17 +23,17 @@ namespace Sufka.GameFlow
         [SerializeField]
         private Color _noneCorrectColor = Color.white;
 
-        public string CurrentLetter { get; private set; }
+        public char CurrentLetter { get; private set; }
         
-        public void SetLetter(string letter)
+        public void SetLetter(char letter)
         {
             CurrentLetter = letter;
-            _letterText.SetText(letter);
+            _letterText.SetText(letter.ToString());
         }
 
         public void SetBlank()
         {
-            SetLetter(string.Empty);
+            SetLetter('\0');
         }
 
         public void Display(LetterCorrectness letterCorrectness)

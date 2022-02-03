@@ -1,12 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sufka.Validation
 {
-    public class ValidationResult
+    public class ValidationResult : IEnumerable<LetterResult>
     {
-        public LetterCorrectness[] Letters { get; }
+        public LetterResult[] Letters { get; }
 
         public bool FullMatch { get; private set; }
 
-        public LetterCorrectness this[int i]
+        public LetterResult this[int i]
         {
             get => Letters[i];
             set => Letters[i] = value;
@@ -14,7 +17,12 @@ namespace Sufka.Validation
 
         public ValidationResult(int capacity)
         {
-            Letters = new LetterCorrectness[capacity];
+            Letters = new LetterResult[capacity];
+        }
+
+        public IEnumerator<LetterResult> GetEnumerator()
+        {
+            return ((IEnumerable<LetterResult>)Letters).GetEnumerator();
         }
 
         public override string ToString()
@@ -30,13 +38,18 @@ namespace Sufka.Validation
             return text;
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         public void Check()
         {
             var full = 0;
 
             foreach (var letter in Letters)
             {
-                if (letter == LetterCorrectness.Full)
+                if (letter.result == LetterCorrectness.Full)
                 {
                     full++;
                 }

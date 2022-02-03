@@ -31,7 +31,7 @@ namespace Sufka.GameFlow
             }
         }
 
-        public void InputLetter(string letter)
+        public void InputLetter(char letter)
         {
             _letters[_currentLetterIdx].SetLetter(letter);
             _currentLetterIdx++;
@@ -43,11 +43,11 @@ namespace Sufka.GameFlow
             _currentLetterIdx--;
         }
 
-        public string[] Word
+        public char[] Word
         {
             get
             {
-                string[] word = new string[_letters.Count];
+                char[] word = new char[_letters.Count];
 
                 for (int i = 0; i < word.Length; i++)
                 {
@@ -62,7 +62,7 @@ namespace Sufka.GameFlow
         {
             for (int i = 0; i < +_letters.Count; i++)
             {
-                _letters[i].Display(result[i]);
+                _letters[i].Display(result[i].result);
             }
         }
     }

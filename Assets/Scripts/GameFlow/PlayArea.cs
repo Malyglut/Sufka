@@ -104,7 +104,7 @@ namespace Sufka.GameFlow
         {
             if(!CurrentRow.IsFull)
             {
-                CurrentRow.InputLetter(letter);
+                CurrentRow.InputLetter(Convert.ToChar(letter));
             }
         }
     }
