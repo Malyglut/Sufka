@@ -29,9 +29,11 @@ namespace Sufka.Controls
 
         public void Display(LetterCorrectness letterCorrectness)
         {
-            _letter.Display(letterCorrectness);
-
-            _button.interactable = letterCorrectness != LetterCorrectness.None;
+            if(letterCorrectness > _letter.CurrentCorrectness)
+            {
+                _letter.Display(letterCorrectness);
+                _button.interactable = letterCorrectness != LetterCorrectness.None;
+            }
         }
 
         public void Reset()

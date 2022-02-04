@@ -2,8 +2,9 @@ namespace Sufka.Validation
 {
     public enum LetterCorrectness
     {
-        None,
-        Partial,
-        Full
+        NotSet = 0,
+        None = 1,
+        Partial = 2,
+        Full = 3
     }
 }

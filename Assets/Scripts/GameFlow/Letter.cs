@@ -27,6 +27,7 @@ namespace Sufka.GameFlow
         private Color _noneCorrectColor = Color.white;
 
         public char CurrentLetter { get; private set; }
+        public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet; 
         
         public void SetLetter(char letter)
         {
@@ -41,6 +42,7 @@ namespace Sufka.GameFlow
 
         public void Display(LetterCorrectness letterCorrectness)
         {
+            CurrentCorrectness = letterCorrectness;
             var color = _noneCorrectColor;
             
             switch (letterCorrectness)
@@ -54,8 +56,11 @@ namespace Sufka.GameFlow
                 case LetterCorrectness.Full:
                     color = _fullCorrectColor;
                     break;
+                case LetterCorrectness.NotSet:
+                    color = _startingColor;
+                    break;
                 default:
-                    color = _noneCorrectColor;
+                    color = _startingColor;
                     break;
             }
 
@@ -68,7 +73,8 @@ namespace Sufka.GameFlow
             {
                 SetBlank();
             }
-            
+
+            CurrentCorrectness = LetterCorrectness.NotSet;
             _background.color = _startingColor;
         }
     }
