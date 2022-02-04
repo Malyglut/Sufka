@@ -65,5 +65,15 @@ namespace Sufka.GameFlow
                 _letters[i].Display(result[i].result);
             }
         }
+
+        public void Reset()
+        {
+            _currentLetterIdx = 0;
+            
+            foreach (var letter in _letters)
+            {
+                letter.Reset(true);
+            }
+        }
     }
 }

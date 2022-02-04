@@ -15,6 +15,9 @@ namespace Sufka.GameFlow
         private Image _background;
         
         [SerializeField]
+        private Color _startingColor = Color.white;
+        
+        [SerializeField]
         private Color _fullCorrectColor = Color.white;
         
         [SerializeField]
@@ -57,6 +60,16 @@ namespace Sufka.GameFlow
             }
 
             _background.color = color;
+        }
+
+        public void Reset(bool resetLetter)
+        {
+            if(resetLetter)
+            {
+                SetBlank();
+            }
+            
+            _background.color = _startingColor;
         }
     }
 }

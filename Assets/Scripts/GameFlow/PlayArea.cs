@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Sirenix.OdinInspector;
 using Sufka.Validation;
 using UnityEngine;
 
@@ -16,95 +12,54 @@ namespace Sufka.GameFlow
         [SerializeField]
         private Transform _rowsParent;
 
-        [SerializeField]
-        private string _targetWord;
-
-        private List<LetterRow> _rows = new List<LetterRow>();
+        private readonly List<LetterRow> _rows = new List<LetterRow>();
         private int _currentRowIdx;
-        private List<KeyCode> _allKeyCodes = new List<KeyCode>();
 
         private LetterRow CurrentRow => _rows[_currentRowIdx];
-        
-        private void Start()
-        {
-            _allKeyCodes = Enum.GetValues(typeof(KeyCode)).Cast<KeyCode>().ToList();
+        public char[] CurrentWord => CurrentRow.Word;
+        public bool ValidInput => CurrentRow.IsFull;
+        public bool LastAttempt => _currentRowIdx >= _rows.Count - 1;
 
-            Initialize(5,5);
-        }
-
-        [Button]
-        private void Initialize(int rows, int letters)
+        public void Initialize(int rows, int letters)
         {
-            for (int i = 0; i < rows; i++)
+            for (var i = 0; i < rows; i++)
             {
-                LetterRow row = Instantiate(_letterRowPrefab, _rowsParent);
+                var row = Instantiate(_letterRowPrefab, _rowsParent);
                 row.Initialize(letters);
 
                 _rows.Add(row);
             }
         }
 
-        private void Update()
+        public void RemoveLastLetter()
         {
-            if (Input.anyKeyDown)
-            {
-                foreach (var keyCode in _allKeyCodes)
-                {
-                    if (Input.GetKeyDown(keyCode))
-                    {
-                        var input = keyCode.ToString();
-
-                        if (Regex.IsMatch(input, "^[a-zA-Z]{1}$"))
-                        {
-                            InputLetter(input);
-                        }
-                    }
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Backspace))
-            {
-                RemoveLastLetter();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                AcceptWord();
-            }
-        }
-
-        private void AcceptWord()
-        {
-            if (CurrentRow.IsFull)
-            {
-                var result = WordValidator.Validate(_targetWord, CurrentRow.Word);
-
-                Debug.Log(result);
-
-                if (result.FullMatch)
-                {
-                    Debug.Log("WIN!");
-                }
-
-                CurrentRow.Display(result);
-                
-                _currentRowIdx++;
-            }
-        }
-
-        private void RemoveLastLetter()
-        {
-            if(!CurrentRow.IsEmpty)
+            if (!CurrentRow.IsEmpty)
             {
                 CurrentRow.RemoveLastLetter();
             }
         }
 
-        private void InputLetter(string letter)
+        public void InputLetter(char letter)
         {
-            if(!CurrentRow.IsFull)
+            if (!CurrentRow.IsFull)
             {
-                CurrentRow.InputLetter(Convert.ToChar(letter));
+                CurrentRow.InputLetter(letter);
+            }
+        }
+
+        public void Display(ValidationResult result)
+        {
+            CurrentRow.Display(result);
+            _currentRowIdx++;
+        }
+
+        public void Reset()
+        {
+            _currentRowIdx = 0;
+            
+            foreach (var row in _rows)
+            {
+                row.Reset();
             }
         }
     }
