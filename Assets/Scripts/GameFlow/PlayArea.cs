@@ -20,6 +20,8 @@ namespace Sufka.GameFlow
         public bool ValidInput => CurrentRow.IsFull;
         public bool LastAttempt => _currentRowIdx >= _rows.Count - 1;
 
+        public int Attempt => _currentRowIdx;
+
         public void Initialize(int rows, int letters)
         {
             for (var i = 0; i < rows; i++)
@@ -56,7 +58,7 @@ namespace Sufka.GameFlow
         public void Reset()
         {
             _currentRowIdx = 0;
-            
+
             foreach (var row in _rows)
             {
                 row.Reset();
