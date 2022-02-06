@@ -29,6 +29,8 @@ namespace Sufka.Controls
 
         public void Initialize()
         {
+            _enterButton.interactable = false;
+            
             _enterButton.onClick.AddListener(HandleEnterPress);
             _backButton.onClick.AddListener(HandleBackPress);
             _keyGrid.OnKeyPress += HandleKeyPress;
@@ -59,6 +61,16 @@ namespace Sufka.Controls
         public void Reset()
         {
             _keyGrid.Reset();
+        }
+
+        public void EnableEnterButton()
+        {
+            _enterButton.interactable = true;
+        }
+
+        public void DisableEnterButton()
+        {
+            _enterButton.interactable = false;
         }
     }
 }

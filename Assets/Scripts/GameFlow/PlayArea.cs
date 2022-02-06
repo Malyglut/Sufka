@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sufka.Validation;
 using Sufka.Words;
@@ -7,6 +8,9 @@ namespace Sufka.GameFlow
 {
     public class PlayArea : MonoBehaviour
     {
+        public event Action OnCurrentRowFull;
+        public event Action OnCurrentRowNotFull;
+        
         [SerializeField]
         private LetterRow _letterRowPrefab;
 
@@ -46,6 +50,11 @@ namespace Sufka.GameFlow
             if (!CurrentRow.IsEmpty)
             {
                 CurrentRow.RemoveLastLetter();
+                
+                if(!CurrentRow.IsFull)
+                {
+                    OnCurrentRowNotFull.Invoke();
+                }
             }
         }
 
@@ -54,6 +63,11 @@ namespace Sufka.GameFlow
             if (!CurrentRow.IsFull)
             {
                 CurrentRow.InputLetter(letter);
+
+                if (CurrentRow.IsFull)
+                {
+                    OnCurrentRowFull.Invoke();
+                }
             }
         }
 

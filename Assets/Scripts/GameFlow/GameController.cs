@@ -36,7 +36,8 @@ namespace Sufka.GameFlow
 
         private void Start()
         {
-            
+            _playArea.OnCurrentRowFull += EnableEnter;
+            _playArea.OnCurrentRowNotFull += DisableEnter;
 
             _keyboard.Initialize();
             _keyboard.OnKeyPress += HandleLetterInput;
@@ -44,6 +45,16 @@ namespace Sufka.GameFlow
             _keyboard.OnBackPress += HandleRemoveLetter;
 
             RandomWordRound();
+        }
+
+        private void EnableEnter()
+        {
+             _keyboard.EnableEnterButton();
+        }
+
+        private void DisableEnter()
+        {
+            _keyboard.DisableEnterButton();
         }
 
         private void RandomWordRound()
