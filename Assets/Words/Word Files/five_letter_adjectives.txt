@@ -1,9 +1,7 @@
 aftowy
 aktowy
-alaski
 algowy
 altowy
-analny
 aoñski
 asyski
 autowy
@@ -63,7 +61,6 @@ bu³any
 bykowy
 bystry
 bytowy
-bywa³y
 bywszy
 bólowy
 b³otny
@@ -78,11 +75,9 @@ cepowy
 cerowy
 cezowy
 chciwy
-cherry
 chlany
 chocki
 chodny
-choæby
 chromy
 chutny
 chybki
@@ -107,8 +102,6 @@ cucony
 cugowy
 cumowy
 cybaty
-cycaty
-cycowy
 cykany
 cynawy
 cynowy
@@ -155,7 +148,6 @@ duñski
 dworny
 dwuoki
 dylowy
-dymany
 dymowy
 dziany
 dziwny
@@ -264,7 +256,6 @@ jarowy
 jarski
 jazowy
 ja³owy
-jebany
 jedyny
 jehowy
 jenowy
@@ -289,7 +280,6 @@ j±katy
 jêdrny
 kacowy
 kalany
-kaleki
 kamski
 kapski
 karany
@@ -298,7 +288,6 @@ karowy
 karski
 kasowy
 kawowy
-ka³owy
 ka¿ony
 kemowy
 kijowy
@@ -334,7 +323,6 @@ krwawy
 krzywy
 krótki
 kr±g³y
-ksiê¿y
 ksobny
 kuczny
 kulany
@@ -514,7 +502,6 @@ oclony
 octowy
 odarty
 odbity
-odbyty
 oddany
 odeski
 odjêty
@@ -571,7 +558,6 @@ otarty
 otruty
 otuski
 owalny
-owamty
 owiany
 owocny
 ozwany
@@ -622,7 +608,6 @@ postny
 potowy
 poufny
 powity
-po³ogi
 po¿uty
 po¿êty
 pralny
@@ -745,7 +730,6 @@ siewny
 sinawy
 sitowy
 siwawy
-siódmy
 si³owy
 skalny
 skis³y
@@ -775,7 +759,6 @@ soñski
 spad³y
 spas³y
 spa¶ny
-spiski
 spiêty
 sporny
 sprany
@@ -821,7 +804,6 @@ tajski
 takowy
 talowy
 tamowy
-tamten
 tarowy
 tatowy
 tañszy
@@ -920,7 +902,6 @@ usch³y
 usiany
 usilny
 usnuty
-usrany
 usta³y
 uszaty
 uszyty
@@ -1145,7 +1126,6 @@ z¿arty
 ¿mudny
 ¿niwny
 ¿onaty
-¿oniny
 ¿orski
 ¿yrowy
 ¿ywszy

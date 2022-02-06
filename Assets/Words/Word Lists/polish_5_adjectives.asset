@@ -15,10 +15,8 @@ MonoBehaviour:
   _words:
   - aftowy
   - aktowy
-  - alaski
   - algowy
   - altowy
-  - analny
   - "ao\u0144ski"
   - asyski
   - autowy
@@ -78,7 +76,6 @@ MonoBehaviour:
   - bykowy
   - bystry
   - bytowy
-  - "bywa\u0142y"
   - bywszy
   - "b\xF3lowy"
   - "b\u0142otny"
@@ -93,11 +90,9 @@ MonoBehaviour:
   - cerowy
   - cezowy
   - chciwy
-  - cherry
   - chlany
   - chocki
   - chodny
-  - "cho\u0107by"
   - chromy
   - chutny
   - chybki
@@ -122,8 +117,6 @@ MonoBehaviour:
   - cugowy
   - cumowy
   - cybaty
-  - cycaty
-  - cycowy
   - cykany
   - cynawy
   - cynowy
@@ -170,7 +163,6 @@ MonoBehaviour:
   - dworny
   - dwuoki
   - dylowy
-  - dymany
   - dymowy
   - dziany
   - dziwny
@@ -279,7 +271,6 @@ MonoBehaviour:
   - jarski
   - jazowy
   - "ja\u0142owy"
-  - jebany
   - jedyny
   - jehowy
   - jenowy
@@ -304,7 +295,6 @@ MonoBehaviour:
   - "j\u0119drny"
   - kacowy
   - kalany
-  - kaleki
   - kamski
   - kapski
   - karany
@@ -313,7 +303,6 @@ MonoBehaviour:
   - karski
   - kasowy
   - kawowy
-  - "ka\u0142owy"
   - "ka\u017Cony"
   - kemowy
   - kijowy
@@ -349,7 +338,6 @@ MonoBehaviour:
   - krzywy
   - "kr\xF3tki"
   - "kr\u0105g\u0142y"
-  - "ksi\u0119\u017Cy"
   - ksobny
   - kuczny
   - kulany
@@ -529,7 +517,6 @@ MonoBehaviour:
   - octowy
   - odarty
   - odbity
-  - odbyty
   - oddany
   - odeski
   - "odj\u0119ty"
@@ -586,7 +573,6 @@ MonoBehaviour:
   - otruty
   - otuski
   - owalny
-  - owamty
   - owiany
   - owocny
   - ozwany
@@ -637,7 +623,6 @@ MonoBehaviour:
   - potowy
   - poufny
   - powity
-  - "po\u0142ogi"
   - "po\u017Cuty"
   - "po\u017C\u0119ty"
   - pralny
@@ -760,7 +745,6 @@ MonoBehaviour:
   - sinawy
   - sitowy
   - siwawy
-  - "si\xF3dmy"
   - "si\u0142owy"
   - skalny
   - "skis\u0142y"
@@ -790,7 +774,6 @@ MonoBehaviour:
   - "spad\u0142y"
   - "spas\u0142y"
   - "spa\u015Bny"
-  - spiski
   - "spi\u0119ty"
   - sporny
   - sprany
@@ -836,7 +819,6 @@ MonoBehaviour:
   - takowy
   - talowy
   - tamowy
-  - tamten
   - tarowy
   - tatowy
   - "ta\u0144szy"
@@ -935,7 +917,6 @@ MonoBehaviour:
   - usiany
   - usilny
   - usnuty
-  - usrany
   - "usta\u0142y"
   - uszaty
   - uszyty
@@ -1160,7 +1141,6 @@ MonoBehaviour:
   - "\u017Cmudny"
   - "\u017Cniwny"
   - "\u017Conaty"
-  - "\u017Coniny"
   - "\u017Corski"
   - "\u017Cyrowy"
   - "\u017Cywszy"

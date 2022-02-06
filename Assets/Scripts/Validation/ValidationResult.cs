@@ -9,6 +9,8 @@ namespace Sufka.Validation
 
         public bool FullMatch { get; private set; }
 
+        public List<int> GuessedIndices { get; } = new List<int>();
+
         public LetterResult this[int i]
         {
             get => Letters[i];
@@ -47,11 +49,12 @@ namespace Sufka.Validation
         {
             var full = 0;
 
-            foreach (var letter in Letters)
+            for (int i = 0; i < Letters.Length; i++)
             {
-                if (letter.result == LetterCorrectness.Full)
+                if (Letters[i].result == LetterCorrectness.Full)
                 {
                     full++;
+                    GuessedIndices.Add(i);
                 }
             }
 

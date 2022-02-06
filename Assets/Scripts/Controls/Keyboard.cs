@@ -11,6 +11,7 @@ namespace Sufka.Controls
         public event Action<char> OnKeyPress;
         public event Action OnEnterPress;
         public event Action OnBackPress;
+        public event Action OnHintPress;
 
         [SerializeField]
         private KeyGrid _keyGrid;
@@ -20,6 +21,9 @@ namespace Sufka.Controls
         
         [SerializeField]
         private Button _backButton;
+        
+        [SerializeField]
+        private Button _hintButton;
 
         [SerializeField]
         private KeyboardLayout _keyboardLayout;
@@ -33,9 +37,16 @@ namespace Sufka.Controls
             
             _enterButton.onClick.AddListener(HandleEnterPress);
             _backButton.onClick.AddListener(HandleBackPress);
+            _hintButton.onClick.AddListener(HandleHintPress);
             _keyGrid.OnKeyPress += HandleKeyPress;
 
             _keyGrid.Initialize(_keyboardLayout.Keys);
+        }
+
+        private void HandleHintPress()
+        {
+            OnHintPress.Invoke();
+            _hintButton.interactable = false;
         }
 
         private void HandleBackPress()
@@ -61,6 +72,8 @@ namespace Sufka.Controls
         public void Reset()
         {
             _keyGrid.Reset();
+            _hintButton.interactable = true;
+            _enterButton.interactable = false;
         }
 
         public void EnableEnterButton()
@@ -71,6 +84,11 @@ namespace Sufka.Controls
         public void DisableEnterButton()
         {
             _enterButton.interactable = false;
+        }
+
+        public void MarkGuessed(char hintLetter)
+        {
+            _keyGrid.MarkGuessed(hintLetter);
         }
     }
 }

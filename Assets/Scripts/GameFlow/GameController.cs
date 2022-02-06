@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Controls;
 using Sufka.Validation;
 using Sufka.Words;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Sufka.GameFlow
 {
@@ -35,6 +37,9 @@ namespace Sufka.GameFlow
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
         private string _currentWord;
 
+        private List<int> _guessedIndices = new List<int>();
+        private bool _hintUsed;
+
         private void Start()
         {
             _playArea.OnCurrentRowFull += EnableEnter;
@@ -44,6 +49,7 @@ namespace Sufka.GameFlow
             _keyboard.OnKeyPress += HandleLetterInput;
             _keyboard.OnEnterPress += CheckWord;
             _keyboard.OnBackPress += HandleRemoveLetter;
+            _keyboard.OnHintPress += GetHint;
 
             RandomWordRound();
         }
@@ -66,6 +72,9 @@ namespace Sufka.GameFlow
 
         private void StartNewRound()
         {
+            _hintUsed = false;
+            _guessedIndices.Clear();
+            
             _currentWord = _targetWord.fullWord;
             
             _playArea.Initialize(_attemptCount, _letterCount, _targetWord);
@@ -79,6 +88,14 @@ namespace Sufka.GameFlow
                 var result = WordValidator.Validate(_targetWord.interactivePart, _playArea.CurrentWord);
 
                 Debug.Log(result);
+
+                foreach (var idx in result.GuessedIndices)
+                {
+                    if (!_guessedIndices.Contains(idx))
+                    {
+                        _guessedIndices.Add(idx);
+                    }
+                }
 
                 if (result.FullMatch)
                 {
@@ -134,6 +151,38 @@ namespace Sufka.GameFlow
             _targetWord = _wordAtlas.RandomVerb();
             StartNewRound();
         }
-        
+
+        [FoldoutGroup("Debug"), Button]
+        private void GetHint()
+        {
+            if (_hintUsed)
+            {
+                return;
+            }
+            
+            var possibleHints = new List<int>();
+
+            for (int i = 0; i < _targetWord.interactivePart.Length; i++)
+            {
+                if (_guessedIndices.Contains(i))
+                {
+                    continue;
+                }
+                
+                possibleHints.Add(i);
+            }
+
+            var hintIdx = possibleHints[Random.Range(0, possibleHints.Count)];
+            var hintLetter = _targetWord.interactivePart[hintIdx];
+
+            Debug.Log($"HINTING {hintLetter} AT INDEX {hintIdx}");
+            
+            _guessedIndices.Add(hintIdx);
+
+            _keyboard.MarkGuessed(hintLetter);
+            _playArea.MarkGuessed(hintIdx, hintLetter);
+
+            _hintUsed = true;
+        }
     }
 }

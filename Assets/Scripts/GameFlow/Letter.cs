@@ -27,7 +27,9 @@ namespace Sufka.GameFlow
         private Color _noneCorrectColor = Color.white;
 
         public char CurrentLetter { get; private set; }
-        public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet; 
+        public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet;
+
+        public bool IsBlank => CurrentLetter == '\0';
         
         public void SetLetter(char letter)
         {
@@ -76,6 +78,12 @@ namespace Sufka.GameFlow
 
             CurrentCorrectness = LetterCorrectness.NotSet;
             _background.color = _startingColor;
+        }
+
+        public void MarkGuessed(char hintLetter)
+        {
+            SetLetter(hintLetter);
+            Display(LetterCorrectness.Full);
         }
     }
 }

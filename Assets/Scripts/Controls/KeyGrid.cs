@@ -53,15 +53,18 @@ namespace Sufka.Controls
         {
             foreach (var letterResult in result)
             {
-                var letter = letterResult.letter;
+                MarkResult(letterResult.letter, letterResult.result);
+            }
+        }
 
-                foreach (var row in _rows)
+        private void MarkResult(char letter, LetterCorrectness markType)
+        {
+            foreach (var row in _rows)
+            {
+                if (row.Contains(letter))
                 {
-                    if (row.Contains(letter))
-                    {
-                        row[letter].Display(letterResult.result);
-                        break;
-                    }
+                    row[letter].Display(markType);
+                    break;
                 }
             }
         }
@@ -72,6 +75,11 @@ namespace Sufka.Controls
             {
                 row.Reset();
             }
+        }
+
+        public void MarkGuessed(char hintLetter)
+        {
+            MarkResult(hintLetter, LetterCorrectness.Full);
         }
     }
 }

@@ -29,13 +29,8 @@ namespace Sufka.GameFlow
 
         public void Initialize(int rows, int letters, Word targetWord)
         {
-            foreach (var row in _rows)
-            {
-                Destroy(row.gameObject);
-            }
-            
-            _rows.Clear();
-            
+            Reset();
+
             for (var i = 0; i < rows; i++)
             {
                 var row = Instantiate(_letterRowPrefab, _rowsParent);
@@ -75,6 +70,7 @@ namespace Sufka.GameFlow
         {
             CurrentRow.Display(result);
             _currentRowIdx++;
+            CurrentRow.Prepare();
         }
 
         public void Reset()
@@ -83,7 +79,17 @@ namespace Sufka.GameFlow
 
             foreach (var row in _rows)
             {
-                row.Reset();
+                Destroy(row.gameObject);
+            }
+            
+            _rows.Clear();
+        }
+
+        public void MarkGuessed(int hintIdx, char hintLetter)
+        {
+            for (int i = _currentRowIdx; i < _rows.Count; i++)
+            {
+                _rows[i].MarkGuessed(hintIdx, hintLetter);
             }
         }
     }
