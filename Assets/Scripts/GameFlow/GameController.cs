@@ -30,6 +30,7 @@ namespace Sufka.GameFlow
         private Word _targetWord;
 
         public int Points { get; private set; }
+        public string TargetWordString => _targetWord.fullWord;
 
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
         private string _currentWord;
@@ -65,7 +66,7 @@ namespace Sufka.GameFlow
 
         private void StartNewRound()
         {
-            _currentWord = _targetWord.interactivePart + _targetWord.nonInteractivePart;
+            _currentWord = _targetWord.fullWord;
             
             _playArea.Initialize(_attemptCount, _letterCount, _targetWord);
             _keyboard.Reset();

@@ -30,9 +30,7 @@ namespace Sufka.GameFlow
 
         [SerializeField]
         private List<string> _winMessages = new List<string>();
-
-        [SerializeField]
-        private List<string> _lossMessages = new List<string>();
+        
         private Coroutine _currentFade;
 
         private void Start()
@@ -48,7 +46,7 @@ namespace Sufka.GameFlow
 
         private void DisplayLoss()
         {
-            DisplayMessage(_lossMessages[Random.Range(0, _lossMessages.Count)], string.Empty, _lossColor);
+            DisplayMessage(_gameController.TargetWordString, string.Empty, _lossColor);
         }
 
         private void DisplayMessage(string message, string points, Color color)
