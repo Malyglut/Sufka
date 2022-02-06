@@ -8,7 +8,7 @@ namespace Sufka.Validation
         public static ValidationResult Validate(string word, char[] input)
         {
             var validationResult = new ValidationResult(input.Length);
-            List<char> letters = word.ToCharArray().ToList();
+            var letters = word.ToCharArray();
             Dictionary<char, int> letterCounts = new Dictionary<char, int>();
 
             foreach (var letter in letters)

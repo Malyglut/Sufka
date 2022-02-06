@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sufka.Validation;
+using Sufka.Words;
 using UnityEngine;
 
 namespace Sufka.GameFlow
@@ -18,7 +19,7 @@ namespace Sufka.GameFlow
         public bool IsFull => _currentLetterIdx == _capacity;
         public bool IsEmpty => _currentLetterIdx == 0;
 
-        public void Initialize(int capacity)
+        public void Initialize(int capacity, Word targetWord)
         {
             _capacity = capacity;
             
@@ -28,6 +29,12 @@ namespace Sufka.GameFlow
                 letter.SetBlank();
                 
                 _letters.Add(letter);
+            }
+
+            for (int i = 0; i < targetWord.nonInteractiveLength; i++)
+            {
+                Letter letter = Instantiate(_letterPrefab, _lettersParent);
+                letter.SetLetter(targetWord.nonInteractivePart[i]);
             }
         }
 

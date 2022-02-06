@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sufka.Validation;
+using Sufka.Words;
 using UnityEngine;
 
 namespace Sufka.GameFlow
@@ -22,12 +23,19 @@ namespace Sufka.GameFlow
 
         public int Attempt => _currentRowIdx;
 
-        public void Initialize(int rows, int letters)
+        public void Initialize(int rows, int letters, Word targetWord)
         {
+            foreach (var row in _rows)
+            {
+                Destroy(row.gameObject);
+            }
+            
+            _rows.Clear();
+            
             for (var i = 0; i < rows; i++)
             {
                 var row = Instantiate(_letterRowPrefab, _rowsParent);
-                row.Initialize(letters);
+                row.Initialize(letters, targetWord);
 
                 _rows.Add(row);
             }

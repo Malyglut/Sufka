@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,33 +8,50 @@ using Random = UnityEngine.Random;
 namespace Sufka.Words
 {
     [Serializable, CreateAssetMenu(fileName = "Word Atlas", menuName = "Sufka/Word Atlas")]
-    public class WordAtlas : ScriptableObject
+    public class WordAtlas : SerializedScriptableObject
     {
         [SerializeField]
         private int _wordLength = 5;
-        
+
         [SerializeField]
-        private List<string> _words = new List<string>();
+        private Dictionary<WordType, WordList> _words = new Dictionary<WordType, WordList>
+                                                        {
+                                                            {WordType.Noun, null},
+                                                            {WordType.Adjective, null},
+                                                            {WordType.Verb, null}
+                                                        };
 
-        [Button, PropertyOrder(-100)]
-        private void ValidateWords()
+        [SerializeField]
+        private WordRuleSet _ruleSet;
+
+        public Word RandomWord()
         {
-            var whitespaceRegex = new Regex("\\s");
-            
-            for (int i = _words.Count-1; i >=0; i--)
-            {
-                var word = _words[i];
-
-                if (word.Length != _wordLength || whitespaceRegex.IsMatch(word))
-                {
-                    _words.RemoveAt(i);
-                }
-            }
+            var wordTypes = _words.Keys.ToList();
+            var wordType = wordTypes[Random.Range(0, wordTypes.Count)];
+            return RandomWord(wordType);
         }
 
-        public string RandomWord()
+        private Word RandomWord(WordType wordType)
         {
-            return _words[Random.Range(0, _words.Count)].ToUpper();
+            var wordList = _words[wordType];
+            var wordString = wordList.RandomWord();
+
+            return _ruleSet.Apply(wordType, wordString);
+        }
+
+        public Word RandomNoun()
+        {
+            return RandomWord(WordType.Noun);
+        }
+
+        public Word RandomAdjective()
+        {
+            return RandomWord(WordType.Adjective);
+        }
+
+        public Word RandomVerb()
+        {
+            return RandomWord(WordType.Verb);
         }
     }
 }
