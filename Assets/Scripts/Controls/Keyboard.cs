@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sufka.GameFlow;
 using Sufka.Validation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,12 +28,17 @@ namespace Sufka.Controls
 
         [SerializeField]
         private KeyboardLayout _keyboardLayout;
+
+        [SerializeField]
+        private GameController _gameController;
         
 
         private Dictionary<char, LetterKey> _keys = new Dictionary<char, LetterKey>();
 
         public void Initialize()
         {
+            _hintButton.interactable = _gameController.AvailableHints > 0;
+            
             _enterButton.interactable = false;
             
             _enterButton.onClick.AddListener(HandleEnterPress);
@@ -72,7 +78,7 @@ namespace Sufka.Controls
         public void Reset()
         {
             _keyGrid.Reset();
-            _hintButton.interactable = true;
+            _hintButton.interactable = _gameController.AvailableHints > 0;
             _enterButton.interactable = false;
         }
 

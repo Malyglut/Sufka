@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f7a91feb3147c2823620f518618821, type: 3}
+  m_Name: Polish Specials Below
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _keys
+      Entry: 7
+      Data: 0|System.Char[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 40
+    - Name: ranks
+      Entry: 1
+      Data: 10|4
+    - Name: 
+      Entry: 1
+      Data: Q
+    - Name: 
+      Entry: 1
+      Data: A
+    - Name: 
+      Entry: 1
+      Data: Z
+    - Name: 
+      Entry: 1
+      Data: "\u0118"
+    - Name: 
+      Entry: 1
+      Data: W
+    - Name: 
+      Entry: 1
+      Data: S
+    - Name: 
+      Entry: 1
+      Data: X
+    - Name: 
+      Entry: 1
+      Data: "\xD3"
+    - Name: 
+      Entry: 1
+      Data: E
+    - Name: 
+      Entry: 1
+      Data: D
+    - Name: 
+      Entry: 1
+      Data: C
+    - Name: 
+      Entry: 1
+      Data: "\u0104"
+    - Name: 
+      Entry: 1
+      Data: R
+    - Name: 
+      Entry: 1
+      Data: F
+    - Name: 
+      Entry: 1
+      Data: V
+    - Name: 
+      Entry: 1
+      Data: "\u015A"
+    - Name: 
+      Entry: 1
+      Data: T
+    - Name: 
+      Entry: 1
+      Data: G
+    - Name: 
+      Entry: 1
+      Data: B
+    - Name: 
+      Entry: 1
+      Data: "\u0141"
+    - Name: 
+      Entry: 1
+      Data: Y
+    - Name: 
+      Entry: 1
+      Data: H
+    - Name: 
+      Entry: 1
+      Data: N
+    - Name: 
+      Entry: 1
+      Data: "\u017B"
+    - Name: 
+      Entry: 1
+      Data: U
+    - Name: 
+      Entry: 1
+      Data: J
+    - Name: 
+      Entry: 1
+      Data: M
+    - Name: 
+      Entry: 1
+      Data: "\u0179"
+    - Name: 
+      Entry: 1
+      Data: I
+    - Name: 
+      Entry: 1
+      Data: K
+    - Name: 
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 1
+      Data: "\u0106"
+    - Name: 
+      Entry: 1
+      Data: O
+    - Name: 
+      Entry: 1
+      Data: L
+    - Name: 
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 1
+      Data: "\u0143"
+    - Name: 
+      Entry: 1
+      Data: P
+    - Name: 
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 1
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

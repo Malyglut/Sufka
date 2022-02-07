@@ -754,6 +754,7 @@ MonoBehaviour:
   _backButton: {fileID: 2624257791202783008}
   _hintButton: {fileID: 1310021431}
   _keyboardLayout: {fileID: 11400000, guid: bc316b5e6e63a704ba9795657f880091, type: 2}
+  _gameController: {fileID: 1037875412}
 --- !u!1 &491576634
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _points: {fileID: 491576636}
   _gameController: {fileID: 1037875412}
+  _durationPerPoint: 0.1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

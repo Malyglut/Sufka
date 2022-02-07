@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Controls;
+using Sufka.Persistence;
 using Sufka.Validation;
 using Sufka.Words;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Sufka.GameFlow
     public class GameController : MonoBehaviour
     {
         public event Action OnRoundOver;
+        public event Action OnPointsUpdated;
         public event Action<int> OnPointsAwarded;
 
         [SerializeField]
@@ -32,6 +34,7 @@ namespace Sufka.GameFlow
         private Word _targetWord;
 
         public int Points { get; private set; }
+        public int AvailableHints { get; private set; } = int.MaxValue;
         public string TargetWordString => _targetWord.fullWord;
 
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
@@ -42,6 +45,26 @@ namespace Sufka.GameFlow
 
         private void Start()
         {
+            if (SaveSystem.SaveFileExists())
+            {
+                var saveData = SaveSystem.LoadGame();
+                Points = saveData.score;
+
+                OnPointsUpdated.Invoke();
+            }
+            else
+            {
+                Debug.Log("NO SAVE DATA FOUND");
+            }
+            
+            
+            
+            Initialize();
+            RandomWordRound();
+        }
+
+        private void Initialize()
+        {
             _playArea.OnCurrentRowFull += EnableEnter;
             _playArea.OnCurrentRowNotFull += DisableEnter;
 
@@ -50,8 +73,6 @@ namespace Sufka.GameFlow
             _keyboard.OnEnterPress += CheckWord;
             _keyboard.OnBackPress += HandleRemoveLetter;
             _keyboard.OnHintPress += GetHint;
-
-            RandomWordRound();
         }
 
         private void EnableEnter()
@@ -105,6 +126,8 @@ namespace Sufka.GameFlow
                     Points += pointsToAward;
                     OnPointsAwarded.Invoke(pointsToAward);
 
+                    SaveGame();
+                    
                     RandomWordRound();
                 }
                 else if (!result.FullMatch && _playArea.LastAttempt)
@@ -119,6 +142,11 @@ namespace Sufka.GameFlow
                     _keyboard.Refresh(result);
                 }
             }
+        }
+
+        private void SaveGame()
+        {
+            SaveSystem.SaveGame(Points, AvailableHints);
         }
 
         private void HandleRemoveLetter()
@@ -155,7 +183,7 @@ namespace Sufka.GameFlow
         [FoldoutGroup("Debug"), Button]
         private void GetHint()
         {
-            if (_hintUsed)
+            if (_hintUsed || AvailableHints== 0)
             {
                 return;
             }
@@ -183,6 +211,8 @@ namespace Sufka.GameFlow
             _playArea.MarkGuessed(hintIdx, hintLetter);
 
             _hintUsed = true;
+            AvailableHints--;
+            SaveGame();
         }
     }
 }

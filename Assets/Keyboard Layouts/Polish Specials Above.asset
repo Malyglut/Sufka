@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71f7a91feb3147c2823620f518618821, type: 3}
-  m_Name: Polish
+  m_Name: Polish Specials Above
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -32,6 +32,9 @@ MonoBehaviour:
       Data: 10|4
     - Name: 
       Entry: 1
+      Data: "\u0118"
+    - Name: 
+      Entry: 1
       Data: Q
     - Name: 
       Entry: 1
@@ -41,7 +44,7 @@ MonoBehaviour:
       Data: Z
     - Name: 
       Entry: 1
-      Data: "\u0118"
+      Data: "\xD3"
     - Name: 
       Entry: 1
       Data: W
@@ -53,7 +56,7 @@ MonoBehaviour:
       Data: X
     - Name: 
       Entry: 1
-      Data: "\xD3"
+      Data: "\u0104"
     - Name: 
       Entry: 1
       Data: E
@@ -65,7 +68,7 @@ MonoBehaviour:
       Data: C
     - Name: 
       Entry: 1
-      Data: "\u0104"
+      Data: "\u015A"
     - Name: 
       Entry: 1
       Data: R
@@ -77,7 +80,7 @@ MonoBehaviour:
       Data: V
     - Name: 
       Entry: 1
-      Data: "\u015A"
+      Data: "\u0141"
     - Name: 
       Entry: 1
       Data: T
@@ -89,7 +92,7 @@ MonoBehaviour:
       Data: B
     - Name: 
       Entry: 1
-      Data: "\u0141"
+      Data: "\u017B"
     - Name: 
       Entry: 1
       Data: Y
@@ -101,7 +104,7 @@ MonoBehaviour:
       Data: N
     - Name: 
       Entry: 1
-      Data: "\u017B"
+      Data: "\u0179"
     - Name: 
       Entry: 1
       Data: U
@@ -113,7 +116,7 @@ MonoBehaviour:
       Data: M
     - Name: 
       Entry: 1
-      Data: "\u0179"
+      Data: "\u0106"
     - Name: 
       Entry: 1
       Data: I
@@ -125,7 +128,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 1
-      Data: "\u0106"
+      Data: "\u0143"
     - Name: 
       Entry: 1
       Data: O
@@ -137,13 +140,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 1
-      Data: "\u0143"
+      Data: 
     - Name: 
       Entry: 1
       Data: P
-    - Name: 
-      Entry: 1
-      Data: 
     - Name: 
       Entry: 1
       Data: 
