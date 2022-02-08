@@ -9,16 +9,16 @@ namespace Sufka.Words
     public class WordRuleSet : SerializedScriptableObject
     {
         [SerializeField]
-        private Dictionary<WordType, WordRule> _rules = new Dictionary<WordType, WordRule>
-                                                        {
-                                                            {WordType.Noun, null},
-                                                            {WordType.Adjective, null},
-                                                            {WordType.Verb, null}
-                                                        };
+        private readonly Dictionary<WordType, WordRule> _rules = new Dictionary<WordType, WordRule>
+                                                                 {
+                                                                     {WordType.Noun, null},
+                                                                     {WordType.Adjective, null},
+                                                                     {WordType.Verb, null}
+                                                                 };
 
         public Word Apply(WordType wordType, string wordString)
         {
-            return _rules[wordType].Apply(wordString);
+            return _rules[wordType].Apply(wordType, wordString);
         }
     }
 }

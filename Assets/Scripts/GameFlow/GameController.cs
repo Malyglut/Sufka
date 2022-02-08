@@ -15,6 +15,7 @@ namespace Sufka.GameFlow
         public event Action OnRoundOver;
         public event Action OnPointsUpdated;
         public event Action<int> OnPointsAwarded;
+        public event Action<Word> OnRoundStarted;
 
         [SerializeField]
         private int _attemptCount = 5;
@@ -31,17 +32,17 @@ namespace Sufka.GameFlow
         [SerializeField]
         private WordAtlas _wordAtlas;
 
+        [FoldoutGroup("Debug"), SerializeField, ReadOnly]
+        private string _currentWord;
+
         private Word _targetWord;
+
+        private readonly List<int> _guessedIndices = new List<int>();
+        private bool _hintUsed;
 
         public int Points { get; private set; }
         public int AvailableHints { get; private set; } = int.MaxValue;
         public string TargetWordString => _targetWord.fullWord;
-
-        [FoldoutGroup("Debug"), SerializeField, ReadOnly]
-        private string _currentWord;
-
-        private List<int> _guessedIndices = new List<int>();
-        private bool _hintUsed;
 
         private void Start()
         {
@@ -56,9 +57,7 @@ namespace Sufka.GameFlow
             {
                 Debug.Log("NO SAVE DATA FOUND");
             }
-            
-            
-            
+
             Initialize();
             RandomWordRound();
         }
@@ -77,7 +76,7 @@ namespace Sufka.GameFlow
 
         private void EnableEnter()
         {
-             _keyboard.EnableEnterButton();
+            _keyboard.EnableEnterButton();
         }
 
         private void DisableEnter()
@@ -93,11 +92,13 @@ namespace Sufka.GameFlow
 
         private void StartNewRound()
         {
+            OnRoundStarted.Invoke(_targetWord);
+
             _hintUsed = false;
             _guessedIndices.Clear();
-            
+
             _currentWord = _targetWord.fullWord;
-            
+
             _playArea.Initialize(_attemptCount, _letterCount, _targetWord);
             _keyboard.Reset();
         }
@@ -127,7 +128,7 @@ namespace Sufka.GameFlow
                     OnPointsAwarded.Invoke(pointsToAward);
 
                     SaveGame();
-                    
+
                     RandomWordRound();
                 }
                 else if (!result.FullMatch && _playArea.LastAttempt)
@@ -165,14 +166,14 @@ namespace Sufka.GameFlow
             _targetWord = _wordAtlas.RandomNoun();
             StartNewRound();
         }
-        
+
         [FoldoutGroup("Debug"), Button]
         private void AdjectiveRound()
         {
             _targetWord = _wordAtlas.RandomAdjective();
             StartNewRound();
         }
-        
+
         [FoldoutGroup("Debug"), Button]
         private void VerbRound()
         {
@@ -183,20 +184,20 @@ namespace Sufka.GameFlow
         [FoldoutGroup("Debug"), Button]
         private void GetHint()
         {
-            if (_hintUsed || AvailableHints== 0)
+            if (_hintUsed || AvailableHints == 0)
             {
                 return;
             }
-            
+
             var possibleHints = new List<int>();
 
-            for (int i = 0; i < _targetWord.interactivePart.Length; i++)
+            for (var i = 0; i < _targetWord.interactivePart.Length; i++)
             {
                 if (_guessedIndices.Contains(i))
                 {
                     continue;
                 }
-                
+
                 possibleHints.Add(i);
             }
 
@@ -204,7 +205,7 @@ namespace Sufka.GameFlow
             var hintLetter = _targetWord.interactivePart[hintIdx];
 
             Debug.Log($"HINTING {hintLetter} AT INDEX {hintIdx}");
-            
+
             _guessedIndices.Add(hintIdx);
 
             _keyboard.MarkGuessed(hintLetter);

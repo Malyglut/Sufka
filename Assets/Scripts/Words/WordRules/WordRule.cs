@@ -5,6 +5,6 @@ namespace Sufka.Words.WordRules
     [Serializable]
     public abstract class WordRule
     {
-        public abstract Word Apply(string wordString);
+        public abstract Word Apply(WordType wordType, string wordString);
     }
 }

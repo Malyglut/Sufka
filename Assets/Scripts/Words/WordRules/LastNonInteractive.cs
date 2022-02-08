@@ -7,16 +7,16 @@ namespace Sufka.Words.WordRules
     {
         protected string _interactivePart;
         protected string _nonInteractivePart;
-        
-        public override Word Apply(string wordString)
+
+        public override Word Apply(WordType wordType, string wordString)
         {
             SplitWord(wordString);
-            return new Word(_interactivePart, _nonInteractivePart);
+            return new Word(wordType, _interactivePart, _nonInteractivePart);
         }
 
         protected void SplitWord(string wordString)
         {
-            _interactivePart =wordString.Substring(0, wordString.Length - 1);
+            _interactivePart = wordString.Substring(0, wordString.Length - 1);
             _nonInteractivePart = wordString.Substring(wordString.Length - 1, 1);
         }
     }

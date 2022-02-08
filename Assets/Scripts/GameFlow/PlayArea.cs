@@ -87,10 +87,12 @@ namespace Sufka.GameFlow
 
         public void MarkGuessed(int hintIdx, char hintLetter)
         {
-            for (int i = _currentRowIdx; i < _rows.Count; i++)
-            {
-                _rows[i].MarkGuessed(hintIdx, hintLetter);
-            }
+            // for (int i = _currentRowIdx; i < _rows.Count; i++)
+            // {
+            //     _rows[i].MarkGuessed(hintIdx, hintLetter);
+            // }
+
+            _rows[_currentRowIdx].MarkGuessed(hintIdx, hintLetter);
         }
     }
 }

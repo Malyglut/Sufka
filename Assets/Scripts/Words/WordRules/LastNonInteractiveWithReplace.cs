@@ -7,8 +7,8 @@ namespace Sufka.Words.WordRules
     public class LastNonInteractiveWithReplace : LastNonInteractive
     {
         private const string REPLACE_WITH = "a";
-        
-        public override Word Apply(string wordString)
+
+        public override Word Apply(WordType wordType, string wordString)
         {
             SplitWord(wordString);
 
@@ -17,7 +17,7 @@ namespace Sufka.Words.WordRules
                 _nonInteractivePart = REPLACE_WITH;
             }
 
-            return new Word(_interactivePart, _nonInteractivePart);
+            return new Word(wordType, _interactivePart, _nonInteractivePart);
         }
     }
 }
