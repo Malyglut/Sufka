@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d605909b9c6e453f8461d4fb92e77565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _letterKeyPrefab: {fileID: 1943646212133739214, guid: 42489f8f8fe7d9345b27739bd54e0a23, type: 3}
+  _letterKeyPrefab: {fileID: 8120426169374742096, guid: 42489f8f8fe7d9345b27739bd54e0a23, type: 3}
   _parent: {fileID: 2637210135471856570}
 --- !u!114 &2637210135471856573
 MonoBehaviour:
