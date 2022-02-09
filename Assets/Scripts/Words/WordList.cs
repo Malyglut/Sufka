@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 
 namespace Sufka.Words
 {
-    [Serializable]
     public class WordList : ScriptableObject
     {
         [SerializeField]

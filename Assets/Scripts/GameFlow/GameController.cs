@@ -18,27 +18,26 @@ namespace Sufka.GameFlow
         public event Action<Word> OnRoundStarted;
 
         [SerializeField]
-        private int _attemptCount = 5;
-
-        [SerializeField]
-        private int _letterCount = 5;
-
-        [SerializeField]
         private PlayArea _playArea;
 
         [SerializeField]
         private Keyboard _keyboard;
 
         [SerializeField]
-        private WordAtlas _wordAtlas;
+        private WordLength _wordLength;
 
+        [SerializeField]
+        private GameSetupDatabase _gameSetupDatabase;
+        
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
         private string _currentWord;
 
-        private Word _targetWord;
-
         private readonly List<int> _guessedIndices = new List<int>();
+
+        private Word _targetWord;
         private bool _hintUsed;
+
+        private GameSetup _currentGameSetup;
 
         public int Points { get; private set; }
         public int AvailableHints { get; private set; } = int.MaxValue;
@@ -58,12 +57,14 @@ namespace Sufka.GameFlow
                 Debug.Log("NO SAVE DATA FOUND");
             }
 
-            Initialize();
+            Initialize(_wordLength);
             RandomWordRound();
         }
 
-        private void Initialize()
+        private void Initialize(WordLength wordLength)
         {
+            _currentGameSetup = _gameSetupDatabase[wordLength];
+
             _playArea.OnCurrentRowFull += EnableEnter;
             _playArea.OnCurrentRowNotFull += DisableEnter;
 
@@ -86,7 +87,7 @@ namespace Sufka.GameFlow
 
         private void RandomWordRound()
         {
-            _targetWord = _wordAtlas.RandomWord();
+            _targetWord = _currentGameSetup.WordAtlas.RandomWord();
             StartNewRound();
         }
 
@@ -99,7 +100,7 @@ namespace Sufka.GameFlow
 
             _currentWord = _targetWord.fullWord;
 
-            _playArea.Initialize(_attemptCount, _letterCount, _targetWord);
+            _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, _targetWord);
             _keyboard.Reset();
         }
 
@@ -123,7 +124,7 @@ namespace Sufka.GameFlow
                 {
                     Debug.Log("WIN!");
 
-                    var pointsToAward = _attemptCount - _playArea.Attempt;
+                    var pointsToAward = _currentGameSetup.AttemptCount - _playArea.Attempt;
                     Points += pointsToAward;
                     OnPointsAwarded.Invoke(pointsToAward);
 
@@ -163,21 +164,21 @@ namespace Sufka.GameFlow
         [FoldoutGroup("Debug"), Button]
         private void NounRound()
         {
-            _targetWord = _wordAtlas.RandomNoun();
+            _targetWord = _currentGameSetup.WordAtlas.RandomNoun();
             StartNewRound();
         }
 
         [FoldoutGroup("Debug"), Button]
         private void AdjectiveRound()
         {
-            _targetWord = _wordAtlas.RandomAdjective();
+            _targetWord = _currentGameSetup.WordAtlas.RandomAdjective();
             StartNewRound();
         }
 
         [FoldoutGroup("Debug"), Button]
         private void VerbRound()
         {
-            _targetWord = _wordAtlas.RandomVerb();
+            _targetWord = _currentGameSetup.WordAtlas.RandomVerb();
             StartNewRound();
         }
 

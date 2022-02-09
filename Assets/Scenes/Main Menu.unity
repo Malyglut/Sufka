@@ -1687,11 +1687,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd5fea6e66943349b0c7ad7087524e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attemptCount: 5
-  _letterCount: 5
   _playArea: {fileID: 1847903894}
   _keyboard: {fileID: 444092039}
-  _wordAtlas: {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}
+  _wordLength: 0
+  _gameSetupDatabase: {fileID: 11400000, guid: db3f6f92585eab84fbe02a9e2c635022, type: 2}
   _currentWord: 
 --- !u!4 &1037875413
 Transform:

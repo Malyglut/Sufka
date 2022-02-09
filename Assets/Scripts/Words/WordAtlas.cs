@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Sufka.Words
 {
-    [Serializable, CreateAssetMenu(fileName = "Word Atlas", menuName = "Sufka/Word Atlas")]
+    [CreateAssetMenu(fileName = "Word Atlas", menuName = "Sufka/Word Atlas")]
     public class WordAtlas : SerializedScriptableObject
     {
         [SerializeField]
