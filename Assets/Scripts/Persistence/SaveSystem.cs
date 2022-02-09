@@ -1,5 +1,6 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Sufka.Statistics;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,9 +13,9 @@ namespace Sufka.Persistence
 
         private static string SavePath => $"{Application.persistentDataPath}/{SAVE_FILE_NAME}{SAVE_FILE_EXTENSION}";
         
-        public static void SaveGame(int score, int availableHints)
+        public static void SaveGame(int score, int availableHints, WordStatistics[] wordStatistics)
         {
-            var saveData = new SaveData {score = score, availableHints = availableHints};
+            var saveData = new SaveData {score = score, availableHints = availableHints, wordStatistics = wordStatistics};
             
             var fileStream = new FileStream(SavePath, FileMode.Create);
 

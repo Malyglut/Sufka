@@ -1,4 +1,5 @@
 using System;
+using Sufka.Statistics;
 
 namespace Sufka.Persistence
 {
@@ -7,5 +8,6 @@ namespace Sufka.Persistence
     {
         public int score;
         public int availableHints;
+        public WordStatistics[] wordStatistics;
     }
 }

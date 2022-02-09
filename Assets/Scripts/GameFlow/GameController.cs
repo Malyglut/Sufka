@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Controls;
 using Sufka.Persistence;
+using Sufka.Statistics;
 using Sufka.Validation;
 using Sufka.Words;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Sufka.GameFlow
 {
     public class GameController : MonoBehaviour
     {
+        private const int FIRST_ATTEMPT_POINT_MULTIPLIER = 2;
+        
         public event Action OnRoundOver;
         public event Action OnPointsUpdated;
         public event Action<int> OnPointsAwarded;
@@ -43,12 +46,20 @@ namespace Sufka.GameFlow
         public int AvailableHints { get; private set; } = int.MaxValue;
         public string TargetWordString => _targetWord.fullWord;
 
+        private StatisticsController _statistics;
+        
         private void Start()
         {
+            _statistics = new StatisticsController();
+
+            
             if (SaveSystem.SaveFileExists())
             {
                 var saveData = SaveSystem.LoadGame();
                 Points = saveData.score;
+                AvailableHints = saveData.availableHints;
+
+                _statistics.Load(saveData);
 
                 OnPointsUpdated.Invoke();
             }
@@ -125,8 +136,15 @@ namespace Sufka.GameFlow
                     Debug.Log("WIN!");
 
                     var pointsToAward = _currentGameSetup.AttemptCount - _playArea.Attempt;
+
+                    if (_playArea.Attempt == 0)
+                    {
+                        pointsToAward *= FIRST_ATTEMPT_POINT_MULTIPLIER;
+                    }
+                    
                     Points += pointsToAward;
                     OnPointsAwarded.Invoke(pointsToAward);
+                    _statistics.HandleWordGuessed(_wordLength, _playArea.Attempt);
 
                     SaveGame();
 
@@ -148,7 +166,7 @@ namespace Sufka.GameFlow
 
         private void SaveGame()
         {
-            SaveSystem.SaveGame(Points, AvailableHints);
+            SaveSystem.SaveGame(Points, AvailableHints, _statistics.WordStatistics);
         }
 
         private void HandleRemoveLetter()
@@ -214,7 +232,19 @@ namespace Sufka.GameFlow
 
             _hintUsed = true;
             AvailableHints--;
+            _statistics.HandleHintUsed(_wordLength);
             SaveGame();
+        }
+
+        [FoldoutGroup("Debug"), Button]
+        private void LogStatistics(WordLength wordLength)
+        {
+            var statistics = _statistics.GetStatistics(wordLength);
+            
+            Debug.Log($"GUESSED WORDS: {statistics.guessedWords}");
+            Debug.Log($"FIRST ATTEMPT GUESSES: {statistics.firstAttemptGuesses}");
+            Debug.Log($"SECOND ATTEMPT GUESSES: {statistics.secondAttemptGuesses}");
+            Debug.Log($"HINTS USED: {statistics.hintsUsed}");
         }
     }
 }
