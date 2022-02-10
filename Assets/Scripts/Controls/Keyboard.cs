@@ -30,7 +30,7 @@ namespace Sufka.Controls
         private KeyboardLayout _keyboardLayout;
 
         [SerializeField]
-        private GameController _gameController;
+        private PlayAreaController _gameController;
         
 
         private Dictionary<char, LetterKey> _keys = new Dictionary<char, LetterKey>();

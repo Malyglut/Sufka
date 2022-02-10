@@ -11,7 +11,7 @@ namespace Sufka.GameFlow
         private TextMeshProUGUI _points;
 
         [SerializeField]
-        private GameController _gameController;
+        private PlayAreaController _gameController;
 
         [SerializeField]
         private float _durationPerPoint = .1f;
@@ -20,6 +20,8 @@ namespace Sufka.GameFlow
         {
             _gameController.OnPointsAwarded += Refresh;
             _gameController.OnPointsUpdated += Refresh;
+            
+            Refresh();
         }
 
         private void Refresh(int pointsAwarded)

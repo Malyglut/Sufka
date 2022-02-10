@@ -11,7 +11,7 @@ namespace Sufka.GameFlow
         private TextMeshProUGUI _text;
 
         [SerializeField]
-        private GameController _gameController;
+        private PlayAreaController _gameController;
 
         private readonly Dictionary<WordType, string> _wordTypeStrings = new Dictionary<WordType, string>
                                                                          {

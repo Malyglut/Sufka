@@ -1,246 +1,75 @@
-using System;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sufka.Controls;
+using Sufka.MainMenu;
 using Sufka.Persistence;
 using Sufka.Statistics;
-using Sufka.Validation;
-using Sufka.Words;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Sufka.GameFlow
 {
     public class GameController : MonoBehaviour
     {
-        private const int FIRST_ATTEMPT_POINT_MULTIPLIER = 2;
-        
-        public event Action OnRoundOver;
-        public event Action OnPointsUpdated;
-        public event Action<int> OnPointsAwarded;
-        public event Action<Word> OnRoundStarted;
+        [SerializeField]
+        private MainMenuController _mainMenu;
 
         [SerializeField]
-        private PlayArea _playArea;
+        private PlayAreaController _playArea;
 
-        [SerializeField]
-        private Keyboard _keyboard;
+        private StatisticsController _statistics = new StatisticsController();
 
-        [SerializeField]
-        private WordLength _wordLength;
-
-        [SerializeField]
-        private GameSetupDatabase _gameSetupDatabase;
-        
-        [FoldoutGroup("Debug"), SerializeField, ReadOnly]
-        private string _currentWord;
-
-        private readonly List<int> _guessedIndices = new List<int>();
-
-        private Word _targetWord;
-        private bool _hintUsed;
-
-        private GameSetup _currentGameSetup;
-
-        public int Points { get; private set; }
-        public int AvailableHints { get; private set; } = int.MaxValue;
-        public string TargetWordString => _targetWord.fullWord;
-
-        private StatisticsController _statistics;
-        
         private void Start()
         {
-            _statistics = new StatisticsController();
+            LoadGame();
 
+            _playArea.OnHintUsed += HandleHintUsed;
+            _playArea.OnWordGuessed += HandleWordGuessed;
             
-            if (SaveSystem.SaveFileExists())
-            {
-                var saveData = SaveSystem.LoadGame();
-                Points = saveData.score;
-                AvailableHints = saveData.availableHints;
-
-                _statistics.Load(saveData);
-
-                OnPointsUpdated.Invoke();
-            }
-            else
-            {
-                Debug.Log("NO SAVE DATA FOUND");
-            }
-
-            Initialize(_wordLength);
-            RandomWordRound();
+            _mainMenu.OnRequestGameStart += StartGame;
         }
 
-        private void Initialize(WordLength wordLength)
+        private void HandleWordGuessed(int attempt)
         {
-            _currentGameSetup = _gameSetupDatabase[wordLength];
-
-            _playArea.OnCurrentRowFull += EnableEnter;
-            _playArea.OnCurrentRowNotFull += DisableEnter;
-
-            _keyboard.Initialize();
-            _keyboard.OnKeyPress += HandleLetterInput;
-            _keyboard.OnEnterPress += CheckWord;
-            _keyboard.OnBackPress += HandleRemoveLetter;
-            _keyboard.OnHintPress += GetHint;
-        }
-
-        private void EnableEnter()
-        {
-            _keyboard.EnableEnterButton();
-        }
-
-        private void DisableEnter()
-        {
-            _keyboard.DisableEnterButton();
-        }
-
-        private void RandomWordRound()
-        {
-            _targetWord = _currentGameSetup.WordAtlas.RandomWord();
-            StartNewRound();
-        }
-
-        private void StartNewRound()
-        {
-            OnRoundStarted.Invoke(_targetWord);
-
-            _hintUsed = false;
-            _guessedIndices.Clear();
-
-            _currentWord = _targetWord.fullWord;
-
-            _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, _targetWord);
-            _keyboard.Reset();
-        }
-
-        private void CheckWord()
-        {
-            if (_playArea.ValidInput)
-            {
-                var result = WordValidator.Validate(_targetWord.interactivePart, _playArea.CurrentWord);
-
-                Debug.Log(result);
-
-                foreach (var idx in result.GuessedIndices)
-                {
-                    if (!_guessedIndices.Contains(idx))
-                    {
-                        _guessedIndices.Add(idx);
-                    }
-                }
-
-                if (result.FullMatch)
-                {
-                    Debug.Log("WIN!");
-
-                    var pointsToAward = _currentGameSetup.AttemptCount - _playArea.Attempt;
-
-                    if (_playArea.Attempt == 0)
-                    {
-                        pointsToAward *= FIRST_ATTEMPT_POINT_MULTIPLIER;
-                    }
-                    
-                    Points += pointsToAward;
-                    OnPointsAwarded.Invoke(pointsToAward);
-                    _statistics.HandleWordGuessed(_wordLength, _playArea.Attempt);
-
-                    SaveGame();
-
-                    RandomWordRound();
-                }
-                else if (!result.FullMatch && _playArea.LastAttempt)
-                {
-                    Debug.Log("LOSE!");
-                    OnRoundOver.Invoke();
-                    RandomWordRound();
-                }
-                else
-                {
-                    _playArea.Display(result);
-                    _keyboard.Refresh(result);
-                }
-            }
-        }
-
-        private void SaveGame()
-        {
-            SaveSystem.SaveGame(Points, AvailableHints, _statistics.WordStatistics);
-        }
-
-        private void HandleRemoveLetter()
-        {
-            _playArea.RemoveLastLetter();
-        }
-
-        private void HandleLetterInput(char letter)
-        {
-            _playArea.InputLetter(letter);
-        }
-
-        [FoldoutGroup("Debug"), Button]
-        private void NounRound()
-        {
-            _targetWord = _currentGameSetup.WordAtlas.RandomNoun();
-            StartNewRound();
-        }
-
-        [FoldoutGroup("Debug"), Button]
-        private void AdjectiveRound()
-        {
-            _targetWord = _currentGameSetup.WordAtlas.RandomAdjective();
-            StartNewRound();
-        }
-
-        [FoldoutGroup("Debug"), Button]
-        private void VerbRound()
-        {
-            _targetWord = _currentGameSetup.WordAtlas.RandomVerb();
-            StartNewRound();
-        }
-
-        [FoldoutGroup("Debug"), Button]
-        private void GetHint()
-        {
-            if (_hintUsed || AvailableHints == 0)
-            {
-                return;
-            }
-
-            var possibleHints = new List<int>();
-
-            for (var i = 0; i < _targetWord.interactivePart.Length; i++)
-            {
-                if (_guessedIndices.Contains(i))
-                {
-                    continue;
-                }
-
-                possibleHints.Add(i);
-            }
-
-            var hintIdx = possibleHints[Random.Range(0, possibleHints.Count)];
-            var hintLetter = _targetWord.interactivePart[hintIdx];
-
-            Debug.Log($"HINTING {hintLetter} AT INDEX {hintIdx}");
-
-            _guessedIndices.Add(hintIdx);
-
-            _keyboard.MarkGuessed(hintLetter);
-            _playArea.MarkGuessed(hintIdx, hintLetter);
-
-            _hintUsed = true;
-            AvailableHints--;
-            _statistics.HandleHintUsed(_wordLength);
+            _statistics.HandleWordGuessed(_playArea.WordLength, attempt);
             SaveGame();
         }
 
+        private void HandleHintUsed()
+        {
+            _statistics.HandleHintUsed(_playArea.WordLength);
+            SaveGame();
+        }
+
+        private void StartGame(WordLength wordLength)
+        {
+            _playArea.StartGame(wordLength);
+        }
+        
+        private void SaveGame()
+        {
+            SaveSystem.SaveGame(_playArea.Points, _playArea.AvailableHints, _statistics.WordStatistics);
+        }
+
+        private void LoadGame()
+        {
+            SaveData saveData;
+
+            if (SaveSystem.SaveFileExists())
+            {
+                saveData = SaveSystem.LoadGame();
+            }
+            else
+            {
+                saveData = new SaveData();
+            }
+
+            _playArea.Load(saveData);
+            _statistics.Load(saveData);
+        }
+        
         [FoldoutGroup("Debug"), Button]
         private void LogStatistics(WordLength wordLength)
         {
             var statistics = _statistics.GetStatistics(wordLength);
-            
+
             Debug.Log($"GUESSED WORDS: {statistics.guessedWords}");
             Debug.Log($"FIRST ATTEMPT GUESSES: {statistics.firstAttemptGuesses}");
             Debug.Log($"SECOND ATTEMPT GUESSES: {statistics.secondAttemptGuesses}");

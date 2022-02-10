@@ -17,7 +17,7 @@ namespace Sufka.GameFlow
         private TextMeshProUGUI _pointsAwarded;
 
         [SerializeField]
-        private GameController _gameController;
+        private PlayAreaController _gameController;
         
         [SerializeField]
         private Color _winColor = Color.white;
