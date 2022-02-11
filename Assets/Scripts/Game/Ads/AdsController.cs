@@ -13,7 +13,6 @@ namespace Sufka.Ads
         {
             Advertisement.AddListener(listener);
             Advertisement.Initialize(ANDROID_ID);
-            // Advertisement.Initialize(ANDROID_ID, true);
         }
 
         public  void PlayHintAd()

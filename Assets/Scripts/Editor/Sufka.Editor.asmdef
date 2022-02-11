@@ -1,0 +1,19 @@
+{
+    "name": "Sufka.Editor",
+    "rootNamespace": "Sufka.Editor",
+    "references": [
+        "GUID:4db1229c02f3f629bdd928353859c2b3",
+        "GUID:74ef64df675a34b488d7f0031bc8c9af"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
