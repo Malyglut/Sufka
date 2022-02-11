@@ -1,9 +1,8 @@
-using System;
+using UnityEngine;
 
 namespace Sufka.Game.Words.WordRules
 {
-    [Serializable]
-    public abstract class WordRule
+    public abstract class WordRule : ScriptableObject
     {
         public abstract Word Apply(WordType wordType, string wordString);
     }

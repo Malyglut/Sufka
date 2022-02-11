@@ -1,9 +1,10 @@
-using System;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
 namespace Sufka.Game.Words.WordRules
+
 {
-    [Serializable]
+    [CreateAssetMenu(fileName = "Last Non Interactive With Replace",
+                     menuName = "Sufka/Word Rules/Last Non Interactive With Replace")]
     public class LastNonInteractiveWithReplace : LastNonInteractive
     {
         private const string REPLACE_WITH = "a";

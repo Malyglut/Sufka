@@ -1,24 +1,18 @@
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using Sufka.Game.Words.WordRules;
+using System.Linq;
 using UnityEngine;
 
 namespace Sufka.Game.Words
 {
     [CreateAssetMenu(fileName = "Word Rule Set", menuName = "Sufka/Word Rule Set", order = 0)]
-    public class WordRuleSet : SerializedScriptableObject
+    public class WordRuleSet : ScriptableObject
     {
         [SerializeField]
-        private readonly Dictionary<WordType, WordRule> _rules = new Dictionary<WordType, WordRule>
-                                                                 {
-                                                                     {WordType.Noun, null},
-                                                                     {WordType.Adjective, null},
-                                                                     {WordType.Verb, null}
-                                                                 };
+        private List<WordTypeRule> _wordTypeRules = new List<WordTypeRule>();
 
         public Word Apply(WordType wordType, string wordString)
         {
-            return _rules[wordType].Apply(wordType, wordString);
+            return _wordTypeRules.First(rule => rule.wordType == wordType).wordRule.Apply(wordType, wordString);
         }
     }
 }

@@ -1,8 +1,8 @@
-using System;
+using UnityEngine;
 
 namespace Sufka.Game.Words.WordRules
 {
-    [Serializable]
+    [CreateAssetMenu(fileName = "Last Non Interactive", menuName = "Sufka/Word Rules/Last Non Interactive")]
     public class LastNonInteractive : WordRule
     {
         protected string _interactivePart;

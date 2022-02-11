@@ -23,12 +23,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _rules
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Sufka.Words.WordType, Assembly-CSharp],[Sufka.Words.WordRules.WordRule,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[Sufka.Game.Words.WordType,
+        Sufka.Game],[Sufka.Game.Words.WordRules.WordRule, Sufka.Game]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Sufka.Words.WordType,
-        Assembly-CSharp]], mscorlib
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Sufka.Game.Words.WordType,
+        Sufka.Game]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -48,10 +48,7 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: $v
-      Entry: 7
-      Data: 2|Sufka.Words.WordRules.FullyInteractiveRule, Assembly-CSharp
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
@@ -63,10 +60,7 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
-      Entry: 7
-      Data: 3|Sufka.Words.WordRules.LastNonInteractiveWithReplace, Assembly-CSharp
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
@@ -78,10 +72,7 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
-      Entry: 7
-      Data: 4|Sufka.Words.WordRules.LastNonInteractive, Assembly-CSharp
-    - Name: 
-      Entry: 8
+      Entry: 6
       Data: 
     - Name: 
       Entry: 8
@@ -92,3 +83,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _wordTypeRules:
+  - wordType: 0
+    wordRule: {fileID: 11400000, guid: 016a646e4c871504ea2dd9d75109fbf0, type: 2}
+  - wordType: 2
+    wordRule: {fileID: 11400000, guid: 821b2c421f8ab60479f8c4e4a4ea0a07, type: 2}
+  - wordType: 1
+    wordRule: {fileID: 11400000, guid: 2bc95ed49bac8234d90846a5958aa56b, type: 2}

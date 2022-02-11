@@ -1,9 +1,9 @@
-using System;
+using UnityEngine;
 
 namespace Sufka.Game.Words.WordRules
 {
-    [Serializable]
-    public class FullyInteractiveRule : WordRule
+    [CreateAssetMenu(fileName = "Fully Interactive", menuName = "Sufka/Word Rules/Fully Interactive")]
+    public class FullyInteractive : WordRule
     {
         public override Word Apply(WordType wordType, string wordString)
         {
