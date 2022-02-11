@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace Sufka.MainMenu
 {
-    public class StartGameButton : MonoBehaviour
+    public class WordLengthButton : MonoBehaviour
     {
-        public event Action<WordLength> OnGameModeChosen;
+        public event Action<WordLength> OnClick;
         
         [SerializeField]
         private Button _button;
@@ -17,12 +17,12 @@ namespace Sufka.MainMenu
 
         private void Start()
         {
-            _button.onClick.AddListener(ChooseGameMode);
+            _button.onClick.AddListener(Click);
         }
 
-        private void ChooseGameMode()
+        private void Click()
         {
-            OnGameModeChosen.Invoke(_wordLength);
+            OnClick.Invoke(_wordLength);
         }
     }
 }

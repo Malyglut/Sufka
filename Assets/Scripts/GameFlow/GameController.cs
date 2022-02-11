@@ -75,5 +75,10 @@ namespace Sufka.GameFlow
             Debug.Log($"SECOND ATTEMPT GUESSES: {statistics.secondAttemptGuesses}");
             Debug.Log($"HINTS USED: {statistics.hintsUsed}");
         }
+
+        public WordStatistics GetStatistics(WordLength wordLength)
+        {
+            return _statistics.GetStatistics(wordLength);
+        }
     }
 }
