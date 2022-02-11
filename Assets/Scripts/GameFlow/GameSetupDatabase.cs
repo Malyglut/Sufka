@@ -1,14 +1,15 @@
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+using System.Linq;
 using UnityEngine;
 
 namespace Sufka.GameFlow
 {
     [CreateAssetMenu(fileName = "Game Setup Database", menuName = "Sufka/Game Setup Database")]
-    public class GameSetupDatabase : SerializedScriptableObject
+    public class GameSetupDatabase : ScriptableObject
     {
         [SerializeField]
-        private Dictionary<WordLength, GameSetup> _gameSetups = new Dictionary<WordLength, GameSetup>();
-        public GameSetup this[WordLength wordLength] => _gameSetups[wordLength];
+        private List<WordLengthGameSetup> _setups;
+        public GameSetup this[WordLength wordLength] =>
+            _setups.First(setup => setup.wordLength == wordLength).gameSetup;
     }
 }

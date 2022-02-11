@@ -96,3 +96,14 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _setups:
+  - wordLength: 0
+    gameSetup:
+      _letterCount: 5
+      _attemptCount: 5
+      _wordAtlas: {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}
+  - wordLength: 1
+    gameSetup:
+      _letterCount: 6
+      _attemptCount: 6
+      _wordAtlas: {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}
