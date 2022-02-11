@@ -1,22 +1,35 @@
+using System;
 using Sirenix.OdinInspector;
 using Sufka.Ads;
 using Sufka.MainMenu;
 using Sufka.Persistence;
+using Sufka.Popup;
 using Sufka.Statistics;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
 namespace Sufka.GameFlow
 {
-    public class GameController : MonoBehaviour, IUnityAdsShowListener
+    public class GameController : MonoBehaviour, IUnityAdsListener
     {
+        private const int MAX_AVAILABLE_HINTS = 10;
+
+        public event Action OnAvailableHintsUpdated;
+
         [SerializeField]
         private MainMenuController _mainMenu;
 
         [SerializeField]
         private PlayAreaController _playArea;
 
-        private StatisticsController _statistics = new StatisticsController();
+        [SerializeField]
+        private PopupController _popup;
+
+        private readonly StatisticsController _statistics = new StatisticsController();
+        private readonly AdsController _ads = new AdsController();
+
+        public int Score { get; private set; }
+        public int AvailableHints { get; private set; } = MAX_AVAILABLE_HINTS;
 
         private void Start()
         {
@@ -24,10 +37,29 @@ namespace Sufka.GameFlow
 
             _playArea.OnHintUsed += HandleHintUsed;
             _playArea.OnWordGuessed += HandleWordGuessed;
-            
+            _playArea.OnPointsAwarded += IncreaseScore;
+            _playArea.OnHintAdRequested += ShowHintPopup;
+
             _mainMenu.OnRequestGameStart += StartGame;
 
-            AdsController.Initialize();
+            _ads.Initialize(this);
+
+            _popup.Initialize();
+        }
+
+        private void ShowHintPopup()
+        {
+            _popup.ShowHintPopup(PlayHintAd);
+        }
+
+        private void PlayHintAd()
+        {
+            _ads.PlayHintAd();
+        }
+
+        private void IncreaseScore(int points)
+        {
+            Score += points;
         }
 
         private void HandleWordGuessed(int attempt)
@@ -38,6 +70,7 @@ namespace Sufka.GameFlow
 
         private void HandleHintUsed()
         {
+            AvailableHints--;
             _statistics.HandleHintUsed(_playArea.WordLength);
             SaveGame();
         }
@@ -46,10 +79,10 @@ namespace Sufka.GameFlow
         {
             _playArea.StartGame(wordLength);
         }
-        
+
         private void SaveGame()
         {
-            SaveSystem.SaveGame(_playArea.Points, _playArea.AvailableHints, _statistics.WordStatistics);
+            SaveSystem.SaveGame(Score, AvailableHints, _statistics.WordStatistics);
         }
 
         private void LoadGame()
@@ -65,10 +98,13 @@ namespace Sufka.GameFlow
                 saveData = new SaveData();
             }
 
-            _playArea.Load(saveData);
+            Score = saveData.score;
+            AvailableHints = saveData.availableHints;
+            AvailableHints = Mathf.Min(AvailableHints, MAX_AVAILABLE_HINTS);
+
             _statistics.Load(saveData);
         }
-        
+
         [FoldoutGroup("Debug"), Button]
         private void LogStatistics(WordLength wordLength)
         {
@@ -85,30 +121,34 @@ namespace Sufka.GameFlow
             return _statistics.GetStatistics(wordLength);
         }
 
-        public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+        public void OnUnityAdsReady(string placementId)
         {
-            
+            // throw new NotImplementedException();
         }
 
-        public void OnUnityAdsShowStart(string placementId)
+        public void OnUnityAdsDidError(string message)
+        {
+            // throw new NotImplementedException();
+        }
+
+        public void OnUnityAdsDidStart(string placementId)
         {
             Debug.Log($"AD STARTED {placementId}");
         }
 
-        public void OnUnityAdsShowClick(string placementId)
+        public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
         {
-            Debug.Log($"AD CLICKED {placementId}");
-        }
+            Debug.Log($"AD FINISHED {placementId}");
 
-        public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
-        {
-            if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+            if (showResult == ShowResult.Finished)
             {
-                Debug.Log($"AD COMPLETED {placementId}");
-            }
-            else if (showCompletionState == UnityAdsShowCompletionState.SKIPPED)
-            {
-                Debug.Log($"AD SKIPPED {placementId}");
+               if(placementId == _ads.HintsAdId)
+               {
+                   AvailableHints = MAX_AVAILABLE_HINTS;
+                   SaveGame();
+
+                   OnAvailableHintsUpdated.Invoke();
+               }
             }
         }
     }

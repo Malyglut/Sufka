@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Controls;
-using Sufka.Persistence;
 using Sufka.Validation;
 using Sufka.Words;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace Sufka.GameFlow
     public class PlayAreaController : MonoBehaviour
     {
         private const int FIRST_ATTEMPT_POINT_MULTIPLIER = 2;
-        private const int MAX_AVAILABLE_HINTS = 15;
 
         public event Action OnRoundOver;
         public event Action OnPointsUpdated;
@@ -21,6 +19,7 @@ namespace Sufka.GameFlow
         public event Action<Word> OnRoundStarted;
         public event Action<int> OnWordGuessed;
         public event Action OnHintUsed;
+        public event Action OnHintAdRequested;
 
         [SerializeField]
         private GameObject _playAreaScreen;
@@ -37,6 +36,9 @@ namespace Sufka.GameFlow
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
         private string _currentWord;
 
+        [SerializeField]
+        private GameController _gameController;
+
         private readonly List<int> _guessedIndices = new List<int>();
 
         public WordLength WordLength { get; private set; }
@@ -46,16 +48,7 @@ namespace Sufka.GameFlow
 
         private GameSetup _currentGameSetup;
 
-        public int Points { get; private set; }
-        public int AvailableHints { get; private set; } = int.MaxValue;
         public string TargetWordString => _targetWord.fullWord;
-
-        public void Load(SaveData saveData)
-        {
-            Points = saveData.score;
-            AvailableHints = saveData.availableHints;
-            AvailableHints = Mathf.Min(AvailableHints, MAX_AVAILABLE_HINTS);
-        }
 
         public void StartGame(WordLength wordLength)
         {
@@ -78,6 +71,12 @@ namespace Sufka.GameFlow
             _keyboard.OnEnterPress += CheckWord;
             _keyboard.OnBackPress += HandleRemoveLetter;
             _keyboard.OnHintPress += GetHint;
+            _keyboard.OnHintAdPress += RequestHintAd;
+        }
+
+        private void RequestHintAd()
+        {
+            OnHintAdRequested.Invoke();
         }
 
         private void EnableEnter()
@@ -134,7 +133,6 @@ namespace Sufka.GameFlow
                         pointsToAward *= FIRST_ATTEMPT_POINT_MULTIPLIER;
                     }
 
-                    Points += pointsToAward;
                     OnPointsAwarded.Invoke(pointsToAward);
                     OnWordGuessed.Invoke(_playArea.Attempt);
 
@@ -188,7 +186,7 @@ namespace Sufka.GameFlow
         [FoldoutGroup("Debug"), Button]
         private void GetHint()
         {
-            if (_hintUsed || AvailableHints == 0)
+            if (_hintUsed || _gameController.AvailableHints == 0)
             {
                 return;
             }
@@ -216,7 +214,6 @@ namespace Sufka.GameFlow
             _playArea.MarkGuessed(hintIdx, hintLetter);
 
             _hintUsed = true;
-            AvailableHints--;
             OnHintUsed.Invoke();
         }
     }

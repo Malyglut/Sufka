@@ -1,5 +1,4 @@
 using System;
-using Sufka.Ads;
 using Sufka.GameFlow;
 using TMPro;
 using UnityEngine;
@@ -10,29 +9,28 @@ namespace Sufka.Controls
     public class HintButton : MonoBehaviour
     {
         public event Action OnHintRequested;
-        
+        public event Action OnHintAdRequested;
+
         [SerializeField]
-        private PlayAreaController _playArea;
-        
+        private GameController _gameController;
+
         [SerializeField]
         private Button _button;
 
         [SerializeField]
         private TextMeshProUGUI _availableHints;
 
-
-
         [SerializeField]
         private ButtonColors _buttonColors;
-        
+
         private void Refresh()
         {
-            _availableHints.SetText($"x {_playArea.AvailableHints}");
+            _availableHints.SetText($"x {_gameController.AvailableHints}");
         }
 
         private void TryGetHint()
         {
-            if (_playArea.AvailableHints > 0)
+            if (_gameController.AvailableHints > 0)
             {
                 OnHintRequested.Invoke();
                 _button.interactable = false;
@@ -40,14 +38,15 @@ namespace Sufka.Controls
             }
             else
             {
-               AdsController.ShowHintAd();
+                OnHintAdRequested.Invoke();
             }
-            
+
             Refresh();
         }
 
         public void Initialize()
         {
+            _gameController.OnAvailableHintsUpdated += Refresh;
             _button.onClick.AddListener(TryGetHint);
             Refresh();
         }

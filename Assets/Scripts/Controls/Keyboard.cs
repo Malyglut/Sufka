@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Sufka.GameFlow;
 using Sufka.Validation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,7 @@ namespace Sufka.Controls
         public event Action OnEnterPress;
         public event Action OnBackPress;
         public event Action OnHintPress;
+        public event Action OnHintAdPress;
 
         [SerializeField]
         private KeyGrid _keyGrid;
@@ -38,6 +38,7 @@ namespace Sufka.Controls
         {
             _hintButton.Initialize();
             _hintButton.OnHintRequested += HandleHintPress;
+            _hintButton.OnHintAdRequested += HandleHintAdPress;
             
             DisableEnterButton();
             
@@ -46,6 +47,11 @@ namespace Sufka.Controls
 
             _keyGrid.Initialize(_keyboardLayout.Keys);
             _keyGrid.OnKeyPress += HandleKeyPress;
+        }
+
+        private void HandleHintAdPress()
+        {
+            OnHintAdPress.Invoke();
         }
 
         private void HandleHintPress()

@@ -655,7 +655,8 @@ PlayerSettings:
     7: ODIN_INSPECTOR;ODIN_INSPECTOR_3
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Android: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
