@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Sufka.Utility
+namespace Sufka.Game.Utility
 {
     [ExecuteInEditMode]
     public class SafeAreaScaler : MonoBehaviour

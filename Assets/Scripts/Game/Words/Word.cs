@@ -1,4 +1,4 @@
-namespace Sufka.Words
+namespace Sufka.Game.Words
 {
     public class Word
     {

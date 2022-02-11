@@ -1,7 +1,7 @@
-using Sufka.GameFlow;
+using Sufka.Game.GameFlow;
 using UnityEngine;
 
-namespace Sufka.Statistics
+namespace Sufka.Game.Statistics
 {
     public class StatisticsScreen : MonoBehaviour
     {

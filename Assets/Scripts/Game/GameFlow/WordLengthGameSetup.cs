@@ -1,6 +1,6 @@
 using System;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     [Serializable]
     public class WordLengthGameSetup

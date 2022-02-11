@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class LetterDisplay : MonoBehaviour
     {

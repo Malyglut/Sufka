@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class ScoreDisplay : MonoBehaviour
     {

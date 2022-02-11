@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Sufka.GameFlow;
-using Sufka.Persistence;
+using Sufka.Game.GameFlow;
+using Sufka.Game.Persistence;
 
-namespace Sufka.Statistics
+namespace Sufka.Game.Statistics
 {
     public class StatisticsController
     {

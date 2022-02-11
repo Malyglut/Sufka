@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Sufka.Validation;
+using Sufka.Game.Validation;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Controls
+namespace Sufka.Game.Keyboard
 {
     public class Keyboard : MonoBehaviour
     {

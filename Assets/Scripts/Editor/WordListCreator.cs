@@ -3,10 +3,11 @@ using System.IO;
 using System.Text;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Sufka.Game.Words;
 using UnityEditor;
 using UnityEngine;
 
-namespace Sufka.Words.Editor
+namespace Sufka.Editor
 {
     public class WordListCreator : OdinEditorWindow
     {

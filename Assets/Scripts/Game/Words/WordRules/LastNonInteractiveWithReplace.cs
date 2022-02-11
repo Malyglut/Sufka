@@ -1,7 +1,7 @@
 using System;
 using Random = UnityEngine.Random;
 
-namespace Sufka.Words.WordRules
+namespace Sufka.Game.Words.WordRules
 {
     [Serializable]
     public class LastNonInteractiveWithReplace : LastNonInteractive

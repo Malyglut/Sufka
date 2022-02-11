@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Sufka.Colors
+namespace Sufka.Game.Colors
 {
     public class ColorSchemeController : SerializedMonoBehaviour
     {

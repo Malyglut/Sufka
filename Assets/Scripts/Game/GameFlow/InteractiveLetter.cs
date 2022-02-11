@@ -1,7 +1,7 @@
-using Sufka.Validation;
+using Sufka.Game.Validation;
 using UnityEngine;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class InteractiveLetter : MonoBehaviour
     {

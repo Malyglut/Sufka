@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     [CreateAssetMenu(fileName = "Game Setup Database", menuName = "Sufka/Game Setup Database")]
     public class GameSetupDatabase : ScriptableObject

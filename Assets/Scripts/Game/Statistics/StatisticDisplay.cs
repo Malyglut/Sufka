@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Sufka.Statistics
+namespace Sufka.Game.Statistics
 {
     public class StatisticDisplay : MonoBehaviour
     {

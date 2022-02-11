@@ -1,7 +1,7 @@
 using System;
-using Sufka.GameFlow;
+using Sufka.Game.GameFlow;
 
-namespace Sufka.Statistics
+namespace Sufka.Game.Statistics
 {
     [Serializable]
     public class WordStatistics

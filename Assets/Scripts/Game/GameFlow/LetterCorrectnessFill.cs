@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class LetterCorrectnessFill : MonoBehaviour
     {

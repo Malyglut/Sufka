@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Sufka.Words
+namespace Sufka.Game.Words
 {
     [CreateAssetMenu(fileName = "Word Atlas", menuName = "Sufka/Word Atlas")]
     public class WordAtlas : ScriptableObject

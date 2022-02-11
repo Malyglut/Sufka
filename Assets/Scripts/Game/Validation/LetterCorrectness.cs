@@ -1,4 +1,4 @@
-namespace Sufka.Validation
+namespace Sufka.Game.Validation
 {
     public enum LetterCorrectness
     {

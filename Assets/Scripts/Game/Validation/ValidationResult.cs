@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Sufka.Validation
+namespace Sufka.Game.Validation
 {
     public class ValidationResult : IEnumerable<LetterResult>
     {

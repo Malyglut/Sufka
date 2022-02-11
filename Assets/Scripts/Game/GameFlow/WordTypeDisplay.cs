@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Sufka.Words;
+using Sufka.Game.Words;
 using TMPro;
 using UnityEngine;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class WordTypeDisplay : MonoBehaviour
     {

@@ -1,9 +1,9 @@
 using System;
-using Sufka.GameFlow;
+using Sufka.Game.GameFlow;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.MainMenu
+namespace Sufka.Game.MainMenu
 {
     public class WordLengthButton : MonoBehaviour
     {

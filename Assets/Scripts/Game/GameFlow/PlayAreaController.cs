@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sufka.Controls;
-using Sufka.Validation;
-using Sufka.Words;
+using Sufka.Game.Validation;
+using Sufka.Game.Words;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class PlayAreaController : MonoBehaviour
     {
@@ -28,7 +27,7 @@ namespace Sufka.GameFlow
         private PlayArea _playArea;
 
         [SerializeField]
-        private Keyboard _keyboard;
+        private Keyboard.Keyboard _keyboard;
 
         [SerializeField]
         private GameSetupDatabase _gameSetupDatabase;

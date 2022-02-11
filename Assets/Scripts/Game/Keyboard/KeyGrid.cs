@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Sufka.Validation;
+using Sufka.Game.Validation;
 using UnityEngine;
 
-namespace Sufka.Controls
+namespace Sufka.Game.Keyboard
 {
     public class KeyGrid : MonoBehaviour
     {

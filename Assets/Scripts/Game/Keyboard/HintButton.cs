@@ -1,10 +1,10 @@
 using System;
-using Sufka.GameFlow;
+using Sufka.Game.GameFlow;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Controls
+namespace Sufka.Game.Keyboard
 {
     public class HintButton : MonoBehaviour
     {

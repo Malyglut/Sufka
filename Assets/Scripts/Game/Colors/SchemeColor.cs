@@ -1,4 +1,4 @@
-namespace Sufka.Colors
+namespace Sufka.Game.Colors
 {
     public enum SchemeColor
     {

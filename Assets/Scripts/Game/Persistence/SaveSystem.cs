@@ -1,10 +1,10 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Sufka.Statistics;
+using Sufka.Game.Statistics;
 using UnityEditor;
 using UnityEngine;
 
-namespace Sufka.Persistence
+namespace Sufka.Game.Persistence
 {
     public static class SaveSystem
     {

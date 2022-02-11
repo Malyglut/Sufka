@@ -1,6 +1,6 @@
 using UnityEngine.Advertisements;
 
-namespace Sufka.Ads
+namespace Sufka.Game.Ads
 {
     public class AdsController
     {

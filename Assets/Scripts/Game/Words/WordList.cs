@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Sufka.Words
+namespace Sufka.Game.Words
 {
     public class WordList : ScriptableObject
     {

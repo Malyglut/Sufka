@@ -1,14 +1,14 @@
 using System;
 using Sirenix.OdinInspector;
-using Sufka.Ads;
-using Sufka.MainMenu;
-using Sufka.Persistence;
-using Sufka.Popup;
-using Sufka.Statistics;
+using Sufka.Game.Ads;
+using Sufka.Game.MainMenu;
+using Sufka.Game.Persistence;
+using Sufka.Game.Popup;
+using Sufka.Game.Statistics;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class GameController : MonoBehaviour, IUnityAdsListener
     {

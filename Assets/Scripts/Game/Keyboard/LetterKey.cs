@@ -1,10 +1,10 @@
 using System;
-using Sufka.GameFlow;
-using Sufka.Validation;
+using Sufka.Game.GameFlow;
+using Sufka.Game.Validation;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Controls
+namespace Sufka.Game.Keyboard
 {
     public class LetterKey : MonoBehaviour
     {

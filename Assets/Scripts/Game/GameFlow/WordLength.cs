@@ -1,4 +1,4 @@
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public enum WordLength
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sufka.Validation
+namespace Sufka.Game.Validation
 {
     public static class WordValidator
     {

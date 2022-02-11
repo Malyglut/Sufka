@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sufka.Words.WordRules;
+using Sufka.Game.Words.WordRules;
 using UnityEngine;
 
-namespace Sufka.Words
+namespace Sufka.Game.Words
 {
     [CreateAssetMenu(fileName = "Word Rule Set", menuName = "Sufka/Word Rule Set", order = 0)]
     public class WordRuleSet : SerializedScriptableObject

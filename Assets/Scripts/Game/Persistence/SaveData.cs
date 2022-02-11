@@ -1,7 +1,7 @@
 using System;
-using Sufka.Statistics;
+using Sufka.Game.Statistics;
 
-namespace Sufka.Persistence
+namespace Sufka.Game.Persistence
 {
     [Serializable]
     public class SaveData

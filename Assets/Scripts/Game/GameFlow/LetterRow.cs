@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Sufka.Validation;
-using Sufka.Words;
+using Sufka.Game.Validation;
+using Sufka.Game.Words;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     public class LetterRow : MonoBehaviour
     {

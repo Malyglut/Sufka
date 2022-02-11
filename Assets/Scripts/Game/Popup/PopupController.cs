@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Popup
+namespace Sufka.Game.Popup
 {
     public class PopupController : MonoBehaviour
     {

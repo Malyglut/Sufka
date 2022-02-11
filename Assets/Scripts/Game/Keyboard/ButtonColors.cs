@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Controls
+namespace Sufka.Game.Keyboard
 {
     public class ButtonColors : MonoBehaviour
     {

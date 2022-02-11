@@ -1,6 +1,6 @@
 using System;
 
-namespace Sufka.Words
+namespace Sufka.Game.Words
 {
     [Serializable]
     public class WordTypeList

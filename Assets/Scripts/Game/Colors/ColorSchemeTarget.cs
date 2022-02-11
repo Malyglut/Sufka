@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Colors
+namespace Sufka.Game.Colors
 {
     public class ColorSchemeTarget : MonoBehaviour
     {

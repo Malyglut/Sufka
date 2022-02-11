@@ -1,6 +1,6 @@
 using System;
 
-namespace Sufka.Words.WordRules
+namespace Sufka.Game.Words.WordRules
 {
     [Serializable]
     public abstract class WordRule

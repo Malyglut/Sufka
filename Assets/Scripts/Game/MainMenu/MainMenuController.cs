@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Sufka.GameFlow;
-using Sufka.Statistics;
+using Sufka.Game.GameFlow;
+using Sufka.Game.Statistics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Sufka.MainMenu
+namespace Sufka.Game.MainMenu
 {
     public class MainMenuController : MonoBehaviour
     {

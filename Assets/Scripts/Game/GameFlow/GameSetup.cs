@@ -1,8 +1,8 @@
 using System;
-using Sufka.Words;
+using Sufka.Game.Words;
 using UnityEngine;
 
-namespace Sufka.GameFlow
+namespace Sufka.Game.GameFlow
 {
     [Serializable]
     public class GameSetup
