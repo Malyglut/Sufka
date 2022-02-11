@@ -29,15 +29,15 @@ namespace Sufka.Controls
             OnKeyPress.Invoke(letter);
         }
 
-        public void Initialize(char[,] keys)
+        public void Initialize(List<CharList> charLists)
         {
-            for (var row = 0; row < keys.GetLength(1); row++)
+            for (var row = 0; row < charLists.Count; row++)
             {
                 AddRow();
 
-                for (var key = 0; key < keys.GetLength(0); key++)
+                for (var key = 0; key < charLists[0].chars.Count; key++)
                 {
-                    var character = keys[key, row];
+                    var character = charLists[row][key];
 
                     if (character == '\0')
                     {

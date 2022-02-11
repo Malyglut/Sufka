@@ -27,7 +27,7 @@ namespace Sufka.Controls
         private HintButton _hintButton;
 
         [SerializeField]
-        private KeyboardLayout _keyboardLayout;
+        private KeyboardLayoutData _keyboardLayout;
 
         [SerializeField]
         private ButtonColors _enterButtonColors;

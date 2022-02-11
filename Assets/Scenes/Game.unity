@@ -5892,7 +5892,7 @@ MonoBehaviour:
   _enterButton: {fileID: 1691088305}
   _backButton: {fileID: 1514639916}
   _hintButton: {fileID: 1221034977}
-  _keyboardLayout: {fileID: 11400000, guid: bc316b5e6e63a704ba9795657f880091, type: 2}
+  _keyboardLayout: {fileID: 11400000, guid: b1eae98c02e1b6044a46379eb47b65fb, type: 2}
   _enterButtonColors: {fileID: 2003260983}
 --- !u!224 &1787619947
 RectTransform:

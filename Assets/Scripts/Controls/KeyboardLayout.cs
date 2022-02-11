@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Sufka.Controls
 {
+#if UNITY_EDITOR
     [Serializable, CreateAssetMenu(fileName = "Keyboard Layout", menuName = "Sufka/Keyboard Layout")]
     public class KeyboardLayout : SerializedScriptableObject
     {
@@ -16,7 +17,7 @@ namespace Sufka.Controls
 
         private static char DrawCell(Rect rect, char character)
         {
-#if UNITY_EDITOR
+
             if (Event.current.type == EventType.KeyDown && rect.Contains(Event.current.mousePosition))
             {
                 character = Event.current.character;
@@ -26,8 +27,22 @@ namespace Sufka.Controls
 
             EditorGUI.DrawRect(rect.Padding(1), Color.clear);
             character = Convert.ToChar(EditorGUI.TextField(rect.AlignCenter(40f, 25f), character.ToString()));
-#endif
             return character;
         }
+
+        [Button]
+        private void GenerateData()
+        {
+            var keyboardLayoutData = CreateInstance<KeyboardLayoutData>();
+            keyboardLayoutData.Initialize(_keys);
+
+            var path = AssetDatabase.GetAssetPath(this);
+            var assetName = name;
+            path = path.TrimEnd($"{assetName}.asset".ToCharArray());
+
+            AssetDatabase.CreateAsset(keyboardLayoutData, $"{path}{assetName} Keyboard Layout Data.asset");
+            AssetDatabase.SaveAssets();
+        }
     }
+    #endif
 }
