@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Controls;
 using Sufka.Persistence;
-using Sufka.Statistics;
 using Sufka.Validation;
 using Sufka.Words;
 using UnityEngine;
@@ -14,6 +13,7 @@ namespace Sufka.GameFlow
     public class PlayAreaController : MonoBehaviour
     {
         private const int FIRST_ATTEMPT_POINT_MULTIPLIER = 2;
+        private const int MAX_AVAILABLE_HINTS = 15;
 
         public event Action OnRoundOver;
         public event Action OnPointsUpdated;
@@ -54,6 +54,7 @@ namespace Sufka.GameFlow
         {
             Points = saveData.score;
             AvailableHints = saveData.availableHints;
+            AvailableHints = Mathf.Min(AvailableHints, MAX_AVAILABLE_HINTS);
         }
 
         public void StartGame(WordLength wordLength)
@@ -126,8 +127,6 @@ namespace Sufka.GameFlow
 
                 if (result.FullMatch)
                 {
-                    Debug.Log("WIN!");
-
                     var pointsToAward = _currentGameSetup.AttemptCount - _playArea.Attempt;
 
                     if (_playArea.Attempt == 0)
@@ -144,7 +143,6 @@ namespace Sufka.GameFlow
                 }
                 else if (!result.FullMatch && _playArea.LastAttempt)
                 {
-                    Debug.Log("LOSE!");
                     OnRoundOver.Invoke();
                     RandomWordRound();
                 }

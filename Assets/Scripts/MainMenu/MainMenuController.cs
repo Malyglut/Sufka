@@ -120,6 +120,7 @@ namespace Sufka.MainMenu
             }
 
             _backStack.Peek().SetActive(false);
+            _backButton.gameObject.SetActive(false);
         }
     }
 }

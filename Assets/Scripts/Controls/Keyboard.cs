@@ -24,35 +24,33 @@ namespace Sufka.Controls
         private Button _backButton;
         
         [SerializeField]
-        private Button _hintButton;
+        private HintButton _hintButton;
 
         [SerializeField]
         private KeyboardLayout _keyboardLayout;
 
         [SerializeField]
-        private PlayAreaController _gameController;
-        
+        private ButtonColors _enterButtonColors;
 
         private Dictionary<char, LetterKey> _keys = new Dictionary<char, LetterKey>();
 
         public void Initialize()
         {
-            _hintButton.interactable = _gameController.AvailableHints > 0;
+            _hintButton.Initialize();
+            _hintButton.OnHintRequested += HandleHintPress;
             
-            _enterButton.interactable = false;
+            DisableEnterButton();
             
             _enterButton.onClick.AddListener(HandleEnterPress);
             _backButton.onClick.AddListener(HandleBackPress);
-            _hintButton.onClick.AddListener(HandleHintPress);
-            _keyGrid.OnKeyPress += HandleKeyPress;
 
             _keyGrid.Initialize(_keyboardLayout.Keys);
+            _keyGrid.OnKeyPress += HandleKeyPress;
         }
 
         private void HandleHintPress()
         {
             OnHintPress.Invoke();
-            _hintButton.interactable = false;
         }
 
         private void HandleBackPress()
@@ -78,18 +76,20 @@ namespace Sufka.Controls
         public void Reset()
         {
             _keyGrid.Reset();
-            _hintButton.interactable = _gameController.AvailableHints > 0;
-            _enterButton.interactable = false;
+            _hintButton.Reset();
+            DisableEnterButton();
         }
 
         public void EnableEnterButton()
         {
             _enterButton.interactable = true;
+            _enterButtonColors.Enable();
         }
 
         public void DisableEnterButton()
         {
             _enterButton.interactable = false;
+            _enterButtonColors.Disable();
         }
 
         public void MarkGuessed(char hintLetter)

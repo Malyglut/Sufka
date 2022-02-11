@@ -1,12 +1,14 @@
 using Sirenix.OdinInspector;
+using Sufka.Ads;
 using Sufka.MainMenu;
 using Sufka.Persistence;
 using Sufka.Statistics;
 using UnityEngine;
+using UnityEngine.Advertisements;
 
 namespace Sufka.GameFlow
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoBehaviour, IUnityAdsShowListener
     {
         [SerializeField]
         private MainMenuController _mainMenu;
@@ -24,6 +26,8 @@ namespace Sufka.GameFlow
             _playArea.OnWordGuessed += HandleWordGuessed;
             
             _mainMenu.OnRequestGameStart += StartGame;
+
+            AdsController.Initialize();
         }
 
         private void HandleWordGuessed(int attempt)
@@ -79,6 +83,33 @@ namespace Sufka.GameFlow
         public WordStatistics GetStatistics(WordLength wordLength)
         {
             return _statistics.GetStatistics(wordLength);
+        }
+
+        public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+        {
+            
+        }
+
+        public void OnUnityAdsShowStart(string placementId)
+        {
+            Debug.Log($"AD STARTED {placementId}");
+        }
+
+        public void OnUnityAdsShowClick(string placementId)
+        {
+            Debug.Log($"AD CLICKED {placementId}");
+        }
+
+        public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+        {
+            if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+            {
+                Debug.Log($"AD COMPLETED {placementId}");
+            }
+            else if (showCompletionState == UnityAdsShowCompletionState.SKIPPED)
+            {
+                Debug.Log($"AD SKIPPED {placementId}");
+            }
         }
     }
 }
