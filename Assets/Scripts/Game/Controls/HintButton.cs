@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Game.Keyboard
+namespace Sufka.Game.Controls
 {
     public class HintButton : MonoBehaviour
     {

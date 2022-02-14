@@ -4,7 +4,7 @@ using Sufka.Game.Validation;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sufka.Game.Keyboard
+namespace Sufka.Game.Controls
 {
     public class LetterKey : MonoBehaviour
     {

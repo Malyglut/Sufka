@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Sufka.Game.Statistics;
@@ -12,16 +13,17 @@ namespace Sufka.Game.Persistence
         private const string SAVE_FILE_EXTENSION = ".save";
 
         private static string SavePath => $"{Application.persistentDataPath}/{SAVE_FILE_NAME}{SAVE_FILE_EXTENSION}";
-        
+
         public static void SaveGame(int score, int availableHints, WordStatistics[] wordStatistics)
         {
-            var saveData = new SaveData {score = score, availableHints = availableHints, wordStatistics = wordStatistics};
-            
+            var saveData = new SaveData
+                           {score = score, availableHints = availableHints, wordStatistics = wordStatistics};
+
             var fileStream = new FileStream(SavePath, FileMode.Create);
 
             var converter = new BinaryFormatter();
             converter.Serialize(fileStream, saveData);
-            
+
             fileStream.Close();
         }
 
@@ -29,8 +31,16 @@ namespace Sufka.Game.Persistence
         {
             var fileStream = new FileStream(SavePath, FileMode.Open);
             var converter = new BinaryFormatter();
+            var saveData = new SaveData();
 
-            var saveData = (SaveData) converter.Deserialize(fileStream);
+            try
+            {
+                saveData = (SaveData) converter.Deserialize(fileStream);
+            }
+            catch (Exception e)
+            {
+                //do nothing
+            }
 
             return saveData;
         }
@@ -40,7 +50,7 @@ namespace Sufka.Game.Persistence
             return File.Exists(SavePath);
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         [MenuItem("Sufka/Clear Save Data")]
         public static void ClearSaveData()
         {
@@ -49,6 +59,6 @@ namespace Sufka.Game.Persistence
                 File.Delete(SavePath);
             }
         }
-        #endif
+#endif
     }
 }

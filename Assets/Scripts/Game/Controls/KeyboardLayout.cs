@@ -4,7 +4,7 @@ using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 
-namespace Sufka.Game.Keyboard
+namespace Sufka.Game.Controls
 {
 #if UNITY_EDITOR
     [Serializable, CreateAssetMenu(fileName = "Keyboard Layout", menuName = "Sufka/Keyboard Layout")]

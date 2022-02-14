@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sufka.Game.Validation;
 using UnityEngine;
 
-namespace Sufka.Game.Keyboard
+namespace Sufka.Game.Controls
 {
     public class KeyGrid : MonoBehaviour
     {

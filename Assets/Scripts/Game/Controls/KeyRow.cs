@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Sufka.Game.Keyboard
+namespace Sufka.Game.Controls
 {
     public class KeyRow : MonoBehaviour
     {

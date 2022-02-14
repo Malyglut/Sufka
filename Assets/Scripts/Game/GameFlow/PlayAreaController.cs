@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sufka.Game.Controls;
 using Sufka.Game.Validation;
 using Sufka.Game.Words;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Sufka.Game.GameFlow
@@ -19,6 +21,7 @@ namespace Sufka.Game.GameFlow
         public event Action<int> OnWordGuessed;
         public event Action OnHintUsed;
         public event Action OnHintAdRequested;
+        public event Action OnBackToMenuPopupRequested;
 
         [SerializeField]
         private GameObject _playAreaScreen;
@@ -27,7 +30,7 @@ namespace Sufka.Game.GameFlow
         private PlayArea _playArea;
 
         [SerializeField]
-        private Keyboard.Keyboard _keyboard;
+        private Keyboard _keyboard;
 
         [SerializeField]
         private GameSetupDatabase _gameSetupDatabase;
@@ -38,6 +41,9 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private GameController _gameController;
 
+        [SerializeField]
+        private Button _backToMenuButton;
+
         private readonly List<int> _guessedIndices = new List<int>();
 
         public WordLength WordLength { get; private set; }
@@ -46,33 +52,47 @@ namespace Sufka.Game.GameFlow
         private bool _hintUsed;
 
         private GameSetup _currentGameSetup;
+        private bool _initialized;
 
         public string TargetWordString => _targetWord.fullWord;
 
         public void StartGame(WordLength wordLength)
         {
-            Initialize(wordLength);
-            RandomWordRound();
-        }
-
-        private void Initialize(WordLength wordLength)
-        {
+            Initialize();
+            
             WordLength = wordLength;
             _currentGameSetup = _gameSetupDatabase[WordLength];
 
             _playAreaScreen.SetActive(true);
 
-            _playArea.OnCurrentRowFull += EnableEnter;
-            _playArea.OnCurrentRowNotFull += DisableEnter;
-
-            _keyboard.Initialize();
-            _keyboard.OnKeyPress += HandleLetterInput;
-            _keyboard.OnEnterPress += CheckWord;
-            _keyboard.OnBackPress += HandleRemoveLetter;
-            _keyboard.OnHintPress += GetHint;
-            _keyboard.OnHintAdPress += RequestHintAd;
+            RandomWordRound();
         }
 
+        private void Initialize()
+        {
+            if(!_initialized)
+            {
+                _playArea.OnCurrentRowFull += EnableEnter;
+                _playArea.OnCurrentRowNotFull += DisableEnter;
+
+                _keyboard.Initialize();
+                _keyboard.OnKeyPress += HandleLetterInput;
+                _keyboard.OnEnterPress += CheckWord;
+                _keyboard.OnBackPress += HandleRemoveLetter;
+                _keyboard.OnHintPress += GetHint;
+                _keyboard.OnHintAdPress += RequestHintAd;
+
+                _backToMenuButton.onClick.AddListener(RequestBackToMenuPopup);
+
+                _initialized = true;
+            }
+        }
+
+        private void RequestBackToMenuPopup()
+        {
+            OnBackToMenuPopupRequested.Invoke();
+        }
+        
         private void RequestHintAd()
         {
             OnHintAdRequested.Invoke();
@@ -214,6 +234,11 @@ namespace Sufka.Game.GameFlow
 
             _hintUsed = true;
             OnHintUsed.Invoke();
+        }
+
+        public void Hide()
+        {
+            _playAreaScreen.SetActive(false);
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sufka.Game.Keyboard
+namespace Sufka.Game.Controls
 {
     [Serializable]
     public class CharList

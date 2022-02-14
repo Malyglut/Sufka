@@ -122,5 +122,10 @@ namespace Sufka.Game.MainMenu
             _backStack.Peek().SetActive(false);
             _backButton.gameObject.SetActive(false);
         }
+
+        public void ShowTitleScreen()
+        {
+            _backStack.Peek().SetActive(true);
+        }
     }
 }

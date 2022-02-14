@@ -9,6 +9,7 @@ namespace Sufka.Game.Popup
     {
         private const string HINT_AD_TOP_TEXT = "Wykorzystano wszystkie podpowiedzi.";
         private const string HINT_AD_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć kolejne 10 podpowiedzi?";
+        private const string BACK_TO_MENU_TOP_TEXT = "Czy na pewno chcesz wrócić do menu głównego?";
         
         [SerializeField]
         private GameObject _root;
@@ -60,6 +61,11 @@ namespace Sufka.Game.Popup
         public void ShowHintPopup(Action yesCallback)
         {
             Show(HINT_AD_TOP_TEXT, HINT_AD_BOTTOM_TEXT, null, yesCallback);
+        }
+
+        public void ShowBackToMenuPopup(Action yesCallback)
+        {
+            Show(BACK_TO_MENU_TOP_TEXT, string.Empty, null, yesCallback);
         }
     }
 }

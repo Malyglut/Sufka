@@ -39,12 +39,24 @@ namespace Sufka.Game.GameFlow
             _playArea.OnWordGuessed += HandleWordGuessed;
             _playArea.OnPointsAwarded += IncreaseScore;
             _playArea.OnHintAdRequested += ShowHintPopup;
+            _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
 
             _mainMenu.OnRequestGameStart += StartGame;
 
             _ads.Initialize(this);
 
             _popup.Initialize();
+        }
+
+        private void ShowBackToMenuPopup()
+        {
+            _popup.ShowBackToMenuPopup(ShowMainMenu);
+        }
+        
+        private void ShowMainMenu()
+        {
+            _playArea.Hide();
+            _mainMenu.ShowTitleScreen();
         }
 
         private void ShowHintPopup()
