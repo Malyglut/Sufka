@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7286795107194206399}
-  _schemeColor: 3
+  _schemeColor: 0
 --- !u!1 &5916573790047229569
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7363473573680140048}
-  _schemeColor: 3
+  _schemeColor: 1
 --- !u!114 &8433172771715045531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 8007913631796931260}
   - component: {fileID: 8120426169374742096}
   - component: {fileID: 782347255220632314}
+  - component: {fileID: 3400475718032666236}
   m_Layer: 5
   m_Name: Letter Key
   m_TagString: Untagged
@@ -542,7 +543,8 @@ MonoBehaviour:
   _fill: {fileID: 5256214986049233574}
   _fullCorrectColor: {r: 0.6431373, g: 0.7058824, b: 0.5803922, a: 1}
   _partialCorrectColor: {r: 1, g: 0.7137255, b: 0.2784314, a: 1}
-  _noneCorrectColor: {r: 0.27450982, g: 0.23137255, b: 0.20784314, a: 1}
+  _noneCorrectColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+  _colorSchemeInitializer: {fileID: 3400475718032666236}
 --- !u!114 &782347255220632314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,3 +589,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3400475718032666236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7363473574069278073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a407af29c7294c9fb1438d9eb0053617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorSchemeTargets:
+  - {fileID: 3625964696518526140}
+  - {fileID: 7150046862689345823}

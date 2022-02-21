@@ -1,3 +1,4 @@
+using Sufka.Game.Colors;
 using Sufka.Game.Validation;
 using UnityEngine;
 
@@ -16,6 +17,9 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private Color _partialCorrectColor = Color.white;
+
+        [SerializeField]
+        private ColorSchemeInitializer _colorSchemeInitializer;
 
         public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet;
         public char CurrentLetter => _letterDisplay.CurrentLetter;
@@ -54,6 +58,11 @@ namespace Sufka.Game.GameFlow
         {
             _letterDisplay.SetLetter(letter);
             _fill.Refresh(_fullCorrectColor);
+        }
+
+        public void Initialize()
+        {
+            _colorSchemeInitializer.Initialize();
         }
     }
 }

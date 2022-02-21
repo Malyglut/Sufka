@@ -1,4 +1,5 @@
 using System;
+using Sufka.Game.Colors;
 using Sufka.Game.GameFlow;
 using Sufka.Game.Validation;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Sufka.Game.Controls
         private Color _partialCorrectColor = Color.white;
 
         [SerializeField]
-        private Color _noneCorrectColor = Color.white;
+        private ColorSchemeInitializer _colorSchemeInitializer;
 
         public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet;
 
@@ -34,6 +35,8 @@ namespace Sufka.Game.Controls
         {
             _button.onClick.AddListener(Press);
             _letter.SetLetter(character);
+
+            _colorSchemeInitializer.Initialize();
         }
 
         private void Press()
@@ -54,7 +57,7 @@ namespace Sufka.Game.Controls
                 switch (CurrentCorrectness)
                 {
                     case LetterCorrectness.None:
-                        color = _noneCorrectColor;
+                        color = ColorSchemeController.CurrentColorScheme.DisabledColor;
                         break;
                     case LetterCorrectness.Partial:
                         color = _partialCorrectColor;
@@ -63,7 +66,7 @@ namespace Sufka.Game.Controls
                         color = _fullCorrectColor;
                         break;
                     default:
-                        color = _noneCorrectColor;
+                        color = ColorSchemeController.CurrentColorScheme.DisabledColor;
                         break;
                 }
 

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Sufka.Game.Colors;
 using Sufka.Game.GameFlow;
 using Sufka.Game.Statistics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Sufka.Game.MainMenu
@@ -34,14 +34,20 @@ namespace Sufka.Game.MainMenu
         [SerializeField]
         private Button _backButton;
 
-        [FormerlySerializedAs("_playScreen"), SerializeField]
+        [SerializeField]
         private GameObject _buttonsScreen;
 
         [SerializeField]
         private StatisticsScreen _statisticsScreen;
+        
+        [SerializeField]
+        private ColorsScreen _colorsScreen;
 
         [SerializeField]
         private TextMeshProUGUI _buttonsLabel;
+
+        [SerializeField]
+        private Button _colorsButton;
 
         [SerializeField]
         private List<WordLengthButton> _startGameButtons = new List<WordLengthButton>();
@@ -55,6 +61,9 @@ namespace Sufka.Game.MainMenu
             _playButton.onClick.AddListener(ShowPlayButtons);
             _backButton.onClick.AddListener(Back);
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);
+            _colorsButton.onClick.AddListener(ShowColorsScreen);
+            
+            _colorsScreen.Initialize();
 
             foreach (var button in _startGameButtons)
             {
@@ -62,6 +71,11 @@ namespace Sufka.Game.MainMenu
             }
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void ShowColorsScreen()
+        {
+            ShowScreen(_colorsScreen.gameObject);
         }
 
         private void ShowPlayButtons()

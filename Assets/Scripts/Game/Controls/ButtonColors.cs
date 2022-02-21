@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sufka.Game.Colors;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,22 +8,19 @@ namespace Sufka.Game.Controls
     public class ButtonColors : MonoBehaviour
     {
         [SerializeField]
-        private Color _regularColor = Color.white;
+        private ColorWeight _regularColorWeight;
         
-        [SerializeField]
-        private Color _disabledColor = Color.white;
-
         [SerializeField]
         private List<Graphic> _targetGraphics = new List<Graphic>();
 
         public void Disable()
         {
-            ChangeColor(_disabledColor);
+            ChangeColor(ColorSchemeController.CurrentColorScheme.DisabledColor);
         }
 
         public void Enable()
         {
-            ChangeColor(_regularColor);
+            ChangeColor(ColorSchemeController.CurrentColorScheme.GetColor(_regularColorWeight));
         }
 
         private void ChangeColor(Color color)

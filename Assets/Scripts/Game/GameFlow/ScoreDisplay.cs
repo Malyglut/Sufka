@@ -8,10 +8,10 @@ namespace Sufka.Game.GameFlow
 {
     public class ScoreDisplay : MonoBehaviour
     {
-        [FormerlySerializedAs("_points"), SerializeField]
+        [SerializeField]
         private TextMeshProUGUI _score;
 
-        [FormerlySerializedAs("_gameController"), SerializeField]
+        [SerializeField]
         private PlayAreaController _playArea;
 
         [SerializeField]

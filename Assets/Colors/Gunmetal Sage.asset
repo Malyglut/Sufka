@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
+  m_Name: Gunmetal Sage
+  m_EditorClassIdentifier: 
+  _name: "Metalowa Sza\u0142wia"
+  _primaryColor: {r: 0.72156864, g: 0.6901961, b: 0.5529412, a: 1}
+  _secondaryColor: {r: 0.1254902, g: 0.17254902, b: 0.22352941, a: 1}
+  _disabledColor: {r: 0.49019608, g: 0.45882353, b: 0.30980393, a: 1}

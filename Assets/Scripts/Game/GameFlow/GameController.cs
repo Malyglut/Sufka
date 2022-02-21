@@ -101,14 +101,7 @@ namespace Sufka.Game.GameFlow
         {
             SaveData saveData;
 
-            if (SaveSystem.SaveFileExists())
-            {
-                saveData = SaveSystem.LoadGame();
-            }
-            else
-            {
-                saveData = new SaveData();
-            }
+            saveData = SaveSystem.SaveFileExists() ? SaveSystem.LoadGame() : new SaveData();
 
             Score = saveData.score;
             AvailableHints = saveData.availableHints;
@@ -135,12 +128,12 @@ namespace Sufka.Game.GameFlow
 
         public void OnUnityAdsReady(string placementId)
         {
-            // throw new NotImplementedException();
+            //do nothing
         }
 
         public void OnUnityAdsDidError(string message)
         {
-            // throw new NotImplementedException();
+            //do nothing
         }
 
         public void OnUnityAdsDidStart(string placementId)

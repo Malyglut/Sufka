@@ -238,6 +238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _letterPrefab: {fileID: 7200271105279169123, guid: 1f029826af4756446a01496c84d4127c, type: 3}
-  _nonInteractiveLetterPrefab: {fileID: 2086756289104268534, guid: fa4510e8261a6714199759f5c4529ad9, type: 3}
+  _nonInteractiveLetterPrefab: {fileID: 3099334621951663060, guid: fa4510e8261a6714199759f5c4529ad9, type: 3}
   _interactiveLettersParent: {fileID: 3305344664055028430}
   _nonInteractiveLettersParent: {fileID: 4152102034150765773}

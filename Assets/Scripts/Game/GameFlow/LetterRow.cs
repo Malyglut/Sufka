@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Sufka.Game.Validation;
 using Sufka.Game.Words;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Sufka.Game.GameFlow
 {
@@ -12,9 +11,9 @@ namespace Sufka.Game.GameFlow
         private InteractiveLetter _letterPrefab;
 
         [SerializeField]
-        private LetterDisplay _nonInteractiveLetterPrefab;
+        private NonInteractiveLetter _nonInteractiveLetterPrefab;
 
-        [FormerlySerializedAs("_lettersParent"), SerializeField]
+        [SerializeField]
         private Transform _interactiveLettersParent;
 
         [SerializeField]
@@ -51,6 +50,7 @@ namespace Sufka.Game.GameFlow
             {
                 var interactiveLetter = Instantiate(_letterPrefab, _interactiveLettersParent);
                 interactiveLetter.SetEmpty();
+                interactiveLetter.Initialize();
 
                 _letters.Add(interactiveLetter);
             }
@@ -59,6 +59,8 @@ namespace Sufka.Game.GameFlow
             {
                 var letter = Instantiate(_nonInteractiveLetterPrefab, _nonInteractiveLettersParent);
                 letter.SetLetter(targetWord.nonInteractivePart[i]);
+                
+                letter.Initialize();
             }
         }
 
