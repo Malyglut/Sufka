@@ -7,6 +7,7 @@ namespace Sufka.Game.Unlocks
     [Serializable]
     public class UnlocksData
     {
+        public int selectedColorSchemeIdx;
         public List<bool> unlockedColors = new List<bool> {true};
         public List<bool> unlockedGameModes = new List<bool>();
 

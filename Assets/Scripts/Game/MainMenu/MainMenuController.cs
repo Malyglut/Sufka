@@ -22,6 +22,7 @@ namespace Sufka.Game.MainMenu
 
         public event Action<WordLength> OnRequestGameStart;
         public event Action<ColorScheme> OnRequestUnlockColorScheme;
+        public event Action<ColorScheme> OnNotifyColorSchemeChanged;
         public event Action OnRequestContinueGame;
 
         [SerializeField]
@@ -69,6 +70,7 @@ namespace Sufka.Game.MainMenu
             _continueButton.onClick.AddListener(RequestContinueGame);
 
             _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
+            _colorsScreen.OnColorSchemeChanged += NotifyColorSchemeChanged;
             _colorsScreen.Initialize();
 
             foreach (var button in _startGameButtons)
@@ -77,6 +79,11 @@ namespace Sufka.Game.MainMenu
             }
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void NotifyColorSchemeChanged(ColorScheme colorScheme)
+        {
+            OnNotifyColorSchemeChanged.Invoke(colorScheme);
         }
 
         private void RequestUnlockColorScheme(ColorScheme colorScheme)

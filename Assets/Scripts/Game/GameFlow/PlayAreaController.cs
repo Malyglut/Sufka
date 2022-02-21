@@ -37,6 +37,9 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private GameSetupDatabase _gameSetupDatabase;
 
+        [SerializeField]
+        private ScoreDisplay _scoreDisplay;
+
 #if UNITY_EDITOR
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
         private string _currentWord;
@@ -69,6 +72,7 @@ namespace Sufka.Game.GameFlow
             _currentGameSetup = _gameSetupDatabase[WordLength];
 
             _playAreaScreen.SetActive(true);
+            _scoreDisplay.Refresh();
 
             RandomWordRound();
         }
@@ -84,6 +88,7 @@ namespace Sufka.Game.GameFlow
             _currentGameSetup = _gameSetupDatabase[WordLength];
 
             _playAreaScreen.SetActive(true);
+            _scoreDisplay.Refresh();
 
             SavedGameRound(data);
         }
@@ -128,6 +133,8 @@ namespace Sufka.Game.GameFlow
                 _keyboard.OnHintAdPress += RequestHintAd;
 
                 _backToMenuButton.onClick.AddListener(RequestBackToMenuPopup);
+                
+                _scoreDisplay.Initialize();
 
                 _initialized = true;
             }

@@ -8,6 +8,7 @@ namespace Sufka.Game.Colors
     public class ColorsScreen : MonoBehaviour
     {
         public event Action<ColorScheme> OnUnlockColorSchemeRequested;
+        public event Action<ColorScheme> OnColorSchemeChanged;
         
         [SerializeField]
         private ColorSchemeController _colorSchemeController;
@@ -53,6 +54,7 @@ namespace Sufka.Game.Colors
         private void ChangeColorScheme(ColorScheme colorScheme)
         {
             _colorSchemeController.ChangeColorScheme(colorScheme);
+            OnColorSchemeChanged.Invoke(colorScheme);
         }
 
         public void RefreshAvailableColorSchemes()

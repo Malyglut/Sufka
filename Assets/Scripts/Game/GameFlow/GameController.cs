@@ -37,6 +37,7 @@ namespace Sufka.Game.GameFlow
 
         public int Score { get; private set; }
         public int AvailableHints { get; private set; } = INITIAL_AVAILABLE_HINTS;
+        public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[_unlocks.selectedColorSchemeIdx];
 
         private void Start()
         {
@@ -52,6 +53,7 @@ namespace Sufka.Game.GameFlow
             _mainMenu.OnRequestGameStart += StartGame;
             _mainMenu.OnRequestContinueGame += ContinueGame;
             _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
+            _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
             _mainMenu.Initialize();
 
             ShowMainMenu();
@@ -59,6 +61,13 @@ namespace Sufka.Game.GameFlow
             _ads.Initialize(this);
 
             _popup.Initialize();
+        }
+
+        private void UpdateSelectedColorScheme(ColorScheme colorScheme)
+        {
+            var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
+            _unlocks.selectedColorSchemeIdx = colorSchemeIdx;
+            SaveSystem.SaveUnlocksData(_unlocks);
         }
 
         private void ShowUnlockColorSchemePopup(ColorScheme colorScheme)
@@ -69,6 +78,8 @@ namespace Sufka.Game.GameFlow
         private void UnlockColorScheme(ColorScheme colorScheme)
         {
             Score -= colorScheme.UnlockCost;
+            SaveGame();
+            
             var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
             _unlocks.unlockedColors[colorSchemeIdx] = true;
             SaveSystem.SaveUnlocksData(_unlocks);

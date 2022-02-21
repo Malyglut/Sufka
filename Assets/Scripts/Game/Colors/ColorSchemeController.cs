@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+using Sufka.Game.GameFlow;
 using UnityEngine;
 
 namespace Sufka.Game.Colors
@@ -11,26 +10,19 @@ namespace Sufka.Game.Colors
         private List<ColorSchemeTarget> _targets = new List<ColorSchemeTarget>();
 
         [SerializeField]
-        private ColorScheme _colorScheme;
-        
+        private GameController _gameController;
+
         public static ColorScheme CurrentColorScheme { get; private set; }
 
         public void Initialize()
         {
-            CurrentColorScheme = _colorScheme;
+            Apply(_gameController.SelectedColorScheme);
         }
 
-        [Button]
-        private void Apply()
-        {
-            Apply(_colorScheme);
-        }
-
-        [Button]
         private void FindAllTargets()
         {
             _targets.Clear();
-            
+
             var targets = FindObjectsOfType<ColorSchemeTarget>(true);
 
             _targets.AddRange(targets);
@@ -45,7 +37,7 @@ namespace Sufka.Game.Colors
         private void Apply(ColorScheme colorScheme)
         {
             CurrentColorScheme = colorScheme;
-            
+
             foreach (var target in _targets)
             {
                 target.Apply(colorScheme.GetColor(target.SchemeColor));
