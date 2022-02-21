@@ -38,14 +38,14 @@ namespace Sufka.Game.Colors
 
         public void ChangeColorScheme(ColorScheme colorScheme)
         {
-            CurrentColorScheme = colorScheme;
-            
             FindAllTargets();
             Apply(colorScheme);
         }
 
         private void Apply(ColorScheme colorScheme)
         {
+            CurrentColorScheme = colorScheme;
+            
             foreach (var target in _targets)
             {
                 target.Apply(colorScheme.GetColor(target.SchemeColor));
