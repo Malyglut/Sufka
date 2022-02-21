@@ -41,7 +41,7 @@ namespace Sufka.Game.GameFlow
             _playArea.OnPointsAwarded += IncreaseScore;
             _playArea.OnHintAdRequested += ShowHintPopup;
             _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
-            _playArea.OnRoundStarted += SaveGameProgress;
+            _playArea.OnGameProgressUpdated += SaveGameProgress;
 
             _mainMenu.OnRequestGameStart += StartGame;
             _mainMenu.OnRequestContinueGame += ContinueGame;
@@ -56,10 +56,7 @@ namespace Sufka.Game.GameFlow
 
         private void SaveGameProgress()
         {
-            _gameInProgressSaveData.gameInProgress = true;
-            _gameInProgressSaveData.targetWord = _playArea.TargetWord;
-            _gameInProgressSaveData.hintUsed = _playArea.HintUsed;
-            _gameInProgressSaveData.wordLength = _playArea.WordLength;
+            _gameInProgressSaveData.Update(true, _playArea);
 
             SaveSystem.SaveGameInProgress(_gameInProgressSaveData);
         }
@@ -101,9 +98,6 @@ namespace Sufka.Game.GameFlow
             AvailableHints--;
             _statistics.HandleHintUsed(_playArea.WordLength);
             SaveGame();
-            
-            _gameInProgressSaveData.hintUsed = true;
-            SaveSystem.SaveGameInProgress(_gameInProgressSaveData);
         }
 
         private void StartGame(WordLength wordLength)
@@ -113,8 +107,7 @@ namespace Sufka.Game.GameFlow
 
         private void ContinueGame()
         {
-            _playArea.StartGame(_gameInProgressSaveData.wordLength, _gameInProgressSaveData.targetWord,
-                                _gameInProgressSaveData.hintUsed);
+            _playArea.StartGame(_gameInProgressSaveData);
         }
 
         private void SaveGame()

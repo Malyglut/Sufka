@@ -24,14 +24,16 @@ namespace Sufka.Game.GameFlow
         public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet;
         public char CurrentLetter => _letterDisplay.CurrentLetter;
         public bool IsBlank => _letterDisplay.IsBlank;
+        public LetterResult CurrentLetterResult => new LetterResult(CurrentLetter, CurrentCorrectness);
 
         public void Display(LetterCorrectness letterCorrectness)
         {
             CurrentCorrectness = letterCorrectness;
 
-            var active = CurrentCorrectness == LetterCorrectness.Full || CurrentCorrectness == LetterCorrectness.Partial;
+            var active = CurrentCorrectness == LetterCorrectness.Full ||
+                         CurrentCorrectness == LetterCorrectness.Partial;
 
-            if(active)
+            if (active)
             {
                 var color = CurrentCorrectness == LetterCorrectness.Full ? _fullCorrectColor : _partialCorrectColor;
                 _fill.Refresh(color);
@@ -52,10 +54,16 @@ namespace Sufka.Game.GameFlow
         public void SetLetter(char letter)
         {
             _letterDisplay.SetLetter(letter);
+
+            if (_letterDisplay.IsBlank)
+            {
+                SetEmpty();
+            }
         }
 
         public void MarkGuessed(char letter)
         {
+            CurrentCorrectness = LetterCorrectness.Full;
             _letterDisplay.SetLetter(letter);
             _fill.Refresh(_fullCorrectColor);
         }

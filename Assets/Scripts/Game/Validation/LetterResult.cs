@@ -1,5 +1,8 @@
+using System;
+
 namespace Sufka.Game.Validation
 {
+    [Serializable]
     public class LetterResult
     {
         public readonly char letter;

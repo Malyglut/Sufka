@@ -80,7 +80,7 @@ namespace Sufka.Game.Controls
             DisableEnterButton();
         }
 
-        public void Reset(bool hintUsed)
+        public void Restore(bool hintUsed)
         {
             _keyGrid.Reset();
             _hintButton.Reset(hintUsed);
@@ -102,6 +102,11 @@ namespace Sufka.Game.Controls
         public void MarkGuessed(char hintLetter)
         {
             _keyGrid.MarkGuessed(hintLetter);
+        }
+
+        public void RestoreKeys(List<List<LetterResult>> filledLetters)
+        {
+            _keyGrid.Restore(filledLetters);
         }
     }
 }

@@ -81,5 +81,16 @@ namespace Sufka.Game.Controls
         {
             MarkResult(hintLetter, LetterCorrectness.Full);
         }
+
+        public void Restore(List<List<LetterResult>> filledLetters)
+        {
+            foreach (var letterRow in filledLetters)
+            {
+                foreach (var letterResult in letterRow)
+                {
+                    MarkResult(letterResult.letter, letterResult.result);
+                }
+            }
+        }
     }
 }

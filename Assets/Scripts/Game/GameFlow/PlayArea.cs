@@ -19,12 +19,33 @@ namespace Sufka.Game.GameFlow
 
         private readonly List<LetterRow> _rows = new List<LetterRow>();
 
-        private LetterRow CurrentRow => _rows[Attempt];
+        public int CurrentAttempt { get; private set; }
+
+        private LetterRow CurrentRow => _rows[CurrentAttempt];
         public char[] CurrentWord => CurrentRow.Word;
         public bool ValidInput => CurrentRow.IsFull;
-        public bool LastAttempt => Attempt >= _rows.Count - 1;
+        public bool LastAttempt => CurrentAttempt >= _rows.Count - 1;
 
-        public int Attempt { get; private set; }
+        public List<List<LetterResult>> GetFilledLetters()
+        {
+            var letters = new List<List<LetterResult>>();
+
+            foreach (var row in _rows)
+            {
+                if (row.IsEmpty)
+                {
+                    break;
+                }
+
+                var rowLetters = new List<LetterResult>();
+
+                rowLetters.AddRange(row.GetLetters());
+
+                letters.Add(rowLetters);
+            }
+
+            return letters;
+        }
 
         public void Initialize(int rows, int letters, Word targetWord)
         {
@@ -68,13 +89,13 @@ namespace Sufka.Game.GameFlow
         public void Display(ValidationResult result)
         {
             CurrentRow.Display(result);
-            Attempt++;
+            CurrentAttempt++;
             CurrentRow.Prepare();
         }
 
         public void Reset()
         {
-            Attempt = 0;
+            CurrentAttempt = 0;
 
             foreach (var row in _rows)
             {
@@ -86,7 +107,25 @@ namespace Sufka.Game.GameFlow
 
         public void MarkGuessed(int hintIdx, char hintLetter)
         {
-            _rows[Attempt].MarkGuessed(hintIdx, hintLetter);
+            _rows[CurrentAttempt].MarkHint(hintIdx, hintLetter);
+        }
+
+        public void RestoreLetters(List<List<LetterResult>> filledLetters)
+        {
+            for (var i = 0; i < filledLetters.Count; i++)
+            {
+                _rows[i].RestoreLetters(filledLetters[i]);
+            }
+
+            while (CurrentRow.IsFull)
+            {
+                CurrentAttempt++;
+            }
+        }
+
+        public void MarkHint(int hintRow, int hintIdx, char letter)
+        {
+            _rows[hintRow].MarkHint(hintIdx, letter);
         }
     }
 }

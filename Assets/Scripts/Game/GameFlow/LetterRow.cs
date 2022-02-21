@@ -25,7 +25,7 @@ namespace Sufka.Game.GameFlow
         private int _hintIdx = -1;
         public bool IsFull => _currentLetterIdx == _capacity ||
                               _currentLetterIdx == _capacity - 1 && _hintIdx == _capacity;
-        public bool IsEmpty => _currentLetterIdx == 0;
+        public bool IsEmpty => _currentLetterIdx == 0 && _hintIdx == -1;
 
         public char[] Word
         {
@@ -59,7 +59,7 @@ namespace Sufka.Game.GameFlow
             {
                 var letter = Instantiate(_nonInteractiveLetterPrefab, _nonInteractiveLettersParent);
                 letter.SetLetter(targetWord.nonInteractivePart[i]);
-                
+
                 letter.Initialize();
             }
         }
@@ -110,7 +110,7 @@ namespace Sufka.Game.GameFlow
             }
         }
 
-        public void MarkGuessed(int hintIdx, char hintLetter)
+        public void MarkHint(int hintIdx, char hintLetter)
         {
             _letters[hintIdx].MarkGuessed(hintLetter);
 
@@ -129,6 +129,33 @@ namespace Sufka.Game.GameFlow
             while (!_letters[_currentLetterIdx].IsBlank)
             {
                 _currentLetterIdx++;
+            }
+        }
+
+        public List<LetterResult> GetLetters()
+        {
+            var letters = new List<LetterResult>();
+
+            foreach (var letter in _letters)
+            {
+                letters.Add(letter.CurrentLetterResult);
+            }
+
+            return letters;
+        }
+
+        public void RestoreLetters(List<LetterResult> filledLetters)
+        {
+            for (var i = 0; i < filledLetters.Count; i++)
+            {
+                var letterResult = filledLetters[i];
+                _letters[i].SetLetter(letterResult.letter);
+                _letters[i].Display(letterResult.result);
+
+                if (i == _currentLetterIdx && !_letters[i].IsBlank)
+                {
+                    _currentLetterIdx++;
+                }
             }
         }
     }

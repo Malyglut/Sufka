@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Game.Controls;
+using Sufka.Game.Persistence;
 using Sufka.Game.Validation;
 using Sufka.Game.Words;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Sufka.Game.GameFlow
         private const int FIRST_ATTEMPT_POINT_MULTIPLIER = 2;
 
         public event Action OnRoundOver;
+        public event Action OnGameProgressUpdated;
         public event Action OnPointsUpdated;
         public event Action<int> OnPointsAwarded;
         public event Action OnRoundStarted;
@@ -44,16 +46,18 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private Button _backToMenuButton;
 
-        private readonly List<int> _guessedIndices = new List<int>();
-
         private GameSetup _currentGameSetup;
         private bool _initialized;
 
         public WordLength WordLength { get; private set; }
         public Word TargetWord { get; private set; }
         public bool HintUsed { get; private set; }
+        public int HintIdx { get; private set; }
+        public int HintRow { get; private set; }
+        public List<int> GuessedIndices { get; private set; } = new List<int>();
 
         public string TargetWordString => TargetWord.fullWord;
+        public List<List<LetterResult>> FilledLetters => _playArea.GetFilledLetters();
 
         public void StartGame(WordLength wordLength)
         {
@@ -67,28 +71,34 @@ namespace Sufka.Game.GameFlow
             RandomWordRound();
         }
 
-        public void StartGame(WordLength wordLength, Word targetWord, bool hintUsed)
+        public void StartGame(GameInProgressSaveData data)
         {
             Initialize();
 
-            WordLength = wordLength;
+            WordLength = data.wordLength;
+            HintIdx = data.hintIdx;
+            HintRow = data.hintRow;
+            GuessedIndices = new List<int>(data.guessedIndices);
             _currentGameSetup = _gameSetupDatabase[WordLength];
 
             _playAreaScreen.SetActive(true);
 
-            SavedGameRound(targetWord, hintUsed);
+            SavedGameRound(data);
         }
 
-        private void SavedGameRound(Word targetWord, bool hintUsed)
+        private void SavedGameRound(GameInProgressSaveData data)
         {
-            TargetWord = targetWord;
-            HintUsed = hintUsed;
+            TargetWord = data.targetWord;
+            HintUsed = data.hintUsed;
 
-            _guessedIndices.Clear();
+            GuessedIndices.Clear();
             _currentWord = TargetWord.fullWord;
 
             _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, TargetWord);
-            _keyboard.Reset(HintUsed);
+            _playArea.MarkHint(HintRow, HintIdx, data.filledLetters[HintRow][HintIdx].letter);
+            _playArea.RestoreLetters(data.filledLetters);
+            _keyboard.Restore(HintUsed);
+            _keyboard.RestoreKeys(data.filledLetters);
 
             OnRoundStarted.Invoke();
         }
@@ -142,14 +152,15 @@ namespace Sufka.Game.GameFlow
         private void StartNewRound()
         {
             HintUsed = false;
-            _guessedIndices.Clear();
+            GuessedIndices.Clear();
 
             _currentWord = TargetWord.fullWord;
 
             _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, TargetWord);
-            _keyboard.Reset(HintUsed);
+            _keyboard.Restore(HintUsed);
 
             OnRoundStarted.Invoke();
+            OnGameProgressUpdated.Invoke();
         }
 
         private void CheckWord()
@@ -162,23 +173,23 @@ namespace Sufka.Game.GameFlow
 
                 foreach (var idx in result.GuessedIndices)
                 {
-                    if (!_guessedIndices.Contains(idx))
+                    if (!GuessedIndices.Contains(idx))
                     {
-                        _guessedIndices.Add(idx);
+                        GuessedIndices.Add(idx);
                     }
                 }
 
                 if (result.FullMatch)
                 {
-                    var pointsToAward = _currentGameSetup.AttemptCount - _playArea.Attempt;
+                    var pointsToAward = _currentGameSetup.AttemptCount - _playArea.CurrentAttempt;
 
-                    if (_playArea.Attempt == 0)
+                    if (_playArea.CurrentAttempt == 0)
                     {
                         pointsToAward *= FIRST_ATTEMPT_POINT_MULTIPLIER;
                     }
 
                     OnPointsAwarded.Invoke(pointsToAward);
-                    OnWordGuessed.Invoke(_playArea.Attempt);
+                    OnWordGuessed.Invoke(_playArea.CurrentAttempt);
 
                     RandomWordRound();
                 }
@@ -191,6 +202,8 @@ namespace Sufka.Game.GameFlow
                 {
                     _playArea.Display(result);
                     _keyboard.Refresh(result);
+
+                    OnGameProgressUpdated.Invoke();
                 }
             }
         }
@@ -238,7 +251,7 @@ namespace Sufka.Game.GameFlow
 
             for (var i = 0; i < TargetWord.interactivePart.Length; i++)
             {
-                if (_guessedIndices.Contains(i))
+                if (GuessedIndices.Contains(i))
                 {
                     continue;
                 }
@@ -246,18 +259,20 @@ namespace Sufka.Game.GameFlow
                 possibleHints.Add(i);
             }
 
-            var hintIdx = possibleHints[Random.Range(0, possibleHints.Count)];
-            var hintLetter = TargetWord.interactivePart[hintIdx];
+            HintIdx = possibleHints[Random.Range(0, possibleHints.Count)];
+            var hintLetter = TargetWord.interactivePart[HintIdx];
 
-            Debug.Log($"HINTING {hintLetter} AT INDEX {hintIdx}");
+            Debug.Log($"HINTING {hintLetter} AT INDEX {HintIdx}");
 
-            _guessedIndices.Add(hintIdx);
+            GuessedIndices.Add(HintIdx);
 
             _keyboard.MarkGuessed(hintLetter);
-            _playArea.MarkGuessed(hintIdx, hintLetter);
+            _playArea.MarkGuessed(HintIdx, hintLetter);
+            HintRow = _playArea.CurrentAttempt;
 
             HintUsed = true;
             OnHintUsed.Invoke();
+            OnGameProgressUpdated.Invoke();
         }
 
         public void Hide()
