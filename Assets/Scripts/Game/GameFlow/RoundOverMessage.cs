@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sufka.Game.Colors;
 using TMPro;
 using UnityEngine;
 
@@ -18,12 +19,6 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private PlayAreaController _gameController;
-        
-        [SerializeField]
-        private Color _winColor = Color.white;
-        
-        [SerializeField]
-        private Color _lossColor = Color.white;
 
         [SerializeField]
         private float _fadeDuration = 2f;
@@ -41,12 +36,14 @@ namespace Sufka.Game.GameFlow
 
         private void DisplayPoints(int pointsAwarded)
         {
-            DisplayMessage(_winMessages[Random.Range(0, _winMessages.Count)], $"+ {pointsAwarded}", _winColor);
+            DisplayMessage(_winMessages[Random.Range(0, _winMessages.Count)], $"+ {pointsAwarded}",
+                           ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.FullCorrect));
         }
 
         private void DisplayLoss()
         {
-            DisplayMessage(_gameController.TargetWordString, string.Empty, _lossColor);
+            DisplayMessage(_gameController.TargetWordString, string.Empty,
+                           ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Fail));
         }
 
         private void DisplayMessage(string message, string points, Color color)

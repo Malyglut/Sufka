@@ -25,8 +25,8 @@ namespace Sufka.Game.Colors
         {
             _colorScheme = colorScheme;
             _name.SetText(colorScheme.Name);
-            _primary.color = colorScheme.PrimaryColor;
-            _secondary.color = colorScheme.SecondaryColor;
+            _primary.color = colorScheme.GetColor(ColorWeight.Primary);
+            _secondary.color = colorScheme.GetColor(ColorWeight.Secondary);
         }
 
         public void OnPointerDown(PointerEventData eventData)

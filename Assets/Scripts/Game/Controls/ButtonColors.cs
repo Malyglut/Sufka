@@ -15,7 +15,7 @@ namespace Sufka.Game.Controls
 
         public void Disable()
         {
-            ChangeColor(ColorSchemeController.CurrentColorScheme.DisabledColor);
+            ChangeColor(ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled));
         }
 
         public void Enable()

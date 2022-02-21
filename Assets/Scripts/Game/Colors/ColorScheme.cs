@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sufka.Game.Colors
@@ -17,15 +19,43 @@ namespace Sufka.Game.Colors
         [SerializeField]
         private Color _disabledColor = Color.white;
         
-        public string Name => _name;
-        public Color PrimaryColor => _primaryColor;
-        public Color SecondaryColor => _secondaryColor;
+        [SerializeField]
+        private Color _fullCorrectColor = Color.white;
         
-        public Color DisabledColor => _disabledColor;
+        [SerializeField]
+        private Color _partialCorrectColor = Color.white;
+        
+        [SerializeField]
+        private Color _failColor = Color.white;
 
+        public string Name => _name;
         public Color GetColor(ColorWeight colorWeight)
         {
-            return colorWeight == ColorWeight.Primary ? _primaryColor : _secondaryColor;
+            var color = _failColor;
+            
+            switch (colorWeight)
+            {
+                case ColorWeight.Primary:
+                    color = _primaryColor;
+                    break;
+                case ColorWeight.Secondary:
+                    color = _secondaryColor;
+                    break;
+                case ColorWeight.Disabled:
+                    color = _disabledColor;
+                    break;
+                case ColorWeight.FullCorrect:
+                    color = _fullCorrectColor;
+                    break;
+                case ColorWeight.PartialCorrect:
+                    color = _partialCorrectColor;
+                    break;
+                case ColorWeight.Fail:
+                    color = _failColor;
+                    break;
+            }
+
+            return color;
         }
     }
 }

@@ -16,3 +16,6 @@ MonoBehaviour:
   _primaryColor: {r: 0.5019608, g: 0.41960788, b: 0.37647063, a: 1}
   _secondaryColor: {r: 0.12156863, g: 0.09019608, b: 0.039215688, a: 1}
   _disabledColor: {r: 0.31764707, g: 0.26666668, b: 0.23921569, a: 1}
+  _fullCorrectColor: {r: 0.70980394, g: 0.7921569, b: 0.5529412, a: 1}
+  _partialCorrectColor: {r: 0.99607843, g: 0.89411765, b: 0.2509804, a: 1}
+  _failColor: {r: 0.9607843, g: 0, b: 0.19215687, a: 1}

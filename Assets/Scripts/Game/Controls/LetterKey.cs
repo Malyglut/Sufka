@@ -57,7 +57,7 @@ namespace Sufka.Game.Controls
                 switch (CurrentCorrectness)
                 {
                     case LetterCorrectness.None:
-                        color = ColorSchemeController.CurrentColorScheme.DisabledColor;
+                        color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled);
                         break;
                     case LetterCorrectness.Partial:
                         color = _partialCorrectColor;
@@ -66,7 +66,7 @@ namespace Sufka.Game.Controls
                         color = _fullCorrectColor;
                         break;
                     default:
-                        color = ColorSchemeController.CurrentColorScheme.DisabledColor;
+                        color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled);
                         break;
                 }
 

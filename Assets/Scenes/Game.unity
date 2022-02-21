@@ -984,7 +984,7 @@ PrefabInstance:
     - target: {fileID: 235732950465321311, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: _colorScheme
       value: 
-      objectReference: {fileID: 11400000, guid: 4bec4b23128f11f4ba97991d758897c5, type: 2}
+      objectReference: {fileID: 11400000, guid: 047275f2fd6723a47a5f9ec631f4f113, type: 2}
     - target: {fileID: 235732950465321311, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: _targets.Array.size
       value: 53
