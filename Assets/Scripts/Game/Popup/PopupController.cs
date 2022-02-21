@@ -1,4 +1,5 @@
 using System;
+using Sufka.Game.Controls;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,9 @@ namespace Sufka.Game.Popup
         [SerializeField]
         private Button _yesButton;
 
+        [SerializeField]
+        private ButtonColors _yesButtonColors;
+
         private Action _noCallback;
         private Action _yesCallback;
 
@@ -49,7 +53,7 @@ namespace Sufka.Game.Popup
             _noCallback?.Invoke();
         }
 
-        private void Show(string topText, string bottomText, Action noCallback, Action yesCallback)
+        private void Show(string topText, string bottomText, Action noCallback, Action yesCallback, bool yesAvailable = true)
         {
             _topText.SetText(topText);
             _bottomText.SetText(bottomText);
@@ -57,12 +61,28 @@ namespace Sufka.Game.Popup
             _noCallback = noCallback;
             _yesCallback = yesCallback;
 
+            _yesButton.interactable = yesAvailable;
+
+            if (yesAvailable)
+            {
+                _yesButtonColors.Enable();
+            }
+            else
+            {
+                _yesButtonColors.Disable();
+            }
+
             _root.SetActive(true);
         }
 
         public void ShowHintPopup(Action yesCallback)
         {
-            Show(HINT_AD_TOP_TEXT, HINT_AD_BOTTOM_TEXT, null, yesCallback);
+            Show(
+                 HINT_AD_TOP_TEXT,
+                 HINT_AD_BOTTOM_TEXT, 
+                 null,
+                 yesCallback,
+                 Application.internetReachability != NetworkReachability.NotReachable);
         }
 
         public void ShowBackToMenuPopup(Action yesCallback)
@@ -78,7 +98,7 @@ namespace Sufka.Game.Popup
             var topFormatted = string.Format(UNLOCK_COLOR_TOP_TEXT, colorSchemeName, colorSchemeCost, topPointsString);
             var bottomFormatted = string.Format(UNLOCK_BOTTOM_TEXT, availablePoints, bottomPointsString);
 
-            Show(topFormatted, bottomFormatted, null, yesCallback);
+            Show(topFormatted, bottomFormatted, null, yesCallback, availablePoints >= colorSchemeCost);
         }
 
         private string GetProperPointsString(int count)

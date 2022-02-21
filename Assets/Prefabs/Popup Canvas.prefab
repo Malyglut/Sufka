@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4611667953254143023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578235620664365966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e88f9e930524539bc8402b4a7c9aa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _regularColorWeight: 1
+  _targetGraphics:
+  - {fileID: 6210069354659259739}
 --- !u!1 &3364042319471970310
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +490,7 @@ MonoBehaviour:
   _bottomText: {fileID: 3364042321124135802}
   _noButton: {fileID: 1592630698264817735}
   _yesButton: {fileID: 1592630699451704725}
+  _yesButtonColors: {fileID: 4611667953254143023}
 --- !u!1 &3364042320777949341
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +524,7 @@ RectTransform:
   m_Father: {fileID: 3364042319531983667}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.014641289}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -1176,9 +1192,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4086264063990002627, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
   m_PrefabInstance: {fileID: 3364042321319564886}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2578235620664365966}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6210069354659259739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8683471721357062925, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
+  m_PrefabInstance: {fileID: 3364042321319564886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2578235620664365966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 966234368753747416, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
+  m_PrefabInstance: {fileID: 3364042321319564886}
+  m_PrefabAsset: {fileID: 0}
