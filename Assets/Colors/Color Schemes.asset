@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Color Schemes
   m_EditorClassIdentifier: 
   _colorSchemes:
+  - {fileID: 11400000, guid: ffba46d9683205c45b5b0b57ec5f13fa, type: 2}
   - {fileID: 11400000, guid: 4bec4b23128f11f4ba97991d758897c5, type: 2}
   - {fileID: 11400000, guid: 047275f2fd6723a47a5f9ec631f4f113, type: 2}
   - {fileID: 11400000, guid: 794310f13f4a3704da8073989f46e59f, type: 2}
   - {fileID: 11400000, guid: eeddc90ccd5f3464fa69ec62b3e425e6, type: 2}
-  - {fileID: 11400000, guid: ffba46d9683205c45b5b0b57ec5f13fa, type: 2}
   - {fileID: 11400000, guid: 872a475c68ccf164ca598c0253e2a636, type: 2}
   - {fileID: 11400000, guid: ff974759d8dd25442b622261361671f6, type: 2}

@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sufka.Game.Colors
@@ -7,7 +7,8 @@ namespace Sufka.Game.Colors
     public class ColorSchemeDatabase : ScriptableObject
     {
         [SerializeField]
-        private ColorScheme[] _colorSchemes = { };
-        public ColorScheme[] ColorSchemes => _colorSchemes;
+        private List<ColorScheme> _colorSchemes = new List<ColorScheme>();
+        public List<ColorScheme> ColorSchemes => new List<ColorScheme>(_colorSchemes);
+        public int ColorSchemeCount => _colorSchemes.Count;
     }
 }

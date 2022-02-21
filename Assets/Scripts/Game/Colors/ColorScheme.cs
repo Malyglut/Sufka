@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sufka.Game.Colors
@@ -7,6 +5,9 @@ namespace Sufka.Game.Colors
     [CreateAssetMenu(fileName = "Color Scheme", menuName = "Sufka/Color Scheme", order = 0)]
     public class ColorScheme : ScriptableObject
     {
+        [SerializeField]
+        private int _unlockCost;
+        
         [SerializeField]
         private string _name;
         
@@ -29,6 +30,8 @@ namespace Sufka.Game.Colors
         private Color _failColor = Color.white;
 
         public string Name => _name;
+        public int UnlockCost => _unlockCost;
+
         public Color GetColor(ColorWeight colorWeight)
         {
             var color = _failColor;

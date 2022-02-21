@@ -10,6 +10,8 @@ namespace Sufka.Game.Popup
         private const string HINT_AD_TOP_TEXT = "Wykorzystano wszystkie podpowiedzi.";
         private const string HINT_AD_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć kolejne 10 podpowiedzi?";
         private const string BACK_TO_MENU_TOP_TEXT = "Czy na pewno chcesz wrócić do menu głównego?";
+        private const string UNLOCK_COLOR_TOP_TEXT = "Czy chcesz odblokować kolor \"{0}\" za {1} punktów?";
+        private const string UNLOCK_BOTTOM_TEXT = "Obecnie posiadasz {0} punktów.";
         
         [SerializeField]
         private GameObject _root;
@@ -66,6 +68,14 @@ namespace Sufka.Game.Popup
         public void ShowBackToMenuPopup(Action yesCallback)
         {
             Show(BACK_TO_MENU_TOP_TEXT, string.Empty, null, yesCallback);
+        }
+
+        public void UnlockColorSchemePopup(string colorSchemeName, int colorSchemeCost, int availablePoints, Action yesCallback)
+        {
+            var topFormatted = string.Format(UNLOCK_COLOR_TOP_TEXT, colorSchemeName, colorSchemeCost);
+            var bottomFormatted = string.Format(UNLOCK_BOTTOM_TEXT, availablePoints);
+
+            Show(topFormatted, bottomFormatted, null, yesCallback);
         }
     }
 }

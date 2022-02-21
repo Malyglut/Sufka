@@ -21,6 +21,7 @@ namespace Sufka.Game.MainMenu
         private const string STATISTICS_BUTTONS_LABEL = "statystyki";
 
         public event Action<WordLength> OnRequestGameStart;
+        public event Action<ColorScheme> OnRequestUnlockColorScheme;
         public event Action OnRequestContinueGame;
 
         [SerializeField]
@@ -67,6 +68,7 @@ namespace Sufka.Game.MainMenu
             _colorsButton.onClick.AddListener(ShowColorsScreen);
             _continueButton.onClick.AddListener(RequestContinueGame);
 
+            _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
             _colorsScreen.Initialize();
 
             foreach (var button in _startGameButtons)
@@ -75,6 +77,11 @@ namespace Sufka.Game.MainMenu
             }
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void RequestUnlockColorScheme(ColorScheme colorScheme)
+        {
+            OnRequestUnlockColorScheme.Invoke(colorScheme);
         }
 
         private void RequestContinueGame()
@@ -151,6 +158,11 @@ namespace Sufka.Game.MainMenu
         {
             _continueButton.gameObject.SetActive(gameInProgress);
             _backStack.Peek().SetActive(true);
+        }
+
+        public void RefreshColorSchemes()
+        {
+            _colorsScreen.RefreshAvailableColorSchemes();
         }
     }
 }

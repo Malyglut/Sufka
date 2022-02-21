@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Sufka.Game.Statistics;
+using Sufka.Game.Unlocks;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,12 +12,44 @@ namespace Sufka.Game.Persistence
     {
         private const string SAVE_FILE_NAME = "sufka";
         private const string GAME_IN_PROGRESS_FILE_NAME = "sufka_progress";
+        private const string UNLOCKS_FILE_NAME = "sufka_unlocks";
         private const string SAVE_FILE_EXTENSION = ".save";
 
         private static string SavePath => $"{Application.persistentDataPath}/{SAVE_FILE_NAME}{SAVE_FILE_EXTENSION}";
         private static string GameInProgressPath =>
             $"{Application.persistentDataPath}/{GAME_IN_PROGRESS_FILE_NAME}{SAVE_FILE_EXTENSION}";
 
+        private static string UnlocksPath => $"{Application.persistentDataPath}/{UNLOCKS_FILE_NAME}{SAVE_FILE_EXTENSION}";
+
+        private static void SaveFile<T>(T data, string filePath)
+        {
+            var fileStream = new FileStream(filePath, FileMode.Create);
+            var converter = new BinaryFormatter();
+            
+            converter.Serialize(fileStream, data);
+            fileStream.Close();
+        }
+
+        private static T LoadFile<T>(string filePath) where T : new()
+        {
+            var data = new T();
+            
+            try
+            {
+                var fileStream = new FileStream(filePath, FileMode.Open);
+                var converter = new BinaryFormatter();
+                
+                data = (T) converter.Deserialize(fileStream);
+                fileStream.Close();
+            }
+            catch (Exception e)
+            {
+                //do nothing
+            }
+
+            return data;
+        }
+        
         public static void SaveGame(int score, int availableHints, WordStatistics[] wordStatistics)
         {
             var saveData = new SaveData
@@ -26,58 +59,32 @@ namespace Sufka.Game.Persistence
                                wordStatistics = wordStatistics
                            };
 
-            var fileStream = new FileStream(SavePath, FileMode.Create);
-
-            var converter = new BinaryFormatter();
-            converter.Serialize(fileStream, saveData);
-
-            fileStream.Close();
+            SaveFile(saveData, SavePath);
         }
 
         public static void SaveGameInProgress(GameInProgressSaveData data)
         {
-            var fileStream = new FileStream(GameInProgressPath, FileMode.Create);
+            SaveFile(data, GameInProgressPath);
+        }
 
-            var converter = new BinaryFormatter();
-            converter.Serialize(fileStream, data);
+        public static void SaveUnlocksData(UnlocksData data)
+        {
+            SaveFile(data, UnlocksPath);
+        }
 
-            fileStream.Close();
+        public static UnlocksData LoadUnlocks()
+        {
+            return LoadFile<UnlocksData>(UnlocksPath);
         }
 
         public static SaveData LoadGame()
         {
-            var saveData = new SaveData();
-
-            try
-            {
-                var fileStream = new FileStream(SavePath, FileMode.Open);
-                var converter = new BinaryFormatter();
-                saveData = (SaveData) converter.Deserialize(fileStream);
-            }
-            catch (Exception e)
-            {
-                //do nothing
-            }
-
-            return saveData;
+            return LoadFile<SaveData>(SavePath);
         }
 
         public static GameInProgressSaveData LoadGameInProgress()
         {
-            var gameInProgressData = new GameInProgressSaveData();
-
-            try
-            {
-                var fileStream = new FileStream(GameInProgressPath, FileMode.Open);
-                var converter = new BinaryFormatter();
-                gameInProgressData = (GameInProgressSaveData) converter.Deserialize(fileStream);
-            }
-            catch (Exception e)
-            {
-                //do nothing
-            }
-
-            return gameInProgressData;
+            return LoadFile<GameInProgressSaveData>(GameInProgressPath);
         }
 
         public static bool SaveFileExists()
@@ -97,8 +104,14 @@ namespace Sufka.Game.Persistence
             if (SaveFileExists())
             {
                 File.Delete(SavePath);
+                File.Delete(GameInProgressPath);
+                File.Delete(UnlocksPath);
             }
         }
 #endif
+        public static bool UnlocksFileExists()
+        {
+            return File.Exists(UnlocksPath);
+        }
     }
 }

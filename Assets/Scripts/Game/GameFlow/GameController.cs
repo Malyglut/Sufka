@@ -1,10 +1,12 @@
 using System;
 using Sirenix.OdinInspector;
 using Sufka.Game.Ads;
+using Sufka.Game.Colors;
 using Sufka.Game.MainMenu;
 using Sufka.Game.Persistence;
 using Sufka.Game.Popup;
 using Sufka.Game.Statistics;
+using Sufka.Game.Unlocks;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -17,6 +19,9 @@ namespace Sufka.Game.GameFlow
         public event Action OnAvailableHintsUpdated;
 
         [SerializeField]
+        private ColorSchemeDatabase _colorSchemeDatabase;
+        
+        [SerializeField]
         private MainMenuController _mainMenu;
 
         [SerializeField]
@@ -27,6 +32,7 @@ namespace Sufka.Game.GameFlow
 
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
+        public UnlocksData _unlocks { get; private set; } = new UnlocksData();
         private GameInProgressSaveData _gameInProgressSaveData;
 
         public int Score { get; private set; }
@@ -45,6 +51,7 @@ namespace Sufka.Game.GameFlow
 
             _mainMenu.OnRequestGameStart += StartGame;
             _mainMenu.OnRequestContinueGame += ContinueGame;
+            _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
             _mainMenu.Initialize();
 
             ShowMainMenu();
@@ -52,6 +59,21 @@ namespace Sufka.Game.GameFlow
             _ads.Initialize(this);
 
             _popup.Initialize();
+        }
+
+        private void ShowUnlockColorSchemePopup(ColorScheme colorScheme)
+        {
+            _popup.UnlockColorSchemePopup(colorScheme.Name, colorScheme.UnlockCost, Score, ()=> UnlockColorScheme(colorScheme));
+        }
+
+        private void UnlockColorScheme(ColorScheme colorScheme)
+        {
+            Score -= colorScheme.UnlockCost;
+            var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
+            _unlocks.unlockedColors[colorSchemeIdx] = true;
+            SaveSystem.SaveUnlocksData(_unlocks);
+
+            _mainMenu.RefreshColorSchemes();
         }
 
         private void SaveGameProgress()
@@ -117,9 +139,7 @@ namespace Sufka.Game.GameFlow
 
         private void LoadGame()
         {
-            SaveData saveData;
-
-            saveData = SaveSystem.SaveFileExists() ? SaveSystem.LoadGame() : new SaveData();
+            SaveData saveData = SaveSystem.SaveFileExists() ? SaveSystem.LoadGame() : new SaveData();
 
             Score = saveData.score;
             AvailableHints = saveData.availableHints;
@@ -130,6 +150,14 @@ namespace Sufka.Game.GameFlow
             _gameInProgressSaveData = SaveSystem.GameInProgressFileExists() ?
                                           SaveSystem.LoadGameInProgress() :
                                           new GameInProgressSaveData();
+
+            _unlocks = SaveSystem.UnlocksFileExists() ? SaveSystem.LoadUnlocks() : new UnlocksData();
+
+            if (_unlocks.unlockedColors.Count < _colorSchemeDatabase.ColorSchemeCount)
+            {
+                _unlocks.UpdateColorUnlocksCount(_colorSchemeDatabase.ColorSchemeCount);
+                SaveSystem.SaveUnlocksData(_unlocks);
+            }
         }
 
         [FoldoutGroup("Debug"), Button]
