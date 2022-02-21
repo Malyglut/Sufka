@@ -171,17 +171,6 @@ namespace Sufka.Game.GameFlow
             }
         }
 
-        [FoldoutGroup("Debug"), Button]
-        private void LogStatistics(WordLength wordLength)
-        {
-            var statistics = _statistics.GetStatistics(wordLength);
-
-            Debug.Log($"GUESSED WORDS: {statistics.guessedWords}");
-            Debug.Log($"FIRST ATTEMPT GUESSES: {statistics.firstAttemptGuesses}");
-            Debug.Log($"SECOND ATTEMPT GUESSES: {statistics.secondAttemptGuesses}");
-            Debug.Log($"HINTS USED: {statistics.hintsUsed}");
-        }
-
         public WordStatistics GetStatistics(WordLength wordLength)
         {
             return _statistics.GetStatistics(wordLength);
@@ -210,10 +199,14 @@ namespace Sufka.Game.GameFlow
             {
                 if (placementId == _ads.HintsAdId)
                 {
-                    AvailableHints = INITIAL_AVAILABLE_HINTS;
+                    AvailableHints += INITIAL_AVAILABLE_HINTS;
                     SaveGame();
 
                     OnAvailableHintsUpdated.Invoke();
+                }
+                else if (placementId == _ads.BonusPointsAdId)
+                {
+                    
                 }
             }
         }
