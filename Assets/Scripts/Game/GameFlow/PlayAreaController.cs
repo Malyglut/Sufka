@@ -37,8 +37,10 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private GameSetupDatabase _gameSetupDatabase;
 
+#if UNITY_EDITOR
         [FoldoutGroup("Debug"), SerializeField, ReadOnly]
         private string _currentWord;
+#endif
 
         [SerializeField]
         private GameController _gameController;
@@ -92,10 +94,18 @@ namespace Sufka.Game.GameFlow
             HintUsed = data.hintUsed;
 
             GuessedIndices.Clear();
+
+#if UNITY_EDITOR
             _currentWord = TargetWord.fullWord;
+#endif
 
             _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, TargetWord);
-            _playArea.MarkHint(HintRow, HintIdx, data.filledLetters[HintRow][HintIdx].letter);
+
+            if (HintUsed)
+            {
+                _playArea.MarkHint(HintRow, HintIdx, data.filledLetters[HintRow][HintIdx].letter);
+            }
+
             _playArea.RestoreLetters(data.filledLetters);
             _keyboard.Restore(HintUsed);
             _keyboard.RestoreKeys(data.filledLetters);
@@ -154,7 +164,9 @@ namespace Sufka.Game.GameFlow
             HintUsed = false;
             GuessedIndices.Clear();
 
+#if UNITY_EDITOR
             _currentWord = TargetWord.fullWord;
+#endif
 
             _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, TargetWord);
             _keyboard.Restore(HintUsed);
@@ -169,7 +181,9 @@ namespace Sufka.Game.GameFlow
             {
                 var result = WordValidator.Validate(TargetWord.interactivePart, _playArea.CurrentWord);
 
+#if UNITY_EDITOR
                 Debug.Log(result);
+#endif
 
                 foreach (var idx in result.GuessedIndices)
                 {
@@ -218,6 +232,12 @@ namespace Sufka.Game.GameFlow
             _playArea.InputLetter(letter);
         }
 
+        public void Hide()
+        {
+            _playAreaScreen.SetActive(false);
+        }
+
+#if UNITY_EDITOR
         [FoldoutGroup("Debug"), Button]
         private void NounRound()
         {
@@ -240,6 +260,7 @@ namespace Sufka.Game.GameFlow
         }
 
         [FoldoutGroup("Debug"), Button]
+#endif
         private void GetHint()
         {
             if (HintUsed || _gameController.AvailableHints == 0)
@@ -273,11 +294,6 @@ namespace Sufka.Game.GameFlow
             HintUsed = true;
             OnHintUsed.Invoke();
             OnGameProgressUpdated.Invoke();
-        }
-
-        public void Hide()
-        {
-            _playAreaScreen.SetActive(false);
         }
     }
 }
