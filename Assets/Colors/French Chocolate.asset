@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: French Chocolate
   m_EditorClassIdentifier: 
-  _name: Francuzka Czekolada
+  _name: Francuska Czekolada
   _primaryColor: {r: 0.5019608, g: 0.41960788, b: 0.37647063, a: 1}
   _secondaryColor: {r: 0.12156863, g: 0.09019608, b: 0.039215688, a: 1}
   _disabledColor: {r: 0.31764707, g: 0.26666668, b: 0.23921569, a: 1}

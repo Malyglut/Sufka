@@ -77,6 +77,7 @@ namespace Sufka.Game.Controls
         public void Refresh(ValidationResult result)
         {
             _keyGrid.Refresh(result);
+            DisableEnterButton();
         }
 
         public void Reset()
