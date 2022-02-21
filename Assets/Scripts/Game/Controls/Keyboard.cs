@@ -16,13 +16,13 @@ namespace Sufka.Game.Controls
 
         [SerializeField]
         private KeyGrid _keyGrid;
-        
+
         [SerializeField]
         private Button _enterButton;
-        
+
         [SerializeField]
         private Button _backButton;
-        
+
         [SerializeField]
         private HintButton _hintButton;
 
@@ -39,9 +39,9 @@ namespace Sufka.Game.Controls
             _hintButton.Initialize();
             _hintButton.OnHintRequested += HandleHintPress;
             _hintButton.OnHintAdRequested += HandleHintAdPress;
-            
+
             DisableEnterButton();
-            
+
             _enterButton.onClick.AddListener(HandleEnterPress);
             _backButton.onClick.AddListener(HandleBackPress);
 
@@ -80,10 +80,10 @@ namespace Sufka.Game.Controls
             DisableEnterButton();
         }
 
-        public void Reset()
+        public void Reset(bool hintUsed)
         {
             _keyGrid.Reset();
-            _hintButton.Reset();
+            _hintButton.Reset(hintUsed);
             DisableEnterButton();
         }
 

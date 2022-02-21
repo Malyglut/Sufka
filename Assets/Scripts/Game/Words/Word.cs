@@ -1,5 +1,8 @@
+using System;
+
 namespace Sufka.Game.Words
 {
+    [Serializable]
     public class Word
     {
         public readonly WordType wordType;

@@ -12,7 +12,7 @@ namespace Sufka.Game.GameFlow
 {
     public class GameController : MonoBehaviour, IUnityAdsListener
     {
-        private const int MAX_AVAILABLE_HINTS = 10;
+        private const int INITIAL_AVAILABLE_HINTS = 10;
 
         public event Action OnAvailableHintsUpdated;
 
@@ -27,9 +27,10 @@ namespace Sufka.Game.GameFlow
 
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
+        private GameInProgressSaveData _gameInProgressSaveData;
 
         public int Score { get; private set; }
-        public int AvailableHints { get; private set; } = MAX_AVAILABLE_HINTS;
+        public int AvailableHints { get; private set; } = INITIAL_AVAILABLE_HINTS;
 
         private void Start()
         {
@@ -40,23 +41,38 @@ namespace Sufka.Game.GameFlow
             _playArea.OnPointsAwarded += IncreaseScore;
             _playArea.OnHintAdRequested += ShowHintPopup;
             _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
+            _playArea.OnRoundStarted += SaveGameProgress;
 
             _mainMenu.OnRequestGameStart += StartGame;
+            _mainMenu.OnRequestContinueGame += ContinueGame;
+            _mainMenu.Initialize();
+
+            ShowMainMenu();
 
             _ads.Initialize(this);
 
             _popup.Initialize();
         }
 
+        private void SaveGameProgress()
+        {
+            _gameInProgressSaveData.gameInProgress = true;
+            _gameInProgressSaveData.targetWord = _playArea.TargetWord;
+            _gameInProgressSaveData.hintUsed = _playArea.HintUsed;
+            _gameInProgressSaveData.wordLength = _playArea.WordLength;
+
+            SaveSystem.SaveGameInProgress(_gameInProgressSaveData);
+        }
+
         private void ShowBackToMenuPopup()
         {
             _popup.ShowBackToMenuPopup(ShowMainMenu);
         }
-        
+
         private void ShowMainMenu()
         {
             _playArea.Hide();
-            _mainMenu.ShowTitleScreen();
+            _mainMenu.ShowTitleScreen(_gameInProgressSaveData.gameInProgress);
         }
 
         private void ShowHintPopup()
@@ -85,11 +101,20 @@ namespace Sufka.Game.GameFlow
             AvailableHints--;
             _statistics.HandleHintUsed(_playArea.WordLength);
             SaveGame();
+            
+            _gameInProgressSaveData.hintUsed = true;
+            SaveSystem.SaveGameInProgress(_gameInProgressSaveData);
         }
 
         private void StartGame(WordLength wordLength)
         {
             _playArea.StartGame(wordLength);
+        }
+
+        private void ContinueGame()
+        {
+            _playArea.StartGame(_gameInProgressSaveData.wordLength, _gameInProgressSaveData.targetWord,
+                                _gameInProgressSaveData.hintUsed);
         }
 
         private void SaveGame()
@@ -105,9 +130,13 @@ namespace Sufka.Game.GameFlow
 
             Score = saveData.score;
             AvailableHints = saveData.availableHints;
-            AvailableHints = Mathf.Min(AvailableHints, MAX_AVAILABLE_HINTS);
+            AvailableHints = Mathf.Min(AvailableHints, INITIAL_AVAILABLE_HINTS);
 
             _statistics.Load(saveData);
+
+            _gameInProgressSaveData = SaveSystem.GameInProgressFileExists() ?
+                                          SaveSystem.LoadGameInProgress() :
+                                          new GameInProgressSaveData();
         }
 
         [FoldoutGroup("Debug"), Button]
@@ -147,13 +176,13 @@ namespace Sufka.Game.GameFlow
 
             if (showResult == ShowResult.Finished)
             {
-               if(placementId == _ads.HintsAdId)
-               {
-                   AvailableHints = MAX_AVAILABLE_HINTS;
-                   SaveGame();
+                if (placementId == _ads.HintsAdId)
+                {
+                    AvailableHints = INITIAL_AVAILABLE_HINTS;
+                    SaveGame();
 
-                   OnAvailableHintsUpdated.Invoke();
-               }
+                    OnAvailableHintsUpdated.Invoke();
+                }
             }
         }
     }

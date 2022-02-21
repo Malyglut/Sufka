@@ -11,16 +11,17 @@ namespace Sufka.Game.MainMenu
 {
     public class MainMenuController : MonoBehaviour
     {
-        private const string PLAY_BUTTONS_LABEL = "graj";
-        private const string STATISTICS_BUTTONS_LABEL = "statystyki";
-        
         private enum ButtonMode
         {
             Play,
             Statistics
         }
 
+        private const string PLAY_BUTTONS_LABEL = "graj";
+        private const string STATISTICS_BUTTONS_LABEL = "statystyki";
+
         public event Action<WordLength> OnRequestGameStart;
+        public event Action OnRequestContinueGame;
 
         [SerializeField]
         private GameObject _titleScreen;
@@ -33,13 +34,15 @@ namespace Sufka.Game.MainMenu
 
         [SerializeField]
         private Button _backButton;
+        [SerializeField]
+        private Button _continueButton;
 
         [SerializeField]
         private GameObject _buttonsScreen;
 
         [SerializeField]
         private StatisticsScreen _statisticsScreen;
-        
+
         [SerializeField]
         private ColorsScreen _colorsScreen;
 
@@ -56,13 +59,14 @@ namespace Sufka.Game.MainMenu
 
         private ButtonMode _currentButtonMode = ButtonMode.Play;
 
-        private void Start()
+        public void Initialize()
         {
             _playButton.onClick.AddListener(ShowPlayButtons);
             _backButton.onClick.AddListener(Back);
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);
             _colorsButton.onClick.AddListener(ShowColorsScreen);
-            
+            _continueButton.onClick.AddListener(RequestContinueGame);
+
             _colorsScreen.Initialize();
 
             foreach (var button in _startGameButtons)
@@ -71,6 +75,12 @@ namespace Sufka.Game.MainMenu
             }
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void RequestContinueGame()
+        {
+            ResetToTitleScreen();
+            OnRequestContinueGame.Invoke();
         }
 
         private void ShowColorsScreen()
@@ -137,8 +147,9 @@ namespace Sufka.Game.MainMenu
             _backButton.gameObject.SetActive(false);
         }
 
-        public void ShowTitleScreen()
+        public void ShowTitleScreen(bool gameInProgress)
         {
+            _continueButton.gameObject.SetActive(gameInProgress);
             _backStack.Peek().SetActive(true);
         }
     }

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e88f9e930524539bc8402b4a7c9aa7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _regularColor: {r: 0.5019608, g: 0.41960788, b: 0.37647063, a: 1}
-  _disabledColor: {r: 0.5019608, g: 0.41960788, b: 0.37647063, a: 0.5019608}
+  _regularColorWeight: 0
   _targetGraphics:
   - {fileID: 8389339302268913752}
 --- !u!1 &931409646742605741
@@ -1250,8 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e88f9e930524539bc8402b4a7c9aa7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _regularColor: {r: 0.12156863, g: 0.09019608, b: 0.039215688, a: 1}
-  _disabledColor: {r: 0.12156863, g: 0.09019608, b: 0.039215688, a: 0.5019608}
+  _regularColorWeight: 1
   _targetGraphics:
   - {fileID: 931409646916051748}
   - {fileID: 931409647148415894}

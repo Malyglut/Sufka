@@ -25,9 +25,9 @@ namespace Sufka.Game.GameFlow
             _gameController.OnRoundStarted += Refresh;
         }
 
-        private void Refresh(Word word)
+        private void Refresh()
         {
-            var wordTypeString = _wordTypeStrings[word.wordType];
+            var wordTypeString = _wordTypeStrings[_gameController.TargetWord.wordType];
             _text.SetText(wordTypeString);
         }
     }

@@ -10,7 +10,7 @@ namespace Sufka.Game.GameFlow
     {
         public event Action OnCurrentRowFull;
         public event Action OnCurrentRowNotFull;
-        
+
         [SerializeField]
         private LetterRow _letterRowPrefab;
 
@@ -18,14 +18,13 @@ namespace Sufka.Game.GameFlow
         private Transform _rowsParent;
 
         private readonly List<LetterRow> _rows = new List<LetterRow>();
-        private int _currentRowIdx;
 
-        private LetterRow CurrentRow => _rows[_currentRowIdx];
+        private LetterRow CurrentRow => _rows[Attempt];
         public char[] CurrentWord => CurrentRow.Word;
         public bool ValidInput => CurrentRow.IsFull;
-        public bool LastAttempt => _currentRowIdx >= _rows.Count - 1;
+        public bool LastAttempt => Attempt >= _rows.Count - 1;
 
-        public int Attempt => _currentRowIdx;
+        public int Attempt { get; private set; }
 
         public void Initialize(int rows, int letters, Word targetWord)
         {
@@ -45,8 +44,8 @@ namespace Sufka.Game.GameFlow
             if (!CurrentRow.IsEmpty)
             {
                 CurrentRow.RemoveLastLetter();
-                
-                if(!CurrentRow.IsFull)
+
+                if (!CurrentRow.IsFull)
                 {
                     OnCurrentRowNotFull.Invoke();
                 }
@@ -69,25 +68,25 @@ namespace Sufka.Game.GameFlow
         public void Display(ValidationResult result)
         {
             CurrentRow.Display(result);
-            _currentRowIdx++;
+            Attempt++;
             CurrentRow.Prepare();
         }
 
         public void Reset()
         {
-            _currentRowIdx = 0;
+            Attempt = 0;
 
             foreach (var row in _rows)
             {
                 Destroy(row.gameObject);
             }
-            
+
             _rows.Clear();
         }
 
         public void MarkGuessed(int hintIdx, char hintLetter)
-        { 
-            _rows[_currentRowIdx].MarkGuessed(hintIdx, hintLetter);
+        {
+            _rows[Attempt].MarkGuessed(hintIdx, hintLetter);
         }
     }
 }

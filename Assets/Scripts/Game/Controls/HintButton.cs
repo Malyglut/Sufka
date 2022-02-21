@@ -33,8 +33,7 @@ namespace Sufka.Game.Controls
             if (_gameController.AvailableHints > 0)
             {
                 OnHintRequested.Invoke();
-                _button.interactable = false;
-                _buttonColors.Disable();
+                Disable();
             }
             else
             {
@@ -44,6 +43,12 @@ namespace Sufka.Game.Controls
             Refresh();
         }
 
+        private void Disable()
+        {
+            _button.interactable = false;
+            _buttonColors.Disable();
+        }
+
         public void Initialize()
         {
             _gameController.OnAvailableHintsUpdated += Refresh;
@@ -51,10 +56,17 @@ namespace Sufka.Game.Controls
             Refresh();
         }
 
-        public void Reset()
+        public void Reset(bool hintUsed)
         {
-            _buttonColors.Enable();
-            _button.interactable = true;
+            if (hintUsed)
+            {
+                Disable();
+            }
+            else
+            {
+                _buttonColors.Enable();
+                _button.interactable = true;
+            }
         }
     }
 }
