@@ -35,7 +35,7 @@ namespace Sufka.Game.Colors
             {
                 var colorScheme = _colors.ColorSchemes[i];
                 var colorDisplay = Instantiate(_colorDisplayPrefab, _colorDisplaysRoot);
-                var unlocked = _gameController.Unlocks.unlockedColors[i];
+                var unlocked = _gameController.UnlockedColors[i];
 
                 colorDisplay.Initialize(colorScheme, unlocked);
 
@@ -61,7 +61,7 @@ namespace Sufka.Game.Colors
         {
             for (var i = 0; i < _colors.ColorSchemeCount; i++)
             {
-                var unlocked = _gameController.Unlocks.unlockedColors[i];
+                var unlocked = _gameController.UnlockedColors[i];
                 _displays[i].RefreshAvailability(unlocked);
             }
         }

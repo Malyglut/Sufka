@@ -12,14 +12,11 @@ namespace Sufka.Game.Persistence
     {
         private const string SAVE_FILE_NAME = "sufka";
         private const string GAME_IN_PROGRESS_FILE_NAME = "sufka_progress";
-        private const string UNLOCKS_FILE_NAME = "sufka_unlocks";
         private const string SAVE_FILE_EXTENSION = ".save";
 
         private static string SavePath => $"{Application.persistentDataPath}/{SAVE_FILE_NAME}{SAVE_FILE_EXTENSION}";
         private static string GameInProgressPath =>
             $"{Application.persistentDataPath}/{GAME_IN_PROGRESS_FILE_NAME}{SAVE_FILE_EXTENSION}";
-
-        private static string UnlocksPath => $"{Application.persistentDataPath}/{UNLOCKS_FILE_NAME}{SAVE_FILE_EXTENSION}";
 
         private static void SaveFile<T>(T data, string filePath)
         {
@@ -50,31 +47,14 @@ namespace Sufka.Game.Persistence
             return data;
         }
         
-        public static void SaveGame(int score, int availableHints, WordStatistics[] wordStatistics)
+        public static void SaveGame(SaveData data)
         {
-            var saveData = new SaveData
-                           {
-                               score = score,
-                               availableHints = availableHints,
-                               wordStatistics = wordStatistics
-                           };
-
-            SaveFile(saveData, SavePath);
+            SaveFile(data, SavePath);
         }
 
         public static void SaveGameInProgress(GameInProgressSaveData data)
         {
             SaveFile(data, GameInProgressPath);
-        }
-
-        public static void SaveUnlocksData(UnlocksData data)
-        {
-            SaveFile(data, UnlocksPath);
-        }
-
-        public static UnlocksData LoadUnlocks()
-        {
-            return LoadFile<UnlocksData>(UnlocksPath);
         }
 
         public static SaveData LoadGame()
@@ -95,7 +75,6 @@ namespace Sufka.Game.Persistence
             {
                 File.Delete(SavePath);
                 File.Delete(GameInProgressPath);
-                File.Delete(UnlocksPath);
             }
             catch (Exception e)
             {

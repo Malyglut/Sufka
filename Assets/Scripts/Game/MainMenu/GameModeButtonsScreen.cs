@@ -68,7 +68,7 @@ namespace Sufka.Game.MainMenu
             foreach (var button in _buttons)
             {
                 var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
-                var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                var unlocked = _gameController.UnlockedGameModes[gameModeIdx];
                 button.gameObject.SetActive(true);
                 button.RefreshAvailability(unlocked);
             }
@@ -82,7 +82,7 @@ namespace Sufka.Game.MainMenu
             foreach (var button in _buttons)
             {
                 var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
-                var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                var unlocked = _gameController.UnlockedGameModes[gameModeIdx];
                 button.RefreshAvailability(true);
                 button.gameObject.SetActive(unlocked);
             }
@@ -93,7 +93,7 @@ namespace Sufka.Game.MainMenu
             foreach (var button in _buttons)
             {
                 var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
-                var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                var unlocked = _gameController.UnlockedGameModes[gameModeIdx];
                 button.RefreshAvailability(unlocked);
             }
         }

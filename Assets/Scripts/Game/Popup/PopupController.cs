@@ -14,6 +14,9 @@ namespace Sufka.Game.Popup
         private const string UNLOCK_COLOR_TOP_TEXT = "Czy chcesz odblokować kolor \"{0}\" za {1} {2}?";
         private const string UNLOCK_GAME_MODE_TOP_TEXT = "Czy chcesz odblokować tryb gry \"{0}\" za {1} {2}?";
         private const string UNLOCK_BOTTOM_TEXT = "Obecnie posiadasz {0} {1}.";
+        private const string PUNKTOW_STRING = "punktów";
+        private const string PUNKT_STRING = "punkt";
+        private const string PUNKTY_STRING = "punkty";
         
         [SerializeField]
         private GameObject _root;
@@ -119,19 +122,19 @@ namespace Sufka.Game.Popup
 
             if (count == 0)
             {
-                pointsString = "punktów";
+                pointsString = PUNKTOW_STRING;
             }
             else if (count == 1)
             {
-                pointsString = "punkt";
+                pointsString = PUNKT_STRING;
             }
             else if(count <=4)
             {
-                pointsString = "punkty";
+                pointsString = PUNKTY_STRING;
             }
             else
             {
-                pointsString = "punktów";
+                pointsString = PUNKTOW_STRING;
             }
 
             return pointsString;
