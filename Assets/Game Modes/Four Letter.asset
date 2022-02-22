@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Four Letter
   m_EditorClassIdentifier: 
   _name: "4 - liter\xF3wki"
-  _unlockCost: 0
+  _unlockCost: 500
