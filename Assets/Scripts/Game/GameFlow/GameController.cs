@@ -1,5 +1,4 @@
 using System;
-using Sirenix.OdinInspector;
 using Sufka.Game.Ads;
 using Sufka.Game.Colors;
 using Sufka.Game.MainMenu;
@@ -20,6 +19,9 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private ColorSchemeDatabase _colorSchemeDatabase;
+
+        [SerializeField]
+        private AvailableGameModes _availableGameModes;
         
         [SerializeField]
         private MainMenuController _mainMenu;
@@ -32,12 +34,12 @@ namespace Sufka.Game.GameFlow
 
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
-        public UnlocksData _unlocks { get; private set; } = new UnlocksData();
+        public UnlocksData Unlocks { get; private set; } = new UnlocksData();
         private GameInProgressSaveData _gameInProgressSaveData;
 
         public int Score { get; private set; }
         public int AvailableHints { get; private set; } = INITIAL_AVAILABLE_HINTS;
-        public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[_unlocks.selectedColorSchemeIdx];
+        public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[Unlocks.selectedColorSchemeIdx];
 
         private void Start()
         {
@@ -54,6 +56,7 @@ namespace Sufka.Game.GameFlow
             _mainMenu.OnRequestContinueGame += ContinueGame;
             _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
             _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
+            _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
             _mainMenu.Initialize();
 
             ShowMainMenu();
@@ -63,11 +66,16 @@ namespace Sufka.Game.GameFlow
             _popup.Initialize();
         }
 
+        private void ShowUnlockGameModePopup(GameMode wordLength)
+        {
+            // _popup.UnlockGameModePopup();
+        }
+
         private void UpdateSelectedColorScheme(ColorScheme colorScheme)
         {
             var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
-            _unlocks.selectedColorSchemeIdx = colorSchemeIdx;
-            SaveSystem.SaveUnlocksData(_unlocks);
+            Unlocks.selectedColorSchemeIdx = colorSchemeIdx;
+            SaveSystem.SaveUnlocksData(Unlocks);
         }
 
         private void ShowUnlockColorSchemePopup(ColorScheme colorScheme)
@@ -81,15 +89,16 @@ namespace Sufka.Game.GameFlow
             SaveGame();
             
             var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
-            _unlocks.unlockedColors[colorSchemeIdx] = true;
-            SaveSystem.SaveUnlocksData(_unlocks);
+            Unlocks.unlockedColors[colorSchemeIdx] = true;
+            SaveSystem.SaveUnlocksData(Unlocks);
 
             _mainMenu.RefreshColorSchemes();
         }
 
         private void SaveGameProgress()
         {
-            _gameInProgressSaveData.Update(true, _playArea);
+            var gameModeIdx = _availableGameModes.GameModes.IndexOf(_playArea.GameMode);
+            _gameInProgressSaveData.Update(true, gameModeIdx, _playArea);
 
             SaveSystem.SaveGameInProgress(_gameInProgressSaveData);
         }
@@ -122,25 +131,26 @@ namespace Sufka.Game.GameFlow
 
         private void HandleWordGuessed(int attempt)
         {
-            _statistics.HandleWordGuessed(_playArea.WordLength, attempt);
+            _statistics.HandleWordGuessed(_playArea.GameMode, attempt, _availableGameModes);
             SaveGame();
         }
 
         private void HandleHintUsed()
         {
             AvailableHints--;
-            _statistics.HandleHintUsed(_playArea.WordLength);
+            _statistics.HandleHintUsed(_playArea.GameMode, _availableGameModes);
             SaveGame();
         }
 
-        private void StartGame(WordLength wordLength)
+        private void StartGame(GameMode gameMode)
         {
-            _playArea.StartGame(wordLength);
+            _playArea.StartGame(gameMode);
         }
 
         private void ContinueGame()
         {
-            _playArea.StartGame(_gameInProgressSaveData);
+            var gameMode = _availableGameModes.GameModes[_gameInProgressSaveData.gameModeIdx];
+            _playArea.StartGame(gameMode, _gameInProgressSaveData);
         }
 
         private void SaveGame()
@@ -156,24 +166,30 @@ namespace Sufka.Game.GameFlow
             AvailableHints = saveData.availableHints;
             AvailableHints = Mathf.Min(AvailableHints, INITIAL_AVAILABLE_HINTS);
 
-            _statistics.Load(saveData);
+            _statistics.Load(saveData, _availableGameModes);
 
             _gameInProgressSaveData = SaveSystem.GameInProgressFileExists() ?
                                           SaveSystem.LoadGameInProgress() :
                                           new GameInProgressSaveData();
 
-            _unlocks = SaveSystem.UnlocksFileExists() ? SaveSystem.LoadUnlocks() : new UnlocksData();
+            Unlocks = SaveSystem.UnlocksFileExists() ? SaveSystem.LoadUnlocks() : new UnlocksData();
 
-            if (_unlocks.unlockedColors.Count < _colorSchemeDatabase.ColorSchemeCount)
+            if (Unlocks.unlockedColors.Count < _colorSchemeDatabase.ColorSchemeCount)
             {
-                _unlocks.UpdateColorUnlocksCount(_colorSchemeDatabase.ColorSchemeCount);
-                SaveSystem.SaveUnlocksData(_unlocks);
+                Unlocks.UpdateColorUnlocksCount(_colorSchemeDatabase.ColorSchemeCount);
+                SaveSystem.SaveUnlocksData(Unlocks);
+            }
+
+            if (Unlocks.unlockedGameModes.Count < _availableGameModes.GameModesCount)
+            {
+                Unlocks.UpdateGameModeUnlocksCount(_availableGameModes.GameModesCount);
+                SaveSystem.SaveUnlocksData(Unlocks);
             }
         }
 
-        public WordStatistics GetStatistics(WordLength wordLength)
+        public WordStatistics GetStatistics(GameMode gameMode)
         {
-            return _statistics.GetStatistics(wordLength);
+            return _statistics.GetStatistics(gameMode, _availableGameModes);
         }
 
         public void OnUnityAdsReady(string placementId)
@@ -209,6 +225,11 @@ namespace Sufka.Game.GameFlow
                     
                 }
             }
+        }
+
+        public int GetGameModeIdx(GameMode gameMode)
+        {
+            return _availableGameModes.GameModes.IndexOf(gameMode);
         }
     }
 }

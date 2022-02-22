@@ -5,7 +5,7 @@ namespace Sufka.Game.GameFlow
     [Serializable]
     public class WordLengthGameSetup
     {
-        public WordLength wordLength;
+        public GameMode wordLength;
         public GameSetup gameSetup;
     }
 }

@@ -6,15 +6,15 @@ namespace Sufka.Game.Statistics
     [Serializable]
     public class WordStatistics
     {
-        public WordLength wordLength;
+        public int gameModeIdx;
         public int guessedWords;
         public int hintsUsed;
         public int firstAttemptGuesses;
         public int secondAttemptGuesses;
 
-        public WordStatistics(WordLength wordLength)
+        public WordStatistics(int gameModeIdx)
         {
-            this.wordLength = wordLength;
+            this.gameModeIdx = gameModeIdx;
         }
     }
 }

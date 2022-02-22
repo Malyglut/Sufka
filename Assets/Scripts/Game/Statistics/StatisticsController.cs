@@ -2,15 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Sufka.Game.GameFlow;
 using Sufka.Game.Persistence;
+using Sufka.Game.Unlocks;
 
 namespace Sufka.Game.Statistics
 {
     public class StatisticsController
     {
-        private Dictionary<WordLength, WordStatistics> _wordLengthStatistics =
-            new Dictionary<WordLength, WordStatistics>();
+        private Dictionary<GameMode, WordStatistics> _wordLengthStatistics =
+            new Dictionary<GameMode, WordStatistics>();
        
-       public void Load(SaveData saveData)
+       public void Load(SaveData saveData, AvailableGameModes gameModes)
        {
            if (saveData.wordStatistics == null)
            {
@@ -19,15 +20,16 @@ namespace Sufka.Game.Statistics
            
            foreach (var wordStatistics in saveData.wordStatistics)
            {
-               _wordLengthStatistics.Add(wordStatistics.wordLength, wordStatistics);
+               var gameMode = gameModes.GameModes[wordStatistics.gameModeIdx];
+               _wordLengthStatistics.Add(gameMode, wordStatistics);
            }
        }
 
        public WordStatistics[] WordStatistics => _wordLengthStatistics.Values.ToArray();
 
-       public void HandleWordGuessed(WordLength wordLength, int attempt)
+       public void HandleWordGuessed(GameMode gameMode, int attempt, AvailableGameModes gameModes)
        {
-           var statistics = GetStatistics(wordLength);
+           var statistics = GetStatistics(gameMode, gameModes);
 
            statistics.guessedWords++;
 
@@ -41,19 +43,20 @@ namespace Sufka.Game.Statistics
            }
        }
 
-       public void HandleHintUsed(WordLength wordLength)
+       public void HandleHintUsed(GameMode gameMode, AvailableGameModes gameModes)
        {
-           GetStatistics(wordLength).hintsUsed++;
+           GetStatistics(gameMode, gameModes).hintsUsed++;
        }
 
-       public WordStatistics GetStatistics(WordLength wordLength)
+       public WordStatistics GetStatistics(GameMode gameMode, AvailableGameModes gameModes)
        {
-           if (!_wordLengthStatistics.ContainsKey(wordLength))
+           if (!_wordLengthStatistics.ContainsKey(gameMode))
            {
-               _wordLengthStatistics.Add(wordLength, new WordStatistics(wordLength));
+               var gameModeIdx = gameModes.GameModes.IndexOf(gameMode);
+               _wordLengthStatistics.Add(gameMode, new WordStatistics(gameModeIdx));
            }
 
-           return _wordLengthStatistics[wordLength];
+           return _wordLengthStatistics[gameMode];
        }
     }
 }

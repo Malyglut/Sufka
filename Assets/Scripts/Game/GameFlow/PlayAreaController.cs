@@ -54,7 +54,7 @@ namespace Sufka.Game.GameFlow
         private GameSetup _currentGameSetup;
         private bool _initialized;
 
-        public WordLength WordLength { get; private set; }
+        public GameMode GameMode { get; private set; }
         public Word TargetWord { get; private set; }
         public bool HintUsed { get; private set; }
         public int HintIdx { get; private set; }
@@ -64,12 +64,12 @@ namespace Sufka.Game.GameFlow
         public string TargetWordString => TargetWord.fullWord;
         public List<List<LetterResult>> FilledLetters => _playArea.GetFilledLetters();
 
-        public void StartGame(WordLength wordLength)
+        public void StartGame(GameMode gameMode)
         {
             Initialize();
 
-            WordLength = wordLength;
-            _currentGameSetup = _gameSetupDatabase[WordLength];
+            GameMode = gameMode;
+            _currentGameSetup = _gameSetupDatabase[GameMode];
 
             _playAreaScreen.SetActive(true);
             _scoreDisplay.Refresh();
@@ -77,15 +77,15 @@ namespace Sufka.Game.GameFlow
             RandomWordRound();
         }
 
-        public void StartGame(GameInProgressSaveData data)
+        public void StartGame(GameMode gameMode, GameInProgressSaveData data)
         {
             Initialize();
 
-            WordLength = data.wordLength;
+            GameMode = gameMode;
             HintIdx = data.hintIdx;
             HintRow = data.hintRow;
             GuessedIndices = new List<int>(data.guessedIndices);
-            _currentGameSetup = _gameSetupDatabase[WordLength];
+            _currentGameSetup = _gameSetupDatabase[GameMode];
 
             _playAreaScreen.SetActive(true);
             _scoreDisplay.Refresh();

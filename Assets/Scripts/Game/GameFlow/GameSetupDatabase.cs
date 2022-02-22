@@ -9,7 +9,7 @@ namespace Sufka.Game.GameFlow
     {
         [SerializeField]
         private List<WordLengthGameSetup> _setups;
-        public GameSetup this[WordLength wordLength] =>
-            _setups.First(setup => setup.wordLength == wordLength).gameSetup;
+        public GameSetup this[GameMode gameMode] =>
+            _setups.First(setup => setup.wordLength == gameMode).gameSetup;
     }
 }

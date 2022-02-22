@@ -8,8 +8,9 @@ namespace Sufka.Game.MainMenu
 {
     public class GameModeButtonsScreen : MonoBehaviour
     {
-        public event Action<WordLength> OnRequestGameStart;
-        public event Action<WordLength> OnRequestShowStatistics;
+        public event Action<GameMode> OnRequestGameStart;
+        public event Action<GameMode> OnRequestShowStatistics;
+        public event Action<GameMode> OnRequestUnlockGameMode;
         
         private enum ButtonMode
         {
@@ -19,24 +20,35 @@ namespace Sufka.Game.MainMenu
         
         private const string PLAY_BUTTONS_LABEL = "graj";
         private const string STATISTICS_BUTTONS_LABEL = "statystyki";
+
+        [SerializeField]
+        private GameController _gameController;
         
         [SerializeField]
         private TextMeshProUGUI _buttonsLabel;
         
         [SerializeField]
-        private List<WordLengthButton> _startGameButtons = new List<WordLengthButton>();
+        private List<GameModeButton> _buttons = new List<GameModeButton>();
         
         private ButtonMode _currentButtonMode = ButtonMode.Play;
 
         public void Initialize()
         {
-            foreach (var button in _startGameButtons)
+            foreach (var button in _buttons)
             {
-                button.OnClick += HandleButtonClick;
+                button.OnGameModeSelected += HandleGameModeSelected;
+                button.OnUnlockRequested += RequestUnlockGameMode;
+                
+                button.Initialize();
             }
         }
-        
-        private void HandleButtonClick(WordLength wordLength)
+
+        private void RequestUnlockGameMode(GameMode wordLength)
+        {
+            OnRequestUnlockGameMode.Invoke(wordLength);
+        }
+
+        private void HandleGameModeSelected(GameMode wordLength)
         {
             if (_currentButtonMode == ButtonMode.Play)
             {
@@ -52,12 +64,26 @@ namespace Sufka.Game.MainMenu
         {
             _buttonsLabel.SetText(PLAY_BUTTONS_LABEL);
             _currentButtonMode = ButtonMode.Play;
+            
+            foreach (var button in _buttons)
+            {
+                var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
+                var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                button.RefreshAvailability(unlocked);
+            }
         }
 
         public void ShowStatisticsButtons()
         {
             _buttonsLabel.SetText(STATISTICS_BUTTONS_LABEL);
             _currentButtonMode = ButtonMode.Statistics;
+
+            foreach (var button in _buttons)
+            {
+                var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
+                var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                button.gameObject.SetActive(unlocked);
+            }
         }
     }
 }

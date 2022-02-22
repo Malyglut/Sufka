@@ -12,7 +12,7 @@ namespace Sufka.Game.Persistence
         public bool gameInProgress;
         public bool hintUsed;
         public Word targetWord;
-        public WordLength wordLength;
+        public int gameModeIdx;
         public List<List<LetterResult>> filledLetters = new List<List<LetterResult>>();
         public int hintRow = -1;
         public int hintIdx = -1;
@@ -30,13 +30,13 @@ namespace Sufka.Game.Persistence
             }
         }
 
-        public void Update(bool gameInProgress, PlayAreaController playArea)
+        public void Update(bool gameInProgress, int gameModeIdx, PlayAreaController playArea)
         {
             this.gameInProgress = gameInProgress;
 
             targetWord = playArea.TargetWord;
             hintUsed = playArea.HintUsed;
-            wordLength = playArea.WordLength;
+            this.gameModeIdx = gameModeIdx;
             UpdateLetters(playArea.FilledLetters);
             hintIdx = playArea.HintIdx;
             hintRow = playArea.HintRow;

@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorSchemeDatabase: {fileID: 11400000, guid: c888723996bf3ab41aedc307aefeb978, type: 2}
+  _gameModes: {fileID: 0}
   _mainMenu: {fileID: 1435117219}
   _playArea: {fileID: 1324566818}
   _popup: {fileID: 16878661}
@@ -328,17 +329,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd640ddb3dc9469d9371ea279cdb47ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &524224973 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4319003009780631432, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-  m_PrefabInstance: {fileID: 235732950143840697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &692649572 stripped
@@ -845,21 +835,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 235732951544338202, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-      propertyPath: _exitButton
-      value: 
-      objectReference: {fileID: 524224973}
     - target: {fileID: 235732951544338203, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_Name
       value: Main Menu Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 235732951944400470, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 235732951944400470, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 235732952221949230, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_SizeDelta.x

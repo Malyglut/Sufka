@@ -10,8 +10,9 @@ namespace Sufka.Game.MainMenu
 {
     public class MainMenuController : MonoBehaviour
     {
-        public event Action<WordLength> OnRequestGameStart;
+        public event Action<GameMode> OnRequestGameStart;
         public event Action<ColorScheme> OnRequestUnlockColorScheme;
+        public event Action<GameMode> OnRequestUnlockGameMode;
         public event Action<ColorScheme> OnNotifyColorSchemeChanged;
         public event Action OnRequestContinueGame;
 
@@ -51,6 +52,7 @@ namespace Sufka.Game.MainMenu
             _buttonsScreen.Initialize();
             _buttonsScreen.OnRequestGameStart += RequestGameStart;
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
+            _buttonsScreen.OnRequestUnlockGameMode += RequestUnlockGameMode;
             
             _playButton.onClick.AddListener(ShowPlayButtons);
             _backButton.onClick.AddListener(Back);
@@ -67,21 +69,26 @@ namespace Sufka.Game.MainMenu
             _backStack.Push(_titleScreen);
         }
 
+        private void RequestUnlockGameMode(GameMode gameMode)
+        {
+            OnRequestUnlockGameMode.Invoke(gameMode);
+        }
+
         private void ExitGame()
         {
             Application.Quit();
         }
 
-        private void ShowStatistics(WordLength wordLength)
+        private void ShowStatistics(GameMode gameMode)
         {
             ShowScreen(_statisticsScreen.gameObject);
-            _statisticsScreen.Refresh(wordLength);
+            _statisticsScreen.Refresh(gameMode);
         }
 
-        private void RequestGameStart(WordLength wordLength)
+        private void RequestGameStart(GameMode gameMode)
         {
             ResetToTitleScreen();
-            OnRequestGameStart.Invoke(wordLength);
+            OnRequestGameStart.Invoke(gameMode);
         }
 
         private void NotifyColorSchemeChanged(ColorScheme colorScheme)

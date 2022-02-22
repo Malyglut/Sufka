@@ -20,9 +20,9 @@ namespace Sufka.Game.Statistics
         [SerializeField]
         private StatisticDisplay _hintsUsed;
 
-        public void Refresh(WordLength wordLength)
+        public void Refresh(GameMode gameMode)
         {
-            var statistics = _gameController.GetStatistics(wordLength);
+            var statistics = _gameController.GetStatistics(gameMode);
             
             _guessedWords.Refresh(statistics.guessedWords);
             _firstAttempt.Refresh(statistics.firstAttemptGuesses);

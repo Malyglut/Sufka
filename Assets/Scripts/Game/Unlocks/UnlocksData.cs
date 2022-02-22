@@ -9,7 +9,7 @@ namespace Sufka.Game.Unlocks
     {
         public int selectedColorSchemeIdx;
         public List<bool> unlockedColors = new List<bool> {true};
-        public List<bool> unlockedGameModes = new List<bool>();
+        public List<bool> unlockedGameModes = new List<bool> {true};
 
         public void UpdateColorUnlocksCount(int colorSchemeCount)
         {
@@ -18,6 +18,16 @@ namespace Sufka.Game.Unlocks
             for (int i = 0; i < difference; i++)
             {
                 unlockedColors.Add(false);
+            }
+        }
+
+        public void UpdateGameModeUnlocksCount(int gameModesCount)
+        {
+            var difference = Mathf.Abs(unlockedGameModes.Count - gameModesCount);
+
+            for (int i = 0; i < difference; i++)
+            {
+                unlockedGameModes.Add(false);
             }
         }
     }
