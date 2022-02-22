@@ -40,6 +40,9 @@ namespace Sufka.Game.MainMenu
 
         [SerializeField]
         private Button _colorsButton;
+        
+        [SerializeField]
+        private Button _exitButton;
 
         private readonly Stack<GameObject> _backStack = new Stack<GameObject>();
 
@@ -58,8 +61,15 @@ namespace Sufka.Game.MainMenu
             _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
             _colorsScreen.OnColorSchemeChanged += NotifyColorSchemeChanged;
             _colorsScreen.Initialize();
+            
+            _exitButton.onClick.AddListener(ExitGame);
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void ExitGame()
+        {
+            Application.Quit();
         }
 
         private void ShowStatistics(WordLength wordLength)
