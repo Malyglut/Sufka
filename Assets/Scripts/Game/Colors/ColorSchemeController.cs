@@ -44,5 +44,10 @@ namespace Sufka.Game.Colors
                 target.Apply(colorScheme.GetColor(target.SchemeColor));
             }
         }
+
+        public void Refresh()
+        {
+            Apply(_gameController.SelectedColorScheme);
+        }
     }
 }

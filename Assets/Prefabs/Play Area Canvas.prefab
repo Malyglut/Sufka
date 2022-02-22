@@ -165,8 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _score: {fileID: 931409646742605729}
   _playArea: {fileID: 931409647329200088}
-  _gameController: {fileID: 0}
   _durationPerPoint: 0.1
+  _currentState: {fileID: 0}
 --- !u!114 &931409646742605731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,7 +1033,6 @@ MonoBehaviour:
   _gameSetupDatabase: {fileID: 11400000, guid: db3f6f92585eab84fbe02a9e2c635022, type: 2}
   _scoreDisplay: {fileID: 931409646742605728}
   _currentWord: 
-  _gameController: {fileID: 0}
   _backToMenuButton: {fileID: 931409648403068274}
 --- !u!1 &931409647344241709
 GameObject:
@@ -1234,10 +1233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0f9020ec9b4dd6ac4a26f431520110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameController: {fileID: 0}
   _button: {fileID: 931409647428504865}
   _availableHints: {fileID: 931409646916051748}
   _buttonColors: {fileID: 931409647428504858}
+  _currentState: {fileID: 11400000, guid: f47a6436659c2e2418a5ac5dbff01741, type: 2}
 --- !u!114 &931409647428504858
 MonoBehaviour:
   m_ObjectHideFlags: 0

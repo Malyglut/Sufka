@@ -65,5 +65,10 @@ namespace Sufka.Game.Colors
                 _displays[i].RefreshAvailability(unlocked);
             }
         }
+
+        public void RefreshColors()
+        {
+            _colorSchemeController.Refresh();
+        }
     }
 }

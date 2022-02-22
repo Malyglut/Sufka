@@ -2,7 +2,6 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Sufka.Game.GameFlow
 {
@@ -15,10 +14,10 @@ namespace Sufka.Game.GameFlow
         private PlayAreaController _playArea;
 
         [SerializeField]
-        private GameController _gameController;
+        private float _durationPerPoint = .1f;
 
         [SerializeField]
-        private float _durationPerPoint = .1f;
+        private CurrentState _currentState;
 
         public void Initialize()
         {
@@ -30,13 +29,13 @@ namespace Sufka.Game.GameFlow
 
         private void RefreshInternal(int pointsAwarded)
         {
-            var startingPoints = _gameController.Score - pointsAwarded;
+            var startingPoints = _currentState.Score - pointsAwarded;
             StartCoroutine(CountUp(startingPoints, pointsAwarded));
         }
 
         public void Refresh()
         {
-            DisplayScore(_gameController.Score);
+            DisplayScore(_currentState.Score);
         }
 
         private void DisplayScore(int score)

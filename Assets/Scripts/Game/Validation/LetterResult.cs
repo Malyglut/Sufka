@@ -5,7 +5,7 @@ namespace Sufka.Game.Validation
     [Serializable]
     public class LetterResult
     {
-        public readonly char letter;
+        public char letter;
         public LetterCorrectness result;
 
         public LetterResult(char letter, LetterCorrectness result)

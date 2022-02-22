@@ -46,9 +46,6 @@ namespace Sufka.Game.GameFlow
 #endif
 
         [SerializeField]
-        private GameController _gameController;
-
-        [SerializeField]
         private Button _backToMenuButton;
 
         private GameSetup _currentGameSetup;
@@ -275,7 +272,7 @@ namespace Sufka.Game.GameFlow
 #endif
         private void GetHint()
         {
-            if (HintUsed || _gameController.AvailableHints == 0)
+            if (HintUsed)
             {
                 return;
             }

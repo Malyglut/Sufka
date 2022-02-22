@@ -170,5 +170,10 @@ namespace Sufka.Game.MainMenu
         {
             _buttonsScreen.RefreshAvailableGameModes();
         }
+
+        public void RefreshColors()
+        {
+            _colorsScreen.RefreshColors();
+        }
     }
 }
