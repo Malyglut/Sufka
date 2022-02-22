@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd4a46e269a4792a2e5cabb6e267171, type: 3}
+  m_Name: Polish 4 letter
+  m_EditorClassIdentifier: 
+  _wordLists:
+  - wordType: 0
+    wordList: {fileID: 11400000, guid: 8ca5a8504399e3043b11da705ca6a4d6, type: 2}
+  - wordType: 1
+    wordList: {fileID: 11400000, guid: 46b13a8b60a1fe447a7fa9a2e847b289, type: 2}
+  - wordType: 2
+    wordList: {fileID: 11400000, guid: be1d8b4bc3a65954186e114a93edd1ed, type: 2}
+  _ruleSet: {fileID: 11400000, guid: 80b4d0f2d1192b3408ed72a59240700f, type: 2}

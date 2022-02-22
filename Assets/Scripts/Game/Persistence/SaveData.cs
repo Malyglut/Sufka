@@ -15,6 +15,10 @@ namespace Sufka.Game.Persistence
         public WordStatistics[] wordStatistics;
         
         public int selectedColorSchemeIdx;
+
+        public int unlockedColorCount;
+        public int pointsSpentOnColors;
+        public int pointsSpentOnUnlocks;
         
         public List<bool> unlockedColors = new List<bool> {true};
         public List<bool> unlockedGameModes = new List<bool> {true};

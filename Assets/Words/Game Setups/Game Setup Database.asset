@@ -22,4 +22,9 @@ MonoBehaviour:
     gameSetup:
       _letterCount: 6
       _attemptCount: 5
-      _wordAtlas: {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}
+      _wordAtlas: {fileID: 11400000, guid: 91431618f703250478e0d98b66725ce0, type: 2}
+  - wordLength: {fileID: 11400000, guid: 9c3280bfd6001d241af80aff9a3d3059, type: 2}
+    gameSetup:
+      _letterCount: 4
+      _attemptCount: 4
+      _wordAtlas: {fileID: 11400000, guid: da1028edf929835489e7c39bafbe616a, type: 2}

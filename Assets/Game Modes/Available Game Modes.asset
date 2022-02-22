@@ -15,3 +15,4 @@ MonoBehaviour:
   _gameModes:
   - {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
   - {fileID: 11400000, guid: 1640c2b6710d9f444939fc39a48cfeda, type: 2}
+  - {fileID: 11400000, guid: 9c3280bfd6001d241af80aff9a3d3059, type: 2}

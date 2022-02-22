@@ -36,7 +36,7 @@ namespace Sufka.Game.GameFlow
 
         private void DisplayPoints(int pointsAwarded)
         {
-            DisplayMessage(_winMessages[Random.Range(0, _winMessages.Count)], $"+ {pointsAwarded}",
+            DisplayMessage(_gameController.TargetWordString, $"+ {pointsAwarded}",
                            ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.FullCorrect));
         }
 
