@@ -22,13 +22,13 @@ namespace Sufka.Game.GameFlow
 
         public void Initialize()
         {
-            _playArea.OnPointsAwarded += Refresh;
+            _playArea.OnPointsAwarded += RefreshInternal;
             _playArea.OnPointsUpdated += Refresh;
 
             Refresh();
         }
 
-        private void Refresh(int pointsAwarded)
+        private void RefreshInternal(int pointsAwarded)
         {
             var startingPoints = _gameController.Score - pointsAwarded;
             StartCoroutine(CountUp(startingPoints, pointsAwarded));
@@ -65,10 +65,17 @@ namespace Sufka.Game.GameFlow
             }
         }
 
+        #if UNITY_EDITOR
         [Button]
+        #endif
         private void AddPoints(int points)
         {
-            Refresh(points);
+            RefreshInternal(points);
+        }
+
+        public void Refresh(int pointsToAward)
+        {
+            RefreshInternal(pointsToAward);
         }
     }
 }

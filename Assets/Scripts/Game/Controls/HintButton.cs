@@ -23,7 +23,7 @@ namespace Sufka.Game.Controls
         [SerializeField]
         private ButtonColors _buttonColors;
 
-        private void Refresh()
+        public void Refresh()
         {
             _availableHints.SetText($"x {_gameController.AvailableHints}");
         }

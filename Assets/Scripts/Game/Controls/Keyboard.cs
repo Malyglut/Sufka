@@ -108,5 +108,10 @@ namespace Sufka.Game.Controls
         {
             _keyGrid.Restore(filledLetters);
         }
+
+        public void RefreshHints()
+        {
+            _hintButton.Refresh();
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace Sufka.Game.GameFlow
     public class GameController : MonoBehaviour, IUnityAdsListener
     {
         private const int HINTS_PER_AD = 10;
+        private const int HINTS_PER_HINT_REWARD = 2;
 
         public event Action OnAvailableHintsUpdated;
 
@@ -38,6 +39,7 @@ namespace Sufka.Game.GameFlow
         private GameInProgressSaveData _gameInProgressSaveData;
 
         private SaveData _saveData;
+        private int _pointsForAd;
 
         public int Score => _saveData.score;
         public int AvailableHints => _saveData.availableHints;
@@ -55,6 +57,7 @@ namespace Sufka.Game.GameFlow
             _playArea.OnHintAdRequested += ShowHintPopup;
             _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
             _playArea.OnGameProgressUpdated += SaveGameProgress;
+            _playArea.OnRoundOver += HandleRoundOver;
 
             _mainMenu.OnRequestGameStart += StartGame;
             _mainMenu.OnRequestContinueGame += ContinueGame;
@@ -70,9 +73,23 @@ namespace Sufka.Game.GameFlow
             _popup.Initialize();
         }
 
+        private void HandleRoundOver()
+        {
+            _saveData.wordsUntilHintReward--;
+
+            if (_saveData.wordsUntilHintReward <= 0)
+            {
+                _saveData.availableHints += HINTS_PER_HINT_REWARD;
+                _saveData.ResetWordsUntilHintReward();
+                _playArea.RefreshHints();
+            }
+
+            SaveGame();
+        }
+
         private void ShowUnlockGameModePopup(GameMode gameMode)
         {
-            _popup.UnlockGameModePopup(gameMode.Name, gameMode.UnlockCost, Score, ()=>UnlockGameMode(gameMode));
+            _popup.UnlockGameModePopup(gameMode.Name, gameMode.UnlockCost, Score, () => UnlockGameMode(gameMode));
         }
 
         private void UnlockGameMode(GameMode gameMode)
@@ -119,7 +136,7 @@ namespace Sufka.Game.GameFlow
 
         private void ShowBackToMenuPopup()
         {
-            _popup.ShowBackToMenuPopup(ShowMainMenu);
+            _popup.BackToMenuPopup(ShowMainMenu);
         }
 
         private void ShowMainMenu()
@@ -130,23 +147,38 @@ namespace Sufka.Game.GameFlow
 
         private void ShowHintPopup()
         {
-            _popup.ShowHintPopup(PlayHintAd);
-        }
-
-        private void PlayHintAd()
-        {
-            _ads.PlayHintAd();
+            _popup.ShowHintPopup(HINTS_PER_AD, _ads.PlayHintAd);
         }
 
         private void IncreaseScore(int points)
         {
             _saveData.score += points;
+            _saveData.bonusPointsReward += points;
         }
 
         private void HandleWordGuessed(int attempt)
         {
+            HandleRoundOver();
+
             _statistics.HandleWordGuessed(_playArea.GameMode, attempt, _availableGameModes);
+
+            _saveData.wordsUntilBonusPointsReward--;
+
+            if (_saveData.wordsUntilBonusPointsReward <= 0)
+            {
+                _pointsForAd = _saveData.bonusPointsReward;
+                _saveData.ResetWordsUntilBonusPointsReward();
+
+                _popup.BonusPointsPopup(_saveData.wordsUntilBonusPointsReward, _pointsForAd, ClearPointsForAd,
+                                        _ads.PlayBonusPointsAd);
+            }
+
             SaveGame();
+        }
+
+        private void ClearPointsForAd()
+        {
+            _pointsForAd = 0;
         }
 
         private void HandleHintUsed()
@@ -169,6 +201,7 @@ namespace Sufka.Game.GameFlow
 
         private void SaveGame()
         {
+            _saveData.wordStatistics = _statistics.WordStatistics;
             SaveSystem.SaveGame(_saveData);
         }
 
@@ -231,7 +264,11 @@ namespace Sufka.Game.GameFlow
                     OnAvailableHintsUpdated.Invoke();
                 }
                 else if (placementId == _ads.BonusPointsAdId)
-                { }
+                {
+                    _saveData.score += _pointsForAd;
+                    _playArea.RefreshPoints(_pointsForAd);
+                    ClearPointsForAd();
+                }
             }
         }
 

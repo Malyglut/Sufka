@@ -9,15 +9,18 @@ namespace Sufka.Game.Popup
     public class PopupController : MonoBehaviour
     {
         private const string HINT_AD_TOP_TEXT = "Wykorzystano wszystkie podpowiedzi.";
-        private const string HINT_AD_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć kolejne 10 podpowiedzi?";
+        private const string HINT_AD_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć kolejne {0} podpowiedzi?";
         private const string BACK_TO_MENU_TOP_TEXT = "Czy na pewno chcesz wrócić do menu głównego?";
         private const string UNLOCK_COLOR_TOP_TEXT = "Czy chcesz odblokować kolor \"{0}\" za {1} {2}?";
         private const string UNLOCK_GAME_MODE_TOP_TEXT = "Czy chcesz odblokować tryb gry \"{0}\" za {1} {2}?";
         private const string UNLOCK_BOTTOM_TEXT = "Obecnie posiadasz {0} {1}.";
+        private const string BONUS_POINTS_TOP_TEXT =
+            "Za ostatnie {0} poprawnie odgadniętych słówek udało Ci się zdobyć {1} {2}.";
+        private const string BONUS_POINTS_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć dodatkowe {0} {1}?";
         private const string PUNKTOW_STRING = "punktów";
         private const string PUNKT_STRING = "punkt";
         private const string PUNKTY_STRING = "punkty";
-        
+
         [SerializeField]
         private GameObject _root;
 
@@ -39,6 +42,8 @@ namespace Sufka.Game.Popup
         private Action _noCallback;
         private Action _yesCallback;
 
+        private bool HasInternetAcces => Application.internetReachability != NetworkReachability.NotReachable;
+
         public void Initialize()
         {
             _noButton.onClick.AddListener(SelectNo);
@@ -57,7 +62,8 @@ namespace Sufka.Game.Popup
             _noCallback?.Invoke();
         }
 
-        private void Show(string topText, string bottomText, Action noCallback, Action yesCallback, bool yesAvailable = true)
+        private void Show(
+            string topText, string bottomText, Action noCallback, Action yesCallback, bool yesAvailable = true)
         {
             _topText.SetText(topText);
             _bottomText.SetText(bottomText);
@@ -79,22 +85,24 @@ namespace Sufka.Game.Popup
             _root.SetActive(true);
         }
 
-        public void ShowHintPopup(Action yesCallback)
+        public void ShowHintPopup(int hintsPerAd, Action yesCallback)
         {
-            Show(
-                 HINT_AD_TOP_TEXT,
-                 HINT_AD_BOTTOM_TEXT, 
+            var bottomFormatted = string.Format(HINT_AD_BOTTOM_TEXT, hintsPerAd);
+
+            Show(HINT_AD_TOP_TEXT,
+                 bottomFormatted,
                  null,
                  yesCallback,
-                 Application.internetReachability != NetworkReachability.NotReachable);
+                 HasInternetAcces);
         }
 
-        public void ShowBackToMenuPopup(Action yesCallback)
+        public void BackToMenuPopup(Action yesCallback)
         {
             Show(BACK_TO_MENU_TOP_TEXT, string.Empty, null, yesCallback);
         }
 
-        public void UnlockColorSchemePopup(string colorSchemeName, int colorSchemeCost, int availablePoints, Action yesCallback)
+        public void UnlockColorSchemePopup(
+            string colorSchemeName, int colorSchemeCost, int availablePoints, Action yesCallback)
         {
             var topPointsString = GetProperPointsString(colorSchemeCost);
             var bottomPointsString = GetProperPointsString(availablePoints);
@@ -109,26 +117,36 @@ namespace Sufka.Game.Popup
         {
             var topPointsString = GetProperPointsString(gameModeCost);
             var bottomPointsString = GetProperPointsString(availablePoints);
-            
+
             var topFormatted = string.Format(UNLOCK_GAME_MODE_TOP_TEXT, gameModeName, gameModeCost, topPointsString);
             var bottomFormatted = string.Format(UNLOCK_BOTTOM_TEXT, availablePoints, bottomPointsString);
-            
+
             Show(topFormatted, bottomFormatted, null, yesCallback, availablePoints >= gameModeCost);
+        }
+
+        public void BonusPointsPopup(int guessedWords, int pointsForAd, Action noAction, Action yesAction)
+        {
+            var pointsString = GetProperPointsString(pointsForAd);
+
+            var topFormatted = string.Format(BONUS_POINTS_TOP_TEXT, guessedWords, pointsForAd, pointsString);
+            var bottomFormatted = string.Format(BONUS_POINTS_BOTTOM_TEXT, pointsForAd, pointsString);
+
+            Show(topFormatted, bottomFormatted, noAction, yesAction, HasInternetAcces);
         }
 
         private string GetProperPointsString(int count)
         {
             string pointsString;
 
-            if (count == 0)
+            if (count % 10 == 0)
             {
                 pointsString = PUNKTOW_STRING;
             }
-            else if (count == 1)
+            else if (count % 10 == 1 && count < 10)
             {
                 pointsString = PUNKT_STRING;
             }
-            else if(count <=4)
+            else if (count % 10 <= 4)
             {
                 pointsString = PUNKTY_STRING;
             }

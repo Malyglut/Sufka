@@ -133,7 +133,7 @@ namespace Sufka.Game.GameFlow
                 _keyboard.OnHintAdPress += RequestHintAd;
 
                 _backToMenuButton.onClick.AddListener(RequestBackToMenuPopup);
-                
+
                 _scoreDisplay.Initialize();
 
                 _initialized = true;
@@ -244,6 +244,11 @@ namespace Sufka.Game.GameFlow
             _playAreaScreen.SetActive(false);
         }
 
+        public void RefreshHints()
+        {
+            _keyboard.RefreshHints();
+        }
+
 #if UNITY_EDITOR
         [FoldoutGroup("Debug"), Button]
         private void NounRound()
@@ -301,6 +306,11 @@ namespace Sufka.Game.GameFlow
             HintUsed = true;
             OnHintUsed.Invoke();
             OnGameProgressUpdated.Invoke();
+        }
+
+        public void RefreshPoints(int pointsToAward)
+        {
+            _scoreDisplay.Refresh(pointsToAward);
         }
     }
 }
