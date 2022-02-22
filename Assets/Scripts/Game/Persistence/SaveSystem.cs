@@ -87,31 +87,21 @@ namespace Sufka.Game.Persistence
             return LoadFile<GameInProgressSaveData>(GameInProgressPath);
         }
 
-        public static bool SaveFileExists()
-        {
-            return File.Exists(SavePath);
-        }
-
-        public static bool GameInProgressFileExists()
-        {
-            return File.Exists(GameInProgressPath);
-        }
-
 #if UNITY_EDITOR
         [MenuItem("Sufka/Clear Save Data")]
         public static void ClearSaveData()
         {
-            if (SaveFileExists())
+            try
             {
                 File.Delete(SavePath);
                 File.Delete(GameInProgressPath);
                 File.Delete(UnlocksPath);
             }
+            catch (Exception e)
+            {
+                //
+            }
         }
 #endif
-        public static bool UnlocksFileExists()
-        {
-            return File.Exists(UnlocksPath);
-        }
     }
 }

@@ -13,7 +13,7 @@ namespace Sufka.Game.GameFlow
 {
     public class GameController : MonoBehaviour, IUnityAdsListener
     {
-        private const int INITIAL_AVAILABLE_HINTS = 10;
+        private const int HINTS_PER_AD = 10;
 
         public event Action OnAvailableHintsUpdated;
 
@@ -22,7 +22,7 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private AvailableGameModes _availableGameModes;
-        
+
         [SerializeField]
         private MainMenuController _mainMenu;
 
@@ -34,11 +34,11 @@ namespace Sufka.Game.GameFlow
 
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
-        public UnlocksData Unlocks { get; private set; } = new UnlocksData();
         private GameInProgressSaveData _gameInProgressSaveData;
+        public UnlocksData Unlocks { get; private set; } = new UnlocksData();
 
         public int Score { get; private set; }
-        public int AvailableHints { get; private set; } = INITIAL_AVAILABLE_HINTS;
+        public int AvailableHints { get; private set; }
         public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[Unlocks.selectedColorSchemeIdx];
 
         private void Start()
@@ -66,9 +66,21 @@ namespace Sufka.Game.GameFlow
             _popup.Initialize();
         }
 
-        private void ShowUnlockGameModePopup(GameMode wordLength)
+        private void ShowUnlockGameModePopup(GameMode gameMode)
         {
-            // _popup.UnlockGameModePopup();
+            _popup.UnlockGameModePopup(gameMode.Name, gameMode.UnlockCost, Score, ()=>UnlockGameMode(gameMode));
+        }
+
+        private void UnlockGameMode(GameMode gameMode)
+        {
+            Score -= gameMode.UnlockCost;
+            SaveGame();
+
+            var gameModeIdx = GetGameModeIdx(gameMode);
+            Unlocks.unlockedGameModes[gameModeIdx] = true;
+            SaveSystem.SaveUnlocksData(Unlocks);
+
+            _mainMenu.RefreshGameModes();
         }
 
         private void UpdateSelectedColorScheme(ColorScheme colorScheme)
@@ -80,14 +92,15 @@ namespace Sufka.Game.GameFlow
 
         private void ShowUnlockColorSchemePopup(ColorScheme colorScheme)
         {
-            _popup.UnlockColorSchemePopup(colorScheme.Name, colorScheme.UnlockCost, Score, ()=> UnlockColorScheme(colorScheme));
+            _popup.UnlockColorSchemePopup(colorScheme.Name, colorScheme.UnlockCost, Score,
+                                          () => UnlockColorScheme(colorScheme));
         }
 
         private void UnlockColorScheme(ColorScheme colorScheme)
         {
             Score -= colorScheme.UnlockCost;
             SaveGame();
-            
+
             var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
             Unlocks.unlockedColors[colorSchemeIdx] = true;
             SaveSystem.SaveUnlocksData(Unlocks);
@@ -160,19 +173,16 @@ namespace Sufka.Game.GameFlow
 
         private void LoadGame()
         {
-            SaveData saveData = SaveSystem.SaveFileExists() ? SaveSystem.LoadGame() : new SaveData();
+            var saveData = SaveSystem.LoadGame();
 
             Score = saveData.score;
             AvailableHints = saveData.availableHints;
-            AvailableHints = Mathf.Min(AvailableHints, INITIAL_AVAILABLE_HINTS);
 
             _statistics.Load(saveData, _availableGameModes);
 
-            _gameInProgressSaveData = SaveSystem.GameInProgressFileExists() ?
-                                          SaveSystem.LoadGameInProgress() :
-                                          new GameInProgressSaveData();
+            _gameInProgressSaveData = SaveSystem.LoadGameInProgress();
 
-            Unlocks = SaveSystem.UnlocksFileExists() ? SaveSystem.LoadUnlocks() : new UnlocksData();
+            Unlocks = SaveSystem.LoadUnlocks();
 
             if (Unlocks.unlockedColors.Count < _colorSchemeDatabase.ColorSchemeCount)
             {
@@ -204,26 +214,28 @@ namespace Sufka.Game.GameFlow
 
         public void OnUnityAdsDidStart(string placementId)
         {
+#if UNITY_EDITOR
             Debug.Log($"AD STARTED {placementId}");
+#endif
         }
 
         public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
         {
+#if UNITY_EDITOR
             Debug.Log($"AD FINISHED {placementId}");
+#endif
 
             if (showResult == ShowResult.Finished)
             {
                 if (placementId == _ads.HintsAdId)
                 {
-                    AvailableHints += INITIAL_AVAILABLE_HINTS;
+                    AvailableHints += HINTS_PER_AD;
                     SaveGame();
 
                     OnAvailableHintsUpdated.Invoke();
                 }
                 else if (placementId == _ads.BonusPointsAdId)
-                {
-                    
-                }
+                { }
             }
         }
 

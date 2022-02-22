@@ -12,98 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f57233b51f43478b7b3d1d8ffe085c, type: 3}
   m_Name: Game Setup Database
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: _gameSetups
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Sufka.GameFlow.WordLength,
-        Assembly-CSharp],[Sufka.GameFlow.GameSetup, Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Sufka.GameFlow.WordLength,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 2|Sufka.GameFlow.GameSetup, Assembly-CSharp
-    - Name: _letterCount
-      Entry: 3
-      Data: 5
-    - Name: _attemptCount
-      Entry: 3
-      Data: 5
-    - Name: _wordAtlas
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 3|Sufka.GameFlow.GameSetup, Assembly-CSharp
-    - Name: _letterCount
-      Entry: 3
-      Data: 6
-    - Name: _attemptCount
-      Entry: 3
-      Data: 6
-    - Name: _wordAtlas
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
   _setups:
-  - wordLength: 0
+  - wordLength: {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
     gameSetup:
       _letterCount: 5
       _attemptCount: 5
       _wordAtlas: {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}
-  - wordLength: 1
+  - wordLength: {fileID: 11400000, guid: 1640c2b6710d9f444939fc39a48cfeda, type: 2}
     gameSetup:
       _letterCount: 6
-      _attemptCount: 6
+      _attemptCount: 5
       _wordAtlas: {fileID: 11400000, guid: e1e389f03dcb79e4b80ff4062647dea5, type: 2}

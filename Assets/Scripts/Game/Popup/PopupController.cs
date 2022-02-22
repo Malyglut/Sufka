@@ -12,6 +12,7 @@ namespace Sufka.Game.Popup
         private const string HINT_AD_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć kolejne 10 podpowiedzi?";
         private const string BACK_TO_MENU_TOP_TEXT = "Czy na pewno chcesz wrócić do menu głównego?";
         private const string UNLOCK_COLOR_TOP_TEXT = "Czy chcesz odblokować kolor \"{0}\" za {1} {2}?";
+        private const string UNLOCK_GAME_MODE_TOP_TEXT = "Czy chcesz odblokować tryb gry \"{0}\" za {1} {2}?";
         private const string UNLOCK_BOTTOM_TEXT = "Obecnie posiadasz {0} {1}.";
         
         [SerializeField]
@@ -99,6 +100,17 @@ namespace Sufka.Game.Popup
             var bottomFormatted = string.Format(UNLOCK_BOTTOM_TEXT, availablePoints, bottomPointsString);
 
             Show(topFormatted, bottomFormatted, null, yesCallback, availablePoints >= colorSchemeCost);
+        }
+
+        public void UnlockGameModePopup(string gameModeName, int gameModeCost, int availablePoints, Action yesCallback)
+        {
+            var topPointsString = GetProperPointsString(gameModeCost);
+            var bottomPointsString = GetProperPointsString(availablePoints);
+            
+            var topFormatted = string.Format(UNLOCK_GAME_MODE_TOP_TEXT, gameModeName, gameModeCost, topPointsString);
+            var bottomFormatted = string.Format(UNLOCK_BOTTOM_TEXT, availablePoints, bottomPointsString);
+            
+            Show(topFormatted, bottomFormatted, null, yesCallback, availablePoints >= gameModeCost);
         }
 
         private string GetProperPointsString(int count)

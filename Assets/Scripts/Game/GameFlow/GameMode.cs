@@ -10,5 +10,7 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private int _unlockCost;
+        public string Name => _name;
+        public int UnlockCost => _unlockCost;
     }
 }

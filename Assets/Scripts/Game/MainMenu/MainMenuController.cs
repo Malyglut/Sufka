@@ -49,6 +49,10 @@ namespace Sufka.Game.MainMenu
 
         public void Initialize()
         {
+            _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
+            _colorsScreen.OnColorSchemeChanged += NotifyColorSchemeChanged;
+            _colorsScreen.Initialize();
+            
             _buttonsScreen.Initialize();
             _buttonsScreen.OnRequestGameStart += RequestGameStart;
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
@@ -59,10 +63,6 @@ namespace Sufka.Game.MainMenu
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);
             _colorsButton.onClick.AddListener(ShowColorsScreen);
             _continueButton.onClick.AddListener(RequestContinueGame);
-
-            _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
-            _colorsScreen.OnColorSchemeChanged += NotifyColorSchemeChanged;
-            _colorsScreen.Initialize();
             
             _exitButton.onClick.AddListener(ExitGame);
 
@@ -164,6 +164,11 @@ namespace Sufka.Game.MainMenu
         public void RefreshColorSchemes()
         {
             _colorsScreen.RefreshAvailableColorSchemes();
+        }
+
+        public void RefreshGameModes()
+        {
+            _buttonsScreen.RefreshAvailableGameModes();
         }
     }
 }

@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d719aeedcd4d7d9a7774559af76a48, type: 3}
-  m_Name: Available Game Modes
+  m_Script: {fileID: 11500000, guid: c51f8047172042588878b817a2f3df76, type: 3}
+  m_Name: Five Letter
   m_EditorClassIdentifier: 
-  _gameModes:
-  - {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
-  - {fileID: 11400000, guid: 1640c2b6710d9f444939fc39a48cfeda, type: 2}
+  _name: "5 - liter\xF3wki"
+  _unlockCost: 0

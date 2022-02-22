@@ -30,12 +30,13 @@ namespace Sufka.Game.Colors
 
         public void ChangeColorScheme(ColorScheme colorScheme)
         {
-            FindAllTargets();
             Apply(colorScheme);
         }
 
         private void Apply(ColorScheme colorScheme)
         {
+            FindAllTargets();
+            
             CurrentColorScheme = colorScheme;
 
             foreach (var target in _targets)

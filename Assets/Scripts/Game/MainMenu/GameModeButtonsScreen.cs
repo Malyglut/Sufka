@@ -69,6 +69,7 @@ namespace Sufka.Game.MainMenu
             {
                 var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
                 var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                button.gameObject.SetActive(true);
                 button.RefreshAvailability(unlocked);
             }
         }
@@ -82,7 +83,18 @@ namespace Sufka.Game.MainMenu
             {
                 var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
                 var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                button.RefreshAvailability(true);
                 button.gameObject.SetActive(unlocked);
+            }
+        }
+
+        public void RefreshAvailableGameModes()
+        {
+            foreach (var button in _buttons)
+            {
+                var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
+                var unlocked = _gameController.Unlocks.unlockedGameModes[gameModeIdx];
+                button.RefreshAvailability(unlocked);
             }
         }
     }
