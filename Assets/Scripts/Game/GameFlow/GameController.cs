@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using Sufka.Game.Ads;
 using Sufka.Game.Colors;
 using Sufka.Game.MainMenu;
@@ -53,7 +51,6 @@ namespace Sufka.Game.GameFlow
         public List<bool> UnlockedGameModes => _saveData.unlockedGameModes;
         public List<bool> UnlockedColors => _saveData.unlockedColors;
 
-        [Button]
         private void StartTutorial()
         {
             _mainMenu.gameObject.SetActive(false);
@@ -66,9 +63,12 @@ namespace Sufka.Game.GameFlow
         {
             Destroy(_tutorialInstance.gameObject);
             _mainMenu.gameObject.SetActive(true);
+            
+            _saveData.tutorialCompleted = true;
+            SaveGame();
         }
 
-        private void Awake()
+        private void Start()
         {
             LoadGame();
 
@@ -92,6 +92,11 @@ namespace Sufka.Game.GameFlow
             _ads.Initialize(this);
 
             _popup.Initialize();
+
+            if (!_saveData.tutorialCompleted)
+            {
+                StartTutorial();
+            }
         }
 
         private void HandleRoundOver()

@@ -26,6 +26,8 @@ namespace Sufka.Game.Persistence
         public int wordsUntilBonusPointsReward = INITIAL_WORDS_UNTIL_BONUS_POINTS_REWARD;
         public int bonusPointsReward;
 
+        public bool tutorialCompleted;
+
         public List<bool> unlockedColors = new List<bool> {true};
         public List<bool> unlockedGameModes = new List<bool> {true};
 
