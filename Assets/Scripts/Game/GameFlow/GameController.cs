@@ -15,7 +15,7 @@ namespace Sufka.Game.GameFlow
     public class GameController : MonoBehaviour, IUnityAdsListener
     {
         private const int HINTS_PER_AD = 10;
-        private const int HINTS_PER_HINT_REWARD = 2;
+        private const int HINTS_PER_HINT_REWARD = 1;
 
         [SerializeField]
         private ColorSchemeDatabase _colorSchemeDatabase;
