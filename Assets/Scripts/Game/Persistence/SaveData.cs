@@ -28,6 +28,9 @@ namespace Sufka.Game.Persistence
 
         public bool tutorialCompleted;
 
+        public bool ratingProposed;
+        public int lastRatingProposedWordCount;
+
         public List<bool> unlockedColors = new List<bool> {true};
         public List<bool> unlockedGameModes = new List<bool> {true};
 

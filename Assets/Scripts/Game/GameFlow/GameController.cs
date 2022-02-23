@@ -124,6 +124,7 @@ namespace Sufka.Game.GameFlow
             _saveData.score -= gameMode.UnlockCost;
             var gameModeIdx = GetGameModeIdx(gameMode);
             _saveData.unlockedGameModes[gameModeIdx] = true;
+            _saveData.pointsSpentOnUnlocks += gameMode.UnlockCost;
             SaveGame();
 
             _mainMenu.RefreshGameModes();
@@ -148,6 +149,11 @@ namespace Sufka.Game.GameFlow
 
             var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
             _saveData.unlockedColors[colorSchemeIdx] = true;
+
+            _saveData.pointsSpentOnColors += colorScheme.UnlockCost;
+            _saveData.pointsSpentOnUnlocks += colorScheme.UnlockCost;
+            _saveData.unlockedColorCount++;
+            
             SaveGame();
 
             _mainMenu.RefreshColorSchemes();
@@ -181,6 +187,10 @@ namespace Sufka.Game.GameFlow
         {
             _saveData.score += points;
             _saveData.bonusPointsReward += points;
+
+            _statistics.HandlePointsGained(points, _playArea.GameMode, _availableGameModes);
+            
+            SaveGame();
         }
 
         private void HandleWordGuessed(int attempt)
@@ -303,7 +313,9 @@ namespace Sufka.Game.GameFlow
                     _saveData.score += _pointsForAd;
                     UpdateCurrentState();
                     _playArea.RefreshPoints(_pointsForAd);
+                    _statistics.HandlePointsGained(_pointsForAd, _playArea.GameMode, _availableGameModes);
                     ClearPointsForAd();
+                    SaveGame();
                 }
             }
         }

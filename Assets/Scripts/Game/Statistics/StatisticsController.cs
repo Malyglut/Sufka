@@ -33,13 +33,23 @@ namespace Sufka.Game.Statistics
 
            statistics.guessedWords++;
 
-           if (attempt == 0)
+           switch (attempt)
            {
-               statistics.firstAttemptGuesses++;
-           }
-           else if(attempt==1)
-           {
-               statistics.secondAttemptGuesses++;
+               case 0:
+                   statistics.firstAttemptGuesses++;
+                   break;
+               case 1:
+                   statistics.secondAttemptGuesses++;
+                   break;
+               case 2:
+                   statistics.thirdAttemptGuesses++;
+                   break;
+               case 3:
+                   statistics.fourthAttemptGuesses++;
+                   break;
+               case 4:
+                   statistics.fifthAttemptGuesses++;
+                   break;
            }
        }
 
@@ -57,6 +67,11 @@ namespace Sufka.Game.Statistics
            }
 
            return _wordLengthStatistics[gameMode];
+       }
+
+       public void HandlePointsGained(int points, GameMode gameMode, AvailableGameModes gameModes)
+       {
+           GetStatistics(gameMode, gameModes).scoreGained += points;
        }
     }
 }
