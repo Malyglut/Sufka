@@ -49,11 +49,14 @@ namespace Sufka.Game.MainMenu
 
         public void Initialize()
         {
+            _statisticsScreen.Initialize();
+            
             _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
             _colorsScreen.OnColorSchemeChanged += NotifyColorSchemeChanged;
             _colorsScreen.Initialize();
             
             _buttonsScreen.Initialize();
+            _buttonsScreen.OnRequestShowOverallStatistics += ShowOverallStatistics;
             _buttonsScreen.OnRequestGameStart += RequestGameStart;
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
             _buttonsScreen.OnRequestUnlockGameMode += RequestUnlockGameMode;
@@ -67,6 +70,12 @@ namespace Sufka.Game.MainMenu
             _exitButton.onClick.AddListener(ExitGame);
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void ShowOverallStatistics()
+        {
+            ShowScreen(_statisticsScreen.gameObject);
+            _statisticsScreen.RefreshOverall();
         }
 
         private void RequestUnlockGameMode(GameMode gameMode)

@@ -169,7 +169,6 @@ MonoBehaviour:
   _playArea: {fileID: 1324566818}
   _popup: {fileID: 16878661}
   _tutorial: {fileID: 931409647849001889, guid: adc2cce27740d2642bdb77100a7c4140, type: 3}
-  _currentState: {fileID: 11400000, guid: f47a6436659c2e2418a5ac5dbff01741, type: 2}
 --- !u!4 &211350629
 Transform:
   m_ObjectHideFlags: 0
@@ -410,10 +409,22 @@ PrefabInstance:
       propertyPath: _gameController
       value: 
       objectReference: {fileID: 211350628}
+    - target: {fileID: 235732950465321304, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 235732950465321306, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: _gameController
       value: 
       objectReference: {fileID: 211350628}
+    - target: {fileID: 235732950465321307, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -340
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732950465321307, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 235732950465321311, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: _gameController
       value: 
@@ -534,18 +545,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 235732951544338203, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 235732951944400470, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.9458128
-      objectReference: {fileID: 0}
-    - target: {fileID: 235732951944400470, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.04187192
-      objectReference: {fileID: 0}
     - target: {fileID: 235732952221949230, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -553,6 +552,30 @@ PrefabInstance:
     - target: {fileID: 235732952221949230, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732952237406264, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732952237406264, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732952237406264, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1100
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732952237406264, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732952237406264, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 235732952237406264, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 295882110266178824, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -964,24 +987,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 931409646742605728, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
-      propertyPath: _currentState
+      propertyPath: _gameController
       value: 
-      objectReference: {fileID: 11400000, guid: f47a6436659c2e2418a5ac5dbff01741, type: 2}
-    - target: {fileID: 931409647190530764, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.9458128
-      objectReference: {fileID: 0}
-    - target: {fileID: 931409647190530764, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.04187192
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 211350628}
     - target: {fileID: 931409647329200091, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
       propertyPath: m_Name
       value: Play Area Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 931409647329200091, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 931409647329200093, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
       propertyPath: m_Pivot.x
@@ -1067,6 +1078,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 931409647428504859, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
+      propertyPath: _gameController
+      value: 
+      objectReference: {fileID: 211350628}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
 --- !u!1001 &3364042320788575153
@@ -1174,11 +1189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3364042320777949340, guid: 8dbd81aaaf158314f8c279a3348de04c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.9458128
+      value: 0.95328945
       objectReference: {fileID: 0}
     - target: {fileID: 3364042320777949340, guid: 8dbd81aaaf158314f8c279a3348de04c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.04187192
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dbd81aaaf158314f8c279a3348de04c, type: 3}

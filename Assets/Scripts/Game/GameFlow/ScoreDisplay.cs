@@ -17,8 +17,10 @@ namespace Sufka.Game.GameFlow
         private float _durationPerPoint = .1f;
 
         [SerializeField]
-        private CurrentState _currentState;
+        private GameController _gameController;
 
+        private int Score => _gameController != null ? _gameController.Score : 0;
+        
         public void Initialize()
         {
             _playArea.OnPointsAwarded += RefreshInternal;
@@ -29,13 +31,13 @@ namespace Sufka.Game.GameFlow
 
         private void RefreshInternal(int pointsAwarded)
         {
-            var startingPoints = _currentState.Score - pointsAwarded;
+            var startingPoints = Score - pointsAwarded;
             StartCoroutine(CountUp(startingPoints, pointsAwarded));
         }
 
         public void Refresh()
         {
-            DisplayScore(_currentState.Score);
+            DisplayScore(Score);
         }
 
         private void DisplayScore(int score)
