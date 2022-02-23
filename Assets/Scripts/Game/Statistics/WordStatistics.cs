@@ -1,5 +1,4 @@
 using System;
-using Sufka.Game.GameFlow;
 
 namespace Sufka.Game.Statistics
 {
@@ -15,6 +14,10 @@ namespace Sufka.Game.Statistics
         public int fourthAttemptGuesses;
         public int fifthAttemptGuesses;
         public int scoreGained;
+        public int typedLetters;
+        public int removedLetters;
+        public int lettersInCorrectSpot;
+        public int correctLetters;
 
         public WordStatistics(int gameModeIdx)
         {

@@ -25,6 +25,8 @@ namespace Sufka.Game.GameFlow
         public char[] CurrentWord => CurrentRow.Word;
         public bool ValidInput => CurrentRow.IsFull;
         public bool LastAttempt => CurrentAttempt >= _rows.Count - 1;
+        public int TypedLetters { get; private set; }
+        public int RemovedLetters { get; private set; }
 
         public List<List<LetterResult>> GetFilledLetters()
         {
@@ -64,6 +66,7 @@ namespace Sufka.Game.GameFlow
         {
             if (!CurrentRow.IsEmpty)
             {
+                RemovedLetters++;
                 CurrentRow.RemoveLastLetter();
 
                 if (!CurrentRow.IsFull)
@@ -77,6 +80,7 @@ namespace Sufka.Game.GameFlow
         {
             if (!CurrentRow.IsFull)
             {
+                TypedLetters++;
                 CurrentRow.InputLetter(letter);
 
                 if (CurrentRow.IsFull)
@@ -88,6 +92,8 @@ namespace Sufka.Game.GameFlow
 
         public void Display(ValidationResult result)
         {
+            TypedLetters = 0;
+            RemovedLetters = 0;
             CurrentRow.Display(result);
             CurrentAttempt++;
             CurrentRow.Prepare();
@@ -95,6 +101,8 @@ namespace Sufka.Game.GameFlow
 
         public void Reset()
         {
+            TypedLetters = 0;
+            RemovedLetters = 0;
             CurrentAttempt = 0;
 
             foreach (var row in _rows)

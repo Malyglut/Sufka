@@ -21,16 +21,18 @@ namespace Sufka.Game.Controls
         private ButtonColors _buttonColors;
 
         [SerializeField]
-        private CurrentState _currentState;
+        private GameController _gameController;
 
+        private int AvailableHints =>_gameController != null ? _gameController.AvailableHints : 1;
+        
         public void Refresh()
         {
-            _availableHints.SetText($"x {_currentState.AvailableHints}");
+            _availableHints.SetText($"x {AvailableHints}");
         }
 
         private void TryGetHint()
         {
-            if (_currentState.AvailableHints > 0)
+            if (AvailableHints > 0)
             {
                 OnHintRequested.Invoke();
                 Disable();
@@ -51,7 +53,6 @@ namespace Sufka.Game.Controls
 
         public void Initialize()
         {
-            _currentState.OnAvailableHintsUpdated += Refresh;
             _button.onClick.AddListener(TryGetHint);
             Refresh();
         }

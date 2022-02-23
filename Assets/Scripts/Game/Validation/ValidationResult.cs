@@ -47,18 +47,31 @@ namespace Sufka.Game.Validation
 
         public void Check()
         {
-            var full = 0;
+            CorrectLetterCount = 0;
+            CorrectSpotCount = 0;
 
             for (int i = 0; i < Letters.Length; i++)
             {
-                if (Letters[i].result == LetterCorrectness.Full)
+                var letterCorrectness = Letters[i].result;
+
+                if (letterCorrectness == LetterCorrectness.Full || letterCorrectness == LetterCorrectness.Partial)
                 {
-                    full++;
+                    CorrectLetterCount++;
+                }
+                
+                if (letterCorrectness == LetterCorrectness.Full)
+                {
+                    
+                    CorrectSpotCount++;
                     GuessedIndices.Add(i);
                 }
             }
 
-            FullMatch = full == Letters.Length;
+            FullMatch = CorrectSpotCount == Letters.Length;
         }
+
+        public int CorrectLetterCount { get; private set; }
+
+        public int CorrectSpotCount { get; private set; }
     }
 }

@@ -35,9 +35,6 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private TutorialController _tutorial;
 
-        [SerializeField]
-        private CurrentState _currentState;
-
         private TutorialController _tutorialInstance;
 
         private readonly StatisticsController _statistics = new StatisticsController();
@@ -50,6 +47,11 @@ namespace Sufka.Game.GameFlow
         public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[_saveData.selectedColorSchemeIdx];
         public List<bool> UnlockedGameModes => _saveData.unlockedGameModes;
         public List<bool> UnlockedColors => _saveData.unlockedColors;
+        public int PointsSpent => _saveData.pointsSpentOnUnlocks;
+        public int PointsSpentOnColors => _saveData.pointsSpentOnColors;
+        public int ColorsUnlocked => _saveData.unlockedColorCount;
+        public int Score => _saveData.score;
+        public int AvailableHints => _saveData.availableHints;
 
         private void StartTutorial()
         {
@@ -79,6 +81,7 @@ namespace Sufka.Game.GameFlow
             _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
             _playArea.OnGameProgressUpdated += SaveGameProgress;
             _playArea.OnRoundOver += HandleRoundOver;
+            _playArea.OnLetterStatisticsUpdated += HandleLetterStatisticsUpdated;
 
             _mainMenu.OnRequestGameStart += StartGame;
             _mainMenu.OnRequestContinueGame += ContinueGame;
@@ -99,6 +102,18 @@ namespace Sufka.Game.GameFlow
             }
         }
 
+        private void HandleLetterStatisticsUpdated(int correctLetters, int correctSpotLetters, int typedLetters, int removedLetters)
+        {
+            var statistics = GetStatistics(_playArea.GameMode);
+            
+            statistics.correctLetters += correctLetters;
+            statistics.lettersInCorrectSpot += correctSpotLetters;
+            statistics.typedLetters += typedLetters;
+            statistics.removedLetters += removedLetters;
+            
+            SaveGame();
+        }
+
         private void HandleRoundOver()
         {
             _saveData.wordsUntilHintReward--;
@@ -106,7 +121,6 @@ namespace Sufka.Game.GameFlow
             if (_saveData.wordsUntilHintReward <= 0)
             {
                 _saveData.availableHints += HINTS_PER_HINT_REWARD;
-                UpdateCurrentState();
                 _saveData.ResetWordsUntilHintReward();
                 _playArea.RefreshHints();
             }
@@ -116,7 +130,7 @@ namespace Sufka.Game.GameFlow
 
         private void ShowUnlockGameModePopup(GameMode gameMode)
         {
-            _popup.UnlockGameModePopup(gameMode.Name, gameMode.UnlockCost, _currentState.Score, () => UnlockGameMode(gameMode));
+            _popup.UnlockGameModePopup(gameMode.Name, gameMode.UnlockCost, Score, () => UnlockGameMode(gameMode));
         }
 
         private void UnlockGameMode(GameMode gameMode)
@@ -139,7 +153,7 @@ namespace Sufka.Game.GameFlow
 
         private void ShowUnlockColorSchemePopup(ColorScheme colorScheme)
         {
-            _popup.UnlockColorSchemePopup(colorScheme.Name, colorScheme.UnlockCost, _currentState.Score,
+            _popup.UnlockColorSchemePopup(colorScheme.Name, colorScheme.UnlockCost, Score,
                                           () => UnlockColorScheme(colorScheme));
         }
 
@@ -221,7 +235,6 @@ namespace Sufka.Game.GameFlow
         private void HandleHintUsed()
         {
             _saveData.availableHints--;
-            UpdateCurrentState();
             _statistics.HandleHintUsed(_playArea.GameMode, _availableGameModes);
             SaveGame();
         }
@@ -249,8 +262,6 @@ namespace Sufka.Game.GameFlow
 
             _statistics.Load(_saveData, _availableGameModes);
 
-            UpdateCurrentState();
-
             _gameInProgressSaveData = SaveSystem.LoadGameInProgress();
 
             if (_saveData.unlockedColors.Count < _colorSchemeDatabase.ColorSchemeCount)
@@ -264,12 +275,6 @@ namespace Sufka.Game.GameFlow
                 _saveData.UpdateGameModeUnlocksCount(_availableGameModes.GameModesCount);
                 SaveGame();
             }
-        }
-
-        private void UpdateCurrentState()
-        {
-            _currentState.Score = _saveData.score;
-            _currentState.AvailableHints = _saveData.availableHints;
         }
 
         public WordStatistics GetStatistics(GameMode gameMode)
@@ -305,13 +310,11 @@ namespace Sufka.Game.GameFlow
                 if (placementId == _ads.HintsAdId)
                 {
                     _saveData.availableHints += HINTS_PER_AD;
-                    UpdateCurrentState();
                     SaveGame();
                 }
                 else if (placementId == _ads.BonusPointsAdId)
                 {
                     _saveData.score += _pointsForAd;
-                    UpdateCurrentState();
                     _playArea.RefreshPoints(_pointsForAd);
                     _statistics.HandlePointsGained(_pointsForAd, _playArea.GameMode, _availableGameModes);
                     ClearPointsForAd();

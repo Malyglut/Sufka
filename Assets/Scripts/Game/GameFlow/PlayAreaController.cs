@@ -21,6 +21,7 @@ namespace Sufka.Game.GameFlow
         public event Action<int> OnPointsAwarded;
         public event Action OnRoundStarted;
         public event Action<int> OnWordGuessed;
+        public event Action<int,int,int,int> OnLetterStatisticsUpdated;
         public event Action OnHintUsed;
         public event Action OnHintAdRequested;
         public event Action OnBackToMenuPopupRequested;
@@ -184,6 +185,13 @@ namespace Sufka.Game.GameFlow
             if (_playArea.ValidInput)
             {
                 var result = WordValidator.Validate(TargetWord.interactivePart, _playArea.CurrentWord);
+
+                OnLetterStatisticsUpdated.Invoke(
+                                                 result.CorrectLetterCount, 
+                                                 result.CorrectSpotCount,
+                                                 _playArea.TypedLetters,
+                                                 _playArea.RemovedLetters
+                                                 );
 
 #if UNITY_EDITOR
                 Debug.Log(result);
