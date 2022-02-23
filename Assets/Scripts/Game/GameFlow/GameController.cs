@@ -310,6 +310,7 @@ namespace Sufka.Game.GameFlow
                 if (placementId == _ads.HintsAdId)
                 {
                     _saveData.availableHints += HINTS_PER_AD;
+                    _playArea.RefreshHints();
                     SaveGame();
                 }
                 else if (placementId == _ads.BonusPointsAdId)
