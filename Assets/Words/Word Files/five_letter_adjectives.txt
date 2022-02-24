@@ -330,10 +330,7 @@ naiwny
 najêty
 nalany
 napity
-na¿yty
-na¿êty
 netowy
-nidzki
 niecny
 nijaki
 nilowy
@@ -725,7 +722,6 @@ wê¿owy
 wê¿szy
 w³adny
 w³asny
-w³oski
 zabity
 zadany
 zadêty
@@ -771,7 +767,6 @@ zorany
 zros³y
 zrywny
 zrêbny
-zsypny
 zszyty
 zupowy
 zu¿yty
@@ -785,19 +780,14 @@ zêbowy
 z³omny
 z³udny
 æmiony
-³abski
-³ajany
 ³akomy
 ³amany
-³anowy
 ³apany
 ³atany
 ³atowy
 ³awowy
-³añski
 ³ebski
 ³ojowy
-³onowy
 ³ukowy
 ³upany
 ³ykany
@@ -806,7 +796,6 @@ z³udny
 ³±czny
 ³±kowy
 ³êgowy
-³êkowy
 ¶cis³y
 ¶ciêty
 ¶liski
@@ -826,7 +815,6 @@ z³udny
 ¿mudny
 ¿niwny
 ¿onaty
-¿yrowy
 ¿ywszy
 ¿y³owy
 ¿±dany
