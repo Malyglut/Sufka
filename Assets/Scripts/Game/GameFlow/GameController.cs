@@ -52,6 +52,7 @@ namespace Sufka.Game.GameFlow
         public int ColorsUnlocked => _saveData.unlockedColorCount;
         public int Score => _saveData.score;
         public int AvailableHints => _saveData.availableHints;
+        public bool HintUsed => _gameInProgressSaveData.hintUsed;
 
         private void StartTutorial()
         {
