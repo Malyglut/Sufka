@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sufka.Game.GameFlow;
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Sufka.Game.Statistics
@@ -14,6 +16,9 @@ namespace Sufka.Game.Statistics
         [SerializeField]
         private List<GameModeStatisticsController> _gameModeStatisticsControllers =
             new List<GameModeStatisticsController>();
+
+        [SerializeField]
+        private SwipeController _swipeController;
         
         [SerializeField]
         private List<GameObject> _pages = new List<GameObject>();
@@ -79,20 +84,31 @@ namespace Sufka.Game.Statistics
         private int _currentLastPageIdx;
         private GameModeStatisticsController _previousSelected;
 
+
+        
         public void Initialize()
         {
             _previousPageButton.onClick.AddListener(ShowPreviousPage);
             _nextPageButton.onClick.AddListener(ShowNextPage);
+
+            _swipeController.OnSwipeRight += ShowPreviousPage;
+            _swipeController.OnSwipeLeft += ShowNextPage;
         }
 
         private void ShowNextPage()
         {
-            ShowPage(_currentPageIdx + 1);
+            if(_currentPageIdx<_currentLastPageIdx)
+            {
+                ShowPage(_currentPageIdx + 1);
+            }
         }
 
         private void ShowPreviousPage()
         {
-            ShowPage(_currentPageIdx - 1);
+            if(_currentPageIdx>0)
+            {
+                ShowPage(_currentPageIdx - 1);
+            }
         }
 
         public void Refresh(GameMode gameMode)
