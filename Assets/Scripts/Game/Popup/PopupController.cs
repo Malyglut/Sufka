@@ -142,13 +142,13 @@ namespace Sufka.Game.Popup
             {
                 pointsString = PUNKTOW_STRING;
             }
-            else if (count % 10 == 1 && count < 10)
+            else if (count % 10 == 1)
             {
-                pointsString = PUNKT_STRING;
+                pointsString = count < 10 ? PUNKT_STRING : PUNKTOW_STRING;
             }
             else if (count % 10 <= 4)
             {
-                pointsString = PUNKTY_STRING;
+                pointsString = count % 100 <10 ? PUNKTY_STRING : PUNKTOW_STRING;
             }
             else
             {
