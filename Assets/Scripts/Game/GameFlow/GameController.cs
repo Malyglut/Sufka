@@ -15,7 +15,7 @@ namespace Sufka.Game.GameFlow
     public class GameController : MonoBehaviour, IUnityAdsListener
     {
         private const int HINTS_PER_AD = 10;
-        private const int HINTS_PER_HINT_REWARD = 2;
+        private const int HINTS_PER_HINT_REWARD = 1;
 
         [SerializeField]
         private ColorSchemeDatabase _colorSchemeDatabase;
@@ -52,6 +52,7 @@ namespace Sufka.Game.GameFlow
         public int ColorsUnlocked => _saveData.unlockedColorCount;
         public int Score => _saveData.score;
         public int AvailableHints => _saveData.availableHints;
+        public bool HintUsed => _gameInProgressSaveData.hintUsed;
 
         private void StartTutorial()
         {
@@ -310,6 +311,7 @@ namespace Sufka.Game.GameFlow
                 if (placementId == _ads.HintsAdId)
                 {
                     _saveData.availableHints += HINTS_PER_AD;
+                    _playArea.RefreshHints();
                     SaveGame();
                 }
                 else if (placementId == _ads.BonusPointsAdId)

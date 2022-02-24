@@ -16,6 +16,9 @@ namespace Sufka.Game.Controls
 
         [SerializeField]
         private TextMeshProUGUI _availableHints;
+        
+        [SerializeField]
+        private Image _getHintsIcon;
 
         [SerializeField]
         private ButtonColors _buttonColors;
@@ -28,6 +31,15 @@ namespace Sufka.Game.Controls
         public void Refresh()
         {
             _availableHints.SetText($"x {AvailableHints}");
+            
+            _availableHints.gameObject.SetActive(AvailableHints > 0);
+            _getHintsIcon.gameObject.SetActive(AvailableHints == 0);
+
+            if (_gameController!= null && _gameController.HintUsed)
+            {
+                Disable();
+            }
+
         }
 
         private void TryGetHint()
@@ -47,8 +59,16 @@ namespace Sufka.Game.Controls
 
         private void Disable()
         {
-            _button.interactable = false;
-            _buttonColors.Disable();
+            if(AvailableHints>0)
+            {
+                _button.interactable = false;
+                _buttonColors.Disable();
+            }
+            else
+            {
+                _availableHints.gameObject.SetActive(false);
+                _getHintsIcon.gameObject.SetActive(true);
+            }
         }
 
         public void Initialize()
@@ -67,6 +87,9 @@ namespace Sufka.Game.Controls
             {
                 _buttonColors.Enable();
                 _button.interactable = true;
+                
+                _availableHints.gameObject.SetActive(AvailableHints > 0);
+                _getHintsIcon.gameObject.SetActive(AvailableHints == 0);
             }
         }
     }
