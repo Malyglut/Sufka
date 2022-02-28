@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jungle Purple
   m_EditorClassIdentifier: 
   _unlockCost: 50
-  _name: "Purpura D\u017Cunglii"
+  _name: "Purpura D\u017Cungli"
   _primaryColor: {r: 0.37254903, g: 0.29411766, b: 0.7137255, a: 1}
   _secondaryColor: {r: 0.1254902, g: 0.16470589, b: 0.14509805, a: 1}
   _disabledColor: {r: 0.2627451, g: 0.20784314, b: 0.50980395, a: 1}
