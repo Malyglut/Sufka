@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sufka.Game.Validation;
 using Sufka.Game.Words;
@@ -126,7 +127,7 @@ namespace Sufka.Game.GameFlow
         {
             _currentLetterIdx = 0;
 
-            while (!_letters[_currentLetterIdx].IsBlank)
+            while (_currentLetterIdx < _letters.Count && !_letters[_currentLetterIdx].IsBlank)
             {
                 _currentLetterIdx++;
             }
@@ -156,6 +157,14 @@ namespace Sufka.Game.GameFlow
                 {
                     _currentLetterIdx++;
                 }
+            }
+        }
+
+        public void DisplayFailed(string word)
+        {
+            for (int i = 0; i < word.Length; i++)
+            {
+                _letters[i].SetLetter(word[i]);
             }
         }
     }

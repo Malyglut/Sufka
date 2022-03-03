@@ -82,6 +82,7 @@ namespace Sufka.Game.Controls
 
         public void Restore(bool hintUsed)
         {
+            gameObject.SetActive(true);
             _keyGrid.Reset();
             _hintButton.Reset(hintUsed);
             DisableEnterButton();
@@ -112,6 +113,11 @@ namespace Sufka.Game.Controls
         public void RefreshHints()
         {
             _hintButton.Refresh();
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

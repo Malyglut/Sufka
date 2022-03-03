@@ -21,7 +21,7 @@ namespace Sufka.Game.GameFlow
 
         public int CurrentAttempt { get; private set; }
 
-        private LetterRow CurrentRow => _rows[CurrentAttempt];
+        private LetterRow CurrentRow => _rows[Mathf.Min(CurrentAttempt, _rows.Count-1)];
         public char[] CurrentWord => CurrentRow.Word;
         public bool ValidInput => CurrentRow.IsFull;
         public bool LastAttempt => CurrentAttempt >= _rows.Count - 1;
