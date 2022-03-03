@@ -36,6 +36,9 @@ namespace Sufka.Game.GameFlow
         private Keyboard _keyboard;
 
         [SerializeField]
+        private RoundOverDisplay _roundOverMessage;
+
+        [SerializeField]
         private GameSetupDatabase _gameSetupDatabase;
 
         [SerializeField]
@@ -59,7 +62,6 @@ namespace Sufka.Game.GameFlow
         public int HintRow { get; private set; }
         public List<int> GuessedIndices { get; private set; } = new List<int>();
 
-        public string TargetWordString => TargetWord.fullWord;
         public List<List<LetterResult>> FilledLetters => _playArea.GetFilledLetters();
 
         public void StartGame(GameMode gameMode)
@@ -133,6 +135,9 @@ namespace Sufka.Game.GameFlow
                 _backToMenuButton.onClick.AddListener(RequestBackToMenuPopup);
 
                 _scoreDisplay.Initialize();
+                
+                _roundOverMessage.Initialize();
+                _roundOverMessage.OnNextRoundRequested += RandomWordRound;
 
                 _initialized = true;
             }
@@ -175,6 +180,7 @@ namespace Sufka.Game.GameFlow
 
             _playArea.Initialize(_currentGameSetup.AttemptCount, _currentGameSetup.LetterCount, TargetWord);
             _keyboard.Restore(HintUsed);
+            _roundOverMessage.Hide();
 
             OnRoundStarted.Invoke();
             OnGameProgressUpdated.Invoke();
@@ -217,12 +223,18 @@ namespace Sufka.Game.GameFlow
                     OnPointsAwarded.Invoke(pointsToAward);
                     OnWordGuessed.Invoke(_playArea.CurrentAttempt);
 
-                    RandomWordRound();
+                    _playArea.Display(result);
+                    
+                    _keyboard.Hide();
+                    _roundOverMessage.ShowWin(pointsToAward);
                 }
                 else if (!result.FullMatch && _playArea.LastAttempt)
                 {
                     OnRoundOver.Invoke();
-                    RandomWordRound();
+
+                    _playArea.Display(result);
+                    _keyboard.Hide();
+                    _roundOverMessage.ShowLoss(_currentGameSetup.LetterCount, TargetWord);
                 }
                 else
                 {

@@ -1,5 +1,6 @@
 using System;
 using Sufka.Game.Controls;
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +18,7 @@ namespace Sufka.Game.Popup
         private const string BONUS_POINTS_TOP_TEXT =
             "Za ostatnie {0} poprawnie odgadniętych słówek udało Ci się zdobyć {1} {2}.";
         private const string BONUS_POINTS_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć dodatkowe {0} {1}?";
-        private const string PUNKTOW_STRING = "punktów";
-        private const string PUNKT_STRING = "punkt";
-        private const string PUNKTY_STRING = "punkty";
+
 
         [SerializeField]
         private GameObject _root;
@@ -113,6 +112,11 @@ namespace Sufka.Game.Popup
             Show(topFormatted, bottomFormatted, null, yesCallback, availablePoints >= colorSchemeCost);
         }
 
+        private string GetProperPointsString(int value)
+        {
+            return PointsTextUtility.GetProperPointsString(value);
+        }
+
         public void UnlockGameModePopup(string gameModeName, int gameModeCost, int availablePoints, Action yesCallback)
         {
             var topPointsString = GetProperPointsString(gameModeCost);
@@ -132,30 +136,6 @@ namespace Sufka.Game.Popup
             var bottomFormatted = string.Format(BONUS_POINTS_BOTTOM_TEXT, pointsForAd, pointsString);
 
             Show(topFormatted, bottomFormatted, noAction, yesAction, HasInternetAcces);
-        }
-
-        private string GetProperPointsString(int count)
-        {
-            string pointsString;
-
-            if (count % 10 == 0)
-            {
-                pointsString = PUNKTOW_STRING;
-            }
-            else if (count % 10 == 1)
-            {
-                pointsString = count < 10 ? PUNKT_STRING : PUNKTOW_STRING;
-            }
-            else if (count % 10 <= 4)
-            {
-                pointsString = count % 100 <10 ? PUNKTY_STRING : PUNKTOW_STRING;
-            }
-            else
-            {
-                pointsString = PUNKTOW_STRING;
-            }
-
-            return pointsString;
         }
     }
 }

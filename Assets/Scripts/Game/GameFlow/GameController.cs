@@ -43,6 +43,7 @@ namespace Sufka.Game.GameFlow
 
         private SaveData _saveData;
         private int _pointsForAd;
+        private bool _gameInProgress;
 
         public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[_saveData.selectedColorSchemeIdx];
         public List<bool> UnlockedGameModes => _saveData.unlockedGameModes;
@@ -74,6 +75,8 @@ namespace Sufka.Game.GameFlow
         private void Start()
         {
             LoadGame();
+            
+            _ads.Initialize(this);
 
             _playArea.OnHintUsed += HandleHintUsed;
             _playArea.OnWordGuessed += HandleWordGuessed;
@@ -83,6 +86,7 @@ namespace Sufka.Game.GameFlow
             _playArea.OnGameProgressUpdated += SaveGameProgress;
             _playArea.OnRoundOver += HandleRoundOver;
             _playArea.OnLetterStatisticsUpdated += HandleLetterStatisticsUpdated;
+            _playArea.OnRoundStarted += UpdateGameInProgress;
 
             _mainMenu.OnRequestGameStart += StartGame;
             _mainMenu.OnRequestContinueGame += ContinueGame;
@@ -93,14 +97,18 @@ namespace Sufka.Game.GameFlow
 
             ShowMainMenu();
 
-            _ads.Initialize(this);
-
             _popup.Initialize();
 
             if (!_saveData.tutorialCompleted)
             {
                 StartTutorial();
             }
+        }
+
+        private void UpdateGameInProgress()
+        {
+            _gameInProgress = true;
+            SaveGameProgress();
         }
 
         private void HandleLetterStatisticsUpdated(int correctLetters, int correctSpotLetters, int typedLetters, int removedLetters)
@@ -117,6 +125,8 @@ namespace Sufka.Game.GameFlow
 
         private void HandleRoundOver()
         {
+            _gameInProgress = false;
+            
             _saveData.wordsUntilHintReward--;
 
             if (_saveData.wordsUntilHintReward <= 0)
@@ -127,6 +137,7 @@ namespace Sufka.Game.GameFlow
             }
 
             SaveGame();
+            SaveGameProgress();
         }
 
         private void ShowUnlockGameModePopup(GameMode gameMode)
@@ -177,7 +188,7 @@ namespace Sufka.Game.GameFlow
         private void SaveGameProgress()
         {
             var gameModeIdx = _availableGameModes.GameModes.IndexOf(_playArea.GameMode);
-            _gameInProgressSaveData.Update(true, gameModeIdx, _playArea);
+            _gameInProgressSaveData.Update(_gameInProgress, gameModeIdx, _playArea);
 
             SaveSystem.SaveGameInProgress(_gameInProgressSaveData);
         }
