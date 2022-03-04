@@ -76,7 +76,6 @@ namespace Sufka.Game.GameFlow
         {
             LoadGame();
             
-            _ads.Initialize(this);
 
             _playArea.OnHintUsed += HandleHintUsed;
             _playArea.OnWordGuessed += HandleWordGuessed;
@@ -253,13 +252,22 @@ namespace Sufka.Game.GameFlow
 
         private void StartGame(GameMode gameMode)
         {
+            InitializeAds();
+            
             _playArea.StartGame(gameMode);
         }
 
         private void ContinueGame()
         {
+            InitializeAds();
+
             var gameMode = _availableGameModes.GameModes[_gameInProgressSaveData.gameModeIdx];
             _playArea.StartGame(gameMode, _gameInProgressSaveData);
+        }
+
+        private void InitializeAds()
+        {
+            _ads.Initialize(this);
         }
 
         private void SaveGame()
