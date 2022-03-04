@@ -240,7 +240,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: Desktop/sufka.keystore'
+  AndroidKeystoreName: C:/Users/Malyglut/Desktop/Sufka files/sufka.keystore
   AndroidKeyaliasName: sufka_keystore
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

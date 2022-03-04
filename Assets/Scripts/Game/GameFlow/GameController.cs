@@ -165,7 +165,7 @@ namespace Sufka.Game.GameFlow
 
         private void ShowUnlockColorSchemePopup(ColorScheme colorScheme)
         {
-            _popup.UnlockColorSchemePopup(colorScheme.Name, colorScheme.UnlockCost, Score,
+            _popup.UnlockColorSchemePopup(colorScheme.ColoredString(), colorScheme.UnlockCost, Score,
                                           () => UnlockColorScheme(colorScheme));
         }
 
