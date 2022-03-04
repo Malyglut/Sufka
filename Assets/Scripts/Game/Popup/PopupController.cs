@@ -12,8 +12,8 @@ namespace Sufka.Game.Popup
         private const string HINT_AD_TOP_TEXT = "Wykorzystano wszystkie podpowiedzi.";
         private const string HINT_AD_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć kolejne {0} podpowiedzi?";
         private const string BACK_TO_MENU_TOP_TEXT = "Czy na pewno chcesz wrócić do menu głównego?";
-        private const string UNLOCK_COLOR_TOP_TEXT = "Czy chcesz odblokować kolor \"{0}\" za {1} {2}?";
-        private const string UNLOCK_GAME_MODE_TOP_TEXT = "Czy chcesz odblokować tryb gry \"{0}\" za {1} {2}?";
+        private const string UNLOCK_COLOR_TOP_TEXT = "Czy chcesz odblokować kolor {0} za {1} {2}?";
+        private const string UNLOCK_GAME_MODE_TOP_TEXT = "Czy chcesz odblokować tryb gry <b>{0}</b> za {1} {2}?";
         private const string UNLOCK_BOTTOM_TEXT = "Obecnie posiadasz {0} {1}.";
         private const string BONUS_POINTS_TOP_TEXT =
             "Za ostatnie {0} poprawnie odgadniętych słówek udało Ci się zdobyć {1} {2}.";

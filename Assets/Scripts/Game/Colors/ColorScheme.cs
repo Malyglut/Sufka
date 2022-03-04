@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Sufka.Game.Colors
@@ -59,6 +60,16 @@ namespace Sufka.Game.Colors
             }
 
             return color;
+        }
+
+        public string ColoredString()
+        {
+            
+            var split = _name.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+            var primaryHex = ColorUtility.ToHtmlStringRGB(_primaryColor);
+            var secondaryHex = ColorUtility.ToHtmlStringRGB(_secondaryColor);
+
+            return $"<color #{primaryHex}>{split[0]}</color> <color #{secondaryHex}>{split[1]}</color>";
         }
     }
 }
