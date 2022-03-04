@@ -177,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Punkt\xF3w"
+  m_text: "punkt\xF3w"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
   m_sharedMaterial: {fileID: -8952724313125292628, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2493,7 +2493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BRAWO!
+  m_text: Brawo!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
   m_sharedMaterial: {fileID: -8952724313125292628, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
@@ -2526,7 +2526,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2783,7 +2783,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Uda\u0142o ci si\u0119 zdoby\u0107"
+  m_text: "Uda\u0142o Ci si\u0119 zdoby\u0107"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
   m_sharedMaterial: {fileID: -8952724313125292628, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
@@ -2816,7 +2816,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2985,7 +2985,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "ukryte s\u0142\xF3wko to:"
+  m_text: "Ukryte s\u0142\xF3wko to:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
   m_sharedMaterial: {fileID: -8952724313125292628, guid: a187631921d08bb4fa5d87693ca0dd99, type: 2}
@@ -3018,7 +3018,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
