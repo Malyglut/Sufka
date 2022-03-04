@@ -1,9 +1,4 @@
-using UnityEngine;
 using UnityEngine.Advertisements;
-
-#if UNITY_IOS
-using Unity.Advertisement.IosSupport;
-#endif
 
 namespace Sufka.Game.Ads
 {
@@ -23,15 +18,6 @@ namespace Sufka.Game.Ads
 #if UNITY_ANDROID
             Advertisement.Initialize(ANDROID_ID);
 #elif UNITY_IOS
-            
-            if (ATTrackingStatusBinding.GetAuthorizationTrackingStatus() ==
-                ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
-            {
-                {
-                    ATTrackingStatusBinding.RequestAuthorizationTracking();
-                }
-            }
-            
             Advertisement.Initialize(IOS_ID);
 #endif
         }
