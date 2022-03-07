@@ -1,3 +1,4 @@
+using System;
 using Sufka.Game.Colors;
 using Sufka.Game.Validation;
 using UnityEngine;
@@ -30,12 +31,27 @@ namespace Sufka.Game.GameFlow
         {
             CurrentCorrectness = letterCorrectness;
 
-            var active = CurrentCorrectness == LetterCorrectness.Full ||
-                         CurrentCorrectness == LetterCorrectness.Partial;
+            var active = CurrentCorrectness != LetterCorrectness.NotSet;
 
             if (active)
             {
                 var color = CurrentCorrectness == LetterCorrectness.Full ? _fullCorrectColor : _partialCorrectColor;
+
+                switch (CurrentCorrectness)
+                {
+                    case LetterCorrectness.None:
+                        color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled);
+                        break;
+                    case LetterCorrectness.Partial:
+                        color = _partialCorrectColor;
+                        break;
+                    case LetterCorrectness.Full:
+                        color = _fullCorrectColor;
+                        break;
+                }
+                
+                
+                
                 _fill.Refresh(color);
             }
             else
