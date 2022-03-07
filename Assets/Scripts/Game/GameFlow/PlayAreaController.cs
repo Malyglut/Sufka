@@ -289,6 +289,13 @@ namespace Sufka.Game.GameFlow
         }
 
         [FoldoutGroup("Debug"), Button]
+        private void CustomVerbRound(Word word)
+        {
+            TargetWord = word;
+            StartNewRound();
+        }
+        
+        [FoldoutGroup("Debug"), Button]
 #endif
         private void GetHint()
         {
