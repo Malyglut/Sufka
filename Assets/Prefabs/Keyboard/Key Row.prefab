@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _letterKeyPrefab: {fileID: 8120426169374742096, guid: 42489f8f8fe7d9345b27739bd54e0a23, type: 3}
+  _keyOffsetPrefab: {fileID: -1146662108277842719, guid: 88b8f69bcb4e01c408e5cb45ee939a1b, type: 3}
   _parent: {fileID: 2637210135471856570}
 --- !u!114 &2637210135471856573
 MonoBehaviour:
@@ -70,7 +71,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 25
-  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
