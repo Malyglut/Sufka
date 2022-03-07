@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sufka.Game.Validation;
 using UnityEngine;
 
@@ -31,6 +32,8 @@ namespace Sufka.Game.Controls
 
         public void Initialize(List<CharList> charLists)
         {
+            var maxKeys = charLists.Max(list => list.CharCount);
+            
             for (var row = 0; row < charLists.Count; row++)
             {
                 AddRow();
@@ -46,6 +49,10 @@ namespace Sufka.Game.Controls
 
                     _rows[row].AddKey(character);
                 }
+
+                var keyDeficit = maxKeys - charLists[row].CharCount;
+                
+                _rows[row].Offset(keyDeficit);
             }
         }
 
