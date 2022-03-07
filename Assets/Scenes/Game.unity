@@ -1105,6 +1105,14 @@ PrefabInstance:
       propertyPath: _gameController
       value: 
       objectReference: {fileID: 211350628}
+    - target: {fileID: 4692433175657323239, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
+      propertyPath: m_text
+      value: "Ukryte s\u0142\xF3wko to"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822530284118539267, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
 --- !u!1001 &3364042320788575153
