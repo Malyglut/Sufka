@@ -46,7 +46,13 @@ namespace Sufka.Game.Statistics.Graphs
         {
             yield return new WaitForEndOfFrame();
 
-            var valueFitsInside = _valueInside.preferredWidth < _rectTransform.rect.width;
+            var valueRectTransform = _valueInside.rectTransform;
+
+            var marginLeft = valueRectTransform.offsetMin.x;
+            var marginRight = valueRectTransform.offsetMax.x *-1f;
+            var valueFieldWidth = _valueInside.preferredWidth + marginLeft + marginRight;
+
+            var valueFitsInside = valueFieldWidth < _rectTransform.rect.width;
 
             _valueInside.gameObject.SetActive(valueFitsInside);
             _valueOutside.gameObject.SetActive(!valueFitsInside);
