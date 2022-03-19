@@ -21,7 +21,7 @@ namespace Sufka.Game.GameFlow
         public event Action<int> OnPointsAwarded;
         public event Action OnRoundStarted;
         public event Action<int> OnWordGuessed;
-        public event Action<int,int,int,int> OnLetterStatisticsUpdated;
+        public event Action<int, int, int, int> OnLetterStatisticsUpdated;
         public event Action OnHintUsed;
         public event Action OnHintAdRequested;
         public event Action OnBackToMenuPopupRequested;
@@ -63,6 +63,7 @@ namespace Sufka.Game.GameFlow
         public List<int> GuessedIndices { get; private set; } = new List<int>();
 
         public List<List<LetterResult>> FilledLetters => _playArea.GetFilledLetters();
+        public int CurrentAttempt => _playArea.CurrentAttempt;
 
         public void StartGame(GameMode gameMode)
         {
@@ -135,7 +136,7 @@ namespace Sufka.Game.GameFlow
                 _backToMenuButton.onClick.AddListener(RequestBackToMenuPopup);
 
                 _scoreDisplay.Initialize();
-                
+
                 _roundOverMessage.Initialize();
                 _roundOverMessage.OnNextRoundRequested += RandomWordRound;
 
@@ -192,12 +193,10 @@ namespace Sufka.Game.GameFlow
             {
                 var result = WordValidator.Validate(TargetWord.interactivePart, _playArea.CurrentWord);
 
-                OnLetterStatisticsUpdated.Invoke(
-                                                 result.CorrectLetterCount, 
+                OnLetterStatisticsUpdated.Invoke(result.CorrectLetterCount,
                                                  result.CorrectSpotCount,
                                                  _playArea.TypedLetters,
-                                                 _playArea.RemovedLetters
-                                                 );
+                                                 _playArea.RemovedLetters);
 
 #if UNITY_EDITOR
                 Debug.Log(result);
@@ -224,7 +223,7 @@ namespace Sufka.Game.GameFlow
                     OnWordGuessed.Invoke(_playArea.CurrentAttempt);
 
                     _playArea.Display(result);
-                    
+
                     _keyboard.Hide();
                     _roundOverMessage.ShowWin(pointsToAward);
                 }
@@ -266,6 +265,11 @@ namespace Sufka.Game.GameFlow
             _keyboard.RefreshHints();
         }
 
+        public void RefreshPoints(int pointsToAward)
+        {
+            _scoreDisplay.Refresh(pointsToAward);
+        }
+
 #if UNITY_EDITOR
         [FoldoutGroup("Debug"), Button]
         private void NounRound()
@@ -294,7 +298,7 @@ namespace Sufka.Game.GameFlow
             TargetWord = word;
             StartNewRound();
         }
-        
+
         [FoldoutGroup("Debug"), Button]
 #endif
         private void GetHint()
@@ -330,11 +334,6 @@ namespace Sufka.Game.GameFlow
             HintUsed = true;
             OnHintUsed.Invoke();
             OnGameProgressUpdated.Invoke();
-        }
-
-        public void RefreshPoints(int pointsToAward)
-        {
-            _scoreDisplay.Refresh(pointsToAward);
         }
     }
 }
