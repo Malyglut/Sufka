@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sufka.Game.Analytics;
 using Sufka.Game.Colors;
 using Sufka.Game.GameFlow;
 using Sufka.Game.Statistics;
@@ -41,7 +42,7 @@ namespace Sufka.Game.MainMenu
 
         [SerializeField]
         private Button _colorsButton;
-        
+
         [SerializeField]
         private Button _exitButton;
 
@@ -50,23 +51,23 @@ namespace Sufka.Game.MainMenu
         public void Initialize()
         {
             _statisticsScreen.Initialize();
-            
+
             _colorsScreen.OnUnlockColorSchemeRequested += RequestUnlockColorScheme;
             _colorsScreen.OnColorSchemeChanged += NotifyColorSchemeChanged;
             _colorsScreen.Initialize();
-            
+
             _buttonsScreen.Initialize();
             _buttonsScreen.OnRequestShowOverallStatistics += ShowOverallStatistics;
             _buttonsScreen.OnRequestGameStart += RequestGameStart;
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
             _buttonsScreen.OnRequestUnlockGameMode += RequestUnlockGameMode;
-            
+
             _playButton.onClick.AddListener(ShowPlayButtons);
             _backButton.onClick.AddListener(Back);
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);
             _colorsButton.onClick.AddListener(ShowColorsScreen);
             _continueButton.onClick.AddListener(RequestContinueGame);
-            
+
             _exitButton.onClick.AddListener(ExitGame);
 
             _backStack.Push(_titleScreen);
@@ -76,6 +77,7 @@ namespace Sufka.Game.MainMenu
         {
             ShowScreen(_statisticsScreen.gameObject);
             _statisticsScreen.RefreshOverall();
+            AnalyticsEvents.StatisticsChecked("OGÓLNE");
         }
 
         private void RequestUnlockGameMode(GameMode gameMode)
@@ -92,6 +94,7 @@ namespace Sufka.Game.MainMenu
         {
             ShowScreen(_statisticsScreen.gameObject);
             _statisticsScreen.Refresh(gameMode);
+            AnalyticsEvents.StatisticsChecked(gameMode.Name);
         }
 
         private void RequestGameStart(GameMode gameMode)

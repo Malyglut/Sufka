@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sufka.Game.GameFlow;
+using Sufka.Game.Statistics.Graphs;
 using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Sufka.Game.Statistics
@@ -12,65 +12,53 @@ namespace Sufka.Game.Statistics
     public class StatisticsScreen : MonoBehaviour
     {
         private const string OVERALL_STATISTICS_LABEL = "OGÓLNE";
-        
+
         [SerializeField]
         private List<GameModeStatisticsController> _gameModeStatisticsControllers =
             new List<GameModeStatisticsController>();
 
         [SerializeField]
         private SwipeController _swipeController;
-        
+
         [SerializeField]
         private List<GameObject> _pages = new List<GameObject>();
-        
+
         [SerializeField]
         private TextMeshProUGUI _statisticsLabel;
-        
+
         [SerializeField]
         private GameController _gameController;
-        
+
         [SerializeField]
         private StatisticDisplay _guessedWords;
-        
+
         [SerializeField]
-        private StatisticDisplay _firstAttempt;
-        
-        [SerializeField]
-        private StatisticDisplay _secondAttempt;
-        
-        [SerializeField]
-        private StatisticDisplay _thirdAttempt;
-        
-        [SerializeField]
-        private StatisticDisplay _fourthAttempt;
-        
-        [SerializeField]
-        private StatisticDisplay _fifthAttempt;
-        
+        private BarGraph _attemptsGraph;
+
         [SerializeField]
         private StatisticDisplay _hintsUsed;
-        
+
         [SerializeField]
         private StatisticDisplay _pointsGained;
-        
+
         [SerializeField]
         private StatisticDisplay _pointsSpent;
-        
+
         [SerializeField]
         private StatisticDisplay _pointsSpentOnColors;
-        
+
         [SerializeField]
         private StatisticDisplay _colorsUnlocked;
-        
+
         [SerializeField]
         private StatisticDisplay _typedLetters;
-        
+
         [SerializeField]
         private StatisticDisplay _correctLetters;
-        
+
         [SerializeField]
         private StatisticDisplay _lettersInCorrectSpot;
-        
+
         [SerializeField]
         private StatisticDisplay _removedLetters;
 
@@ -84,8 +72,6 @@ namespace Sufka.Game.Statistics
         private int _currentLastPageIdx;
         private GameModeStatisticsController _previousSelected;
 
-
-        
         public void Initialize()
         {
             _previousPageButton.onClick.AddListener(ShowPreviousPage);
@@ -97,7 +83,7 @@ namespace Sufka.Game.Statistics
 
         private void ShowNextPage()
         {
-            if(_currentPageIdx<_currentLastPageIdx)
+            if (_currentPageIdx < _currentLastPageIdx)
             {
                 ShowPage(_currentPageIdx + 1);
             }
@@ -105,7 +91,7 @@ namespace Sufka.Game.Statistics
 
         private void ShowPreviousPage()
         {
-            if(_currentPageIdx>0)
+            if (_currentPageIdx > 0)
             {
                 ShowPage(_currentPageIdx - 1);
             }
@@ -120,7 +106,7 @@ namespace Sufka.Game.Statistics
             {
                 _previousSelected.Revert();
             }
-            
+
             var statisticsController =
                 _gameModeStatisticsControllers.First(controller => controller.GameMode == gameMode);
 
@@ -128,7 +114,7 @@ namespace Sufka.Game.Statistics
             _currentLastPageIdx = statisticsController.LastPageIdx;
 
             _previousSelected = statisticsController;
-            
+
             ShowPage(0);
         }
 
@@ -138,7 +124,7 @@ namespace Sufka.Game.Statistics
 
             _currentPageIdx = pageIdx;
             _pages[_currentPageIdx].SetActive(true);
-            
+
             _previousPageButton.gameObject.SetActive(_currentPageIdx > 0);
             _nextPageButton.gameObject.SetActive(_currentPageIdx < _currentLastPageIdx);
         }
@@ -149,7 +135,7 @@ namespace Sufka.Game.Statistics
             {
                 _previousSelected.Revert();
             }
-            
+
             var overallStatistics = new WordStatistics(-1);
 
             foreach (var controller in _gameModeStatisticsControllers)
@@ -165,20 +151,20 @@ namespace Sufka.Game.Statistics
                 overallStatistics.thirdAttemptGuesses += gameModeStatistics.thirdAttemptGuesses;
                 overallStatistics.fourthAttemptGuesses += gameModeStatistics.fourthAttemptGuesses;
                 overallStatistics.fifthAttemptGuesses += gameModeStatistics.fifthAttemptGuesses;
-                
+
                 overallStatistics.typedLetters += gameModeStatistics.typedLetters;
                 overallStatistics.correctLetters += gameModeStatistics.correctLetters;
                 overallStatistics.lettersInCorrectSpot += gameModeStatistics.lettersInCorrectSpot;
                 overallStatistics.removedLetters += gameModeStatistics.removedLetters;
             }
-            
+
             _pointsSpent.Refresh(_gameController.PointsSpent);
             _pointsSpentOnColors.Refresh(_gameController.PointsSpentOnColors);
             _colorsUnlocked.Refresh(_gameController.ColorsUnlocked);
 
             RefreshStatistics(OVERALL_STATISTICS_LABEL, overallStatistics);
             _currentLastPageIdx = _pages.Count - 1;
-            
+
             ShowPage(0);
         }
 
@@ -190,16 +176,25 @@ namespace Sufka.Game.Statistics
             _hintsUsed.Refresh(statistics.hintsUsed);
             _pointsGained.Refresh(statistics.scoreGained);
 
-            _firstAttempt.Refresh(statistics.firstAttemptGuesses);
-            _secondAttempt.Refresh(statistics.secondAttemptGuesses);
-            _thirdAttempt.Refresh(statistics.thirdAttemptGuesses);
-            _fourthAttempt.Refresh(statistics.fourthAttemptGuesses);
-            _fifthAttempt.Refresh(statistics.fifthAttemptGuesses);
-            
+            RefreshAttemptsGraph(statistics);
+
             _typedLetters.Refresh(statistics.typedLetters);
             _correctLetters.Refresh(statistics.correctLetters);
             _lettersInCorrectSpot.Refresh(statistics.lettersInCorrectSpot);
             _removedLetters.Refresh(statistics.removedLetters);
+        }
+
+        private void RefreshAttemptsGraph(WordStatistics statistics)
+        {
+            var attemptValues = new BarGraphValue[5];
+
+            attemptValues[0] = new BarGraphValue {label = "1", value = statistics.firstAttemptGuesses};
+            attemptValues[1] = new BarGraphValue {label = "2", value = statistics.secondAttemptGuesses};
+            attemptValues[2] = new BarGraphValue {label = "3", value = statistics.thirdAttemptGuesses};
+            attemptValues[3] = new BarGraphValue {label = "4", value = statistics.fourthAttemptGuesses};
+            attemptValues[4] = new BarGraphValue {label = "5", value = statistics.fifthAttemptGuesses};
+
+            _attemptsGraph.Initialize(attemptValues);
         }
     }
 }

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
-  m_Name: Jungle Purple
+  m_Name: Purpura Dzungli
   m_EditorClassIdentifier: 
   _unlockCost: 50
   _name: "Purpura D\u017Cungli"
   _primaryColor: {r: 0.37254903, g: 0.29411766, b: 0.7137255, a: 1}
   _secondaryColor: {r: 0.1254902, g: 0.16470589, b: 0.14509805, a: 1}
   _disabledColor: {r: 0.2627451, g: 0.20784314, b: 0.50980395, a: 1}
-  _fullCorrectColor: {r: 0.59607846, g: 0.80784315, b: 0, a: 1}
-  _partialCorrectColor: {r: 0.9490196, g: 0.8627451, b: 0.3647059, a: 1}
+  _fullCorrectColor: {r: 0.52156866, g: 0.6784314, b: 0.5294118, a: 1}
+  _partialCorrectColor: {r: 0.8784314, g: 0.78431374, b: 0.40392157, a: 1}
   _failColor: {r: 0.6039216, g: 0.011764706, b: 0.11764706, a: 1}

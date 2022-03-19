@@ -19,7 +19,6 @@ namespace Sufka.Game.Popup
             "Za ostatnie {0} poprawnie odgadniętych słówek udało Ci się zdobyć {1} {2}.";
         private const string BONUS_POINTS_BOTTOM_TEXT = "Czy chcesz obejrzeć reklamę, żeby zdobyć dodatkowe {0} {1}?";
 
-
         [SerializeField]
         private GameObject _root;
 
@@ -84,13 +83,13 @@ namespace Sufka.Game.Popup
             _root.SetActive(true);
         }
 
-        public void ShowHintPopup(int hintsPerAd, Action yesCallback)
+        public void ShowHintPopup(int hintsPerAd, Action noCallback, Action yesCallback)
         {
             var bottomFormatted = string.Format(HINT_AD_BOTTOM_TEXT, hintsPerAd);
 
             Show(HINT_AD_TOP_TEXT,
                  bottomFormatted,
-                 null,
+                 noCallback,
                  yesCallback,
                  HasInternetAcces);
         }

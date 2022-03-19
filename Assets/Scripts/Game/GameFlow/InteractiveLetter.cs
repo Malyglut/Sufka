@@ -14,12 +14,6 @@ namespace Sufka.Game.GameFlow
         private LetterCorrectnessFill _fill;
 
         [SerializeField]
-        private Color _fullCorrectColor = Color.white;
-
-        [SerializeField]
-        private Color _partialCorrectColor = Color.white;
-
-        [SerializeField]
         private ColorSchemeInitializer _colorSchemeInitializer;
 
         public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet;
@@ -35,22 +29,21 @@ namespace Sufka.Game.GameFlow
 
             if (active)
             {
-                var color = CurrentCorrectness == LetterCorrectness.Full ? _fullCorrectColor : _partialCorrectColor;
+                var currentColorScheme = ColorSchemeController.CurrentColorScheme;
+                var color = Color.white;
 
                 switch (CurrentCorrectness)
                 {
                     case LetterCorrectness.None:
-                        color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled);
+                        color = currentColorScheme.GetColor(ColorWeight.Disabled);
                         break;
                     case LetterCorrectness.Partial:
-                        color = _partialCorrectColor;
+                        color = currentColorScheme.GetColor(ColorWeight.PartialCorrect);
                         break;
                     case LetterCorrectness.Full:
-                        color = _fullCorrectColor;
+                        color = currentColorScheme.GetColor(ColorWeight.FullCorrect);
                         break;
                 }
-                
-                
                 
                 _fill.Refresh(color);
             }
@@ -81,7 +74,7 @@ namespace Sufka.Game.GameFlow
         {
             CurrentCorrectness = LetterCorrectness.Full;
             _letterDisplay.SetLetter(letter);
-            _fill.Refresh(_fullCorrectColor);
+            _fill.Refresh(ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.FullCorrect));
         }
 
         public void Initialize()

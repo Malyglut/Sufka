@@ -21,12 +21,6 @@ namespace Sufka.Game.Controls
         private LetterCorrectnessFill _fill;
 
         [SerializeField]
-        private Color _fullCorrectColor = Color.white;
-
-        [SerializeField]
-        private Color _partialCorrectColor = Color.white;
-
-        [SerializeField]
         private ColorSchemeInitializer _colorSchemeInitializer;
 
         public LetterCorrectness CurrentCorrectness { get; private set; } = LetterCorrectness.NotSet;
@@ -54,19 +48,21 @@ namespace Sufka.Game.Controls
 
                 Color color;
 
+                var currentColorScheme = ColorSchemeController.CurrentColorScheme;
+
                 switch (CurrentCorrectness)
                 {
                     case LetterCorrectness.None:
-                        color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled);
+                        color = currentColorScheme.GetColor(ColorWeight.Disabled);
                         break;
                     case LetterCorrectness.Partial:
-                        color = _partialCorrectColor;
+                        color = currentColorScheme.GetColor(ColorWeight.PartialCorrect);
                         break;
                     case LetterCorrectness.Full:
-                        color = _fullCorrectColor;
+                        color = currentColorScheme.GetColor(ColorWeight.FullCorrect);
                         break;
                     default:
-                        color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.Disabled);
+                        color = currentColorScheme.GetColor(ColorWeight.Disabled);
                         break;
                 }
 

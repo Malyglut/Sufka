@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Sufka.Game.GameFlow;
 using UnityEngine;
 
@@ -33,6 +34,9 @@ namespace Sufka.Game.Colors
             Apply(colorScheme);
         }
 
+#if UNITY_EDITOR
+        [Button]
+#endif
         private void Apply(ColorScheme colorScheme)
         {
             FindAllTargets();
