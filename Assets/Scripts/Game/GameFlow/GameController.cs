@@ -88,10 +88,11 @@ namespace Sufka.Game.GameFlow
             _playArea.OnRoundStarted += UpdateGameInProgress;
 
             _mainMenu.OnRequestGameStart += StartGame;
-            _mainMenu.OnRequestContinueGame += ContinueGame;
+            _mainMenu.OnContinueRequested += ContinueGame;
             _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
             _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
             _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
+            _mainMenu.OnTutorialRequested += StartTutorial;
             _mainMenu.Initialize();
 
             ShowMainMenu();

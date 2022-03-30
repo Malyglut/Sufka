@@ -15,7 +15,8 @@ namespace Sufka.Game.MainMenu
         public event Action<ColorScheme> OnRequestUnlockColorScheme;
         public event Action<GameMode> OnRequestUnlockGameMode;
         public event Action<ColorScheme> OnNotifyColorSchemeChanged;
-        public event Action OnRequestContinueGame;
+        public event Action OnContinueRequested;
+        public event Action OnTutorialRequested;
 
         [SerializeField]
         private GameObject _titleScreen;
@@ -42,6 +43,9 @@ namespace Sufka.Game.MainMenu
 
         [SerializeField]
         private Button _colorsButton;
+        
+        [SerializeField]
+        private Button _tutorialButton;
 
         [SerializeField]
         private Button _exitButton;
@@ -67,10 +71,16 @@ namespace Sufka.Game.MainMenu
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);
             _colorsButton.onClick.AddListener(ShowColorsScreen);
             _continueButton.onClick.AddListener(RequestContinueGame);
+            _tutorialButton.onClick.AddListener(RequestTutorial);
 
             _exitButton.onClick.AddListener(ExitGame);
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void RequestTutorial()
+        {
+            OnTutorialRequested.Invoke();
         }
 
         private void ShowOverallStatistics()
@@ -116,7 +126,7 @@ namespace Sufka.Game.MainMenu
         private void RequestContinueGame()
         {
             ResetToTitleScreen();
-            OnRequestContinueGame.Invoke();
+            OnContinueRequested.Invoke();
         }
 
         private void ShowColorsScreen()

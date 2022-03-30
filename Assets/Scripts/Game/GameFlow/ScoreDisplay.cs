@@ -23,8 +23,11 @@ namespace Sufka.Game.GameFlow
         
         public void Initialize()
         {
-            _playArea.OnPointsAwarded += RefreshInternal;
-            _playArea.OnPointsUpdated += Refresh;
+            if(_playArea!=null)
+            {
+                _playArea.OnPointsAwarded += RefreshInternal;
+                _playArea.OnPointsUpdated += Refresh;
+            }
 
             Refresh();
         }

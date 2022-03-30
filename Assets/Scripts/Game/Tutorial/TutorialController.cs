@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Sufka.Game.GameFlow;
 using Sufka.Game.Persistence;
 using Sufka.Game.Unlocks;
@@ -33,7 +34,6 @@ namespace Sufka.Game.Tutorial
             foreach (var step in _steps)
             {
                 step.OnComplete += ShowNextStep;
-                step.Initialize();
             }
             
             ShowCurrentStep();
@@ -50,26 +50,12 @@ namespace Sufka.Game.Tutorial
                                                         ),
                                    hintUsed = false,
                                    gameModeIdx = 0,
-                                   guessedIndices = new List<int> {0, 1}
                                };
-
-            var filledLetters = new List<List<LetterResult>>();
-            var startRow = new List<LetterResult>
-                           {
-                               new LetterResult('S', LetterCorrectness.Full),
-                               new LetterResult('T', LetterCorrectness.Full),
-                               new LetterResult('A', LetterCorrectness.None),
-                               new LetterResult('R', LetterCorrectness.Partial),
-                               new LetterResult('T', LetterCorrectness.None)
-                           };
-
-            filledLetters.Add(startRow);
-
-            tutorialData.UpdateLetters(filledLetters);
-
+            
             return tutorialData;
         }
 
+        [Button]
         private void ShowNextStep()
         {
             _steps[_currentStep].Hide();
