@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Game.Controls;
 using Sufka.Game.Persistence;
+using Sufka.Game.Utility;
 using Sufka.Game.Validation;
 using Sufka.Game.Words;
 using UnityEngine;
@@ -15,16 +16,16 @@ namespace Sufka.Game.GameFlow
     {
         private const int FIRST_ATTEMPT_POINT_MULTIPLIER = 2;
 
-        public event Action OnRoundOver;
-        public event Action OnGameProgressUpdated;
-        public event Action OnPointsUpdated;
-        public event Action<int> OnPointsAwarded;
-        public event Action OnRoundStarted;
-        public event Action<int> OnWordGuessed;
-        public event Action<int, int, int, int> OnLetterStatisticsUpdated;
-        public event Action OnHintUsed;
-        public event Action OnHintAdRequested;
-        public event Action OnBackToMenuPopupRequested;
+        public event Action OnRoundOver = EventUtility.Empty;
+        public event Action OnGameProgressUpdated = EventUtility.Empty;
+        public event Action OnPointsUpdated = EventUtility.Empty;
+        public event Action<int> OnPointsAwarded = EventUtility.Empty;
+        public event Action OnRoundStarted = EventUtility.Empty;
+        public event Action<int> OnWordGuessed = EventUtility.Empty;
+        public event Action<int, int, int, int> OnLetterStatisticsUpdated = EventUtility.Empty;
+        public event Action OnHintUsed = EventUtility.Empty;
+        public event Action OnHintAdRequested = EventUtility.Empty;
+        public event Action OnBackToMenuPopupRequested = EventUtility.Empty;
 
         [SerializeField]
         private GameObject _playAreaScreen;
@@ -162,6 +163,11 @@ namespace Sufka.Game.GameFlow
         private void DisableEnter()
         {
             _keyboard.DisableEnterButton();
+        }
+
+        public void TutorialDisableEnter()
+        {
+            DisableEnter();
         }
 
         private void RandomWordRound()

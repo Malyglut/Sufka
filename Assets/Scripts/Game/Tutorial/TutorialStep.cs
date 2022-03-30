@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Game.Persistence;
+using Sufka.Game.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ namespace Sufka.Game.Tutorial
 {
     public class TutorialStep : MonoBehaviour
     {
-        public event Action OnComplete;
+        public event Action OnComplete = EventUtility.Empty;
 
         [SerializeField]
         private Button _button;
@@ -20,12 +21,9 @@ namespace Sufka.Game.Tutorial
         [SerializeField]
         private List<TutorialInputAction> _actions = new List<TutorialInputAction>();
 
-        public void Initialize()
-        {
-            _button.onClick.AddListener(Complete);
-        }
+        public bool Shown { get; private set; }
 
-        private void Complete()
+        public void Complete()
         {
             OnComplete.Invoke();
         }
@@ -34,6 +32,8 @@ namespace Sufka.Game.Tutorial
         [Button]
         public void Show(GameInProgressSaveData tutorialData)
         {
+            Shown = true;
+            
             gameObject.SetActive(true);
 
             foreach (var element in _additionalElements)

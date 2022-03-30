@@ -22,7 +22,10 @@ namespace Sufka.Game.GameFlow
 
         private void Awake()
         {
-            _gameController.OnRoundStarted += Refresh;
+            if(_gameController!=null)
+            {
+                _gameController.OnRoundStarted += Refresh;
+            }
         }
 
         private void Refresh()
