@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Toskanska Purpura
   m_EditorClassIdentifier: 
+  _colorId: 704d92bd-f3cd-44aa-b6d7-dacde611e13e
   _unlockCost: 50
   _name: "Toska\u0144ska Purpura"
   _primaryColor: {r: 0.49803922, g: 0.3254902, b: 0.29411766, a: 1}

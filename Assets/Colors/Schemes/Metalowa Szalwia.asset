@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Metalowa Szalwia
   m_EditorClassIdentifier: 
+  _colorId: 05b9329e-1adb-4b7c-b651-139bdd663a73
   _unlockCost: 50
   _name: "Metalowa Sza\u0142wia"
   _primaryColor: {r: 0.72156864, g: 0.6901961, b: 0.5529412, a: 1}

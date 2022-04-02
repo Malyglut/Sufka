@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Sufka.Game.Colors
@@ -6,37 +7,41 @@ namespace Sufka.Game.Colors
     [CreateAssetMenu(fileName = "Color Scheme", menuName = "Sufka/Color Scheme", order = 0)]
     public class ColorScheme : ScriptableObject
     {
+        [SerializeField, ReadOnly]
+        private string _colorId = Guid.Empty.ToString();
+
         [SerializeField]
         private int _unlockCost;
-        
+
         [SerializeField]
         private string _name;
-        
+
         [SerializeField]
         private Color _primaryColor = Color.white;
-        
+
         [SerializeField]
         private Color _secondaryColor = Color.white;
-        
+
         [SerializeField]
         private Color _disabledColor = Color.white;
-        
+
         [SerializeField]
         private Color _fullCorrectColor = Color.white;
-        
+
         [SerializeField]
         private Color _partialCorrectColor = Color.white;
-        
+
         [SerializeField]
         private Color _failColor = Color.white;
 
         public string Name => _name;
         public int UnlockCost => _unlockCost;
+        public string ColorId => _colorId;
 
         public Color GetColor(ColorWeight colorWeight)
         {
             var color = _failColor;
-            
+
             switch (colorWeight)
             {
                 case ColorWeight.Primary:
@@ -64,12 +69,24 @@ namespace Sufka.Game.Colors
 
         public string ColoredString()
         {
-            
             var split = _name.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
             var primaryHex = ColorUtility.ToHtmlStringRGB(_primaryColor);
             var secondaryHex = ColorUtility.ToHtmlStringRGB(_secondaryColor);
 
             return $"<color #{primaryHex}>{split[0]}</color> <color #{secondaryHex}>{split[1]}</color>";
         }
+
+#if UNITY_EDITOR
+        [Button, ShowIf("@_colorId == Guid.Empty.ToString()")]
+        private void GenerateId()
+        {
+            if (_colorId != Guid.Empty.ToString())
+            {
+                return;
+            }
+
+            _colorId = Guid.NewGuid().ToString();
+        }
+#endif
     }
 }

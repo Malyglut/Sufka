@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Oxfordzki Cytryn
   m_EditorClassIdentifier: 
+  _colorId: c67ad910-69be-498e-8a0f-c5557e76cba5
   _unlockCost: 50
   _name: Oxfordzki Cytryn
   _primaryColor: {r: 0.85490197, g: 0.8, b: 0.24313726, a: 1}

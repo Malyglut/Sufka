@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51f8047172042588878b817a2f3df76, type: 3}
   m_Name: Four Letter
   m_EditorClassIdentifier: 
+  _gameModeId: 20c3325f-c16a-4af3-9c69-29bc484b5ad0
   _name: "4 - LITER\xD3WKI"
   _unlockCost: 500

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Palone Taupe
   m_EditorClassIdentifier: 
+  _colorId: 46515e91-ea17-4ffb-83ac-4f623d3dca60
   _unlockCost: 50
   _name: Palone Taupe
   _primaryColor: {r: 0.5529412, g: 0.5058824, b: 0.54901963, a: 1}

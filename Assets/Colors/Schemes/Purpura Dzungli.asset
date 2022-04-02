@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Purpura Dzungli
   m_EditorClassIdentifier: 
+  _colorId: da3f76e6-a507-4d49-83a6-75a2f5daf328
   _unlockCost: 50
   _name: "Purpura D\u017Cungli"
   _primaryColor: {r: 0.37254903, g: 0.29411766, b: 0.7137255, a: 1}

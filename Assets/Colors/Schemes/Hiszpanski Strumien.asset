@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Hiszpanski Strumien
   m_EditorClassIdentifier: 
+  _colorId: a4b8be72-710b-422e-9d51-232c3e8ddbf3
   _unlockCost: 50
   _name: "Hiszpa\u0144ski Strumie\u0144"
   _primaryColor: {r: 0.16470589, g: 0.16862746, b: 0.18039216, a: 1}

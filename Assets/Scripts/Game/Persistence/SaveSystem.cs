@@ -29,17 +29,22 @@ namespace Sufka.Game.Persistence
         {
             var data = new T();
 
-            try
+            if(File.Exists(filePath))
             {
-                var fileStream = new FileStream(filePath, FileMode.Open);
-                var converter = new BinaryFormatter();
+                try
+                {
+                    var fileStream = new FileStream(filePath, FileMode.Open);
+                    var converter = new BinaryFormatter();
 
-                data = (T) converter.Deserialize(fileStream);
-                fileStream.Close();
-            }
-            catch (Exception e)
-            {
-                //do nothing
+                    data = (T) converter.Deserialize(fileStream);
+                    fileStream.Close();
+                }
+                catch (Exception e)
+                {
+#if UNITY_EDITOR
+                    Debug.LogError($"Error encountered when trying to load {filePath}, creating new file.");
+#endif
+                }
             }
 
             return data;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Kolumbjiski Kadet
   m_EditorClassIdentifier: 
+  _colorId: 1e9637fc-22ff-4433-9797-66932a20b0a2
   _unlockCost: 50
   _name: Kolumbijski Kadet
   _primaryColor: {r: 0.7529412, g: 0.8392157, b: 0.8745098, a: 1}

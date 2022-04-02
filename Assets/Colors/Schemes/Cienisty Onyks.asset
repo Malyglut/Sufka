@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
   m_Name: Cienisty Onyks
   m_EditorClassIdentifier: 
+  _colorId: 11316ab9-d2eb-4189-b50e-daf255eed2d6
   _unlockCost: 50
   _name: Cienisty Onyks
   _primaryColor: {r: 0.7019608, g: 0.6627451, b: 0.65882355, a: 1}
