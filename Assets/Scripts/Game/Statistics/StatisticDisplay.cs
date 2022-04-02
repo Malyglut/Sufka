@@ -1,3 +1,4 @@
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,8 @@ namespace Sufka.Game.Statistics
         
         public void Refresh(int value)
         {
-            _value.SetText(value.ToString());
+            var formattedValue = NumberFormatting.Format(value);
+            _value.SetText(formattedValue);
         }
     }
 }

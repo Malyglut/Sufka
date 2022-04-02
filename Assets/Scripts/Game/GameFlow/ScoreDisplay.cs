@@ -1,5 +1,6 @@
 using System.Collections;
 using Sirenix.OdinInspector;
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ namespace Sufka.Game.GameFlow
 
         private void DisplayScore(int score)
         {
-            _score.SetText(score.ToString());
+            _score.SetText(NumberFormatting.Format(score));
         }
 
         private IEnumerator CountUp(int startingAmount, int pointsToAdd)

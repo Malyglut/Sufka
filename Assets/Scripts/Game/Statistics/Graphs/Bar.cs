@@ -1,5 +1,6 @@
 using System.Collections;
 using Sufka.Game.Colors;
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,8 +30,8 @@ namespace Sufka.Game.Statistics.Graphs
         public void Initialize(BarGraphValue value, float widthMultiplier)
         {
             _label.SetText(value.label);
-            _valueInside.SetText(value.value.ToString());
-            _valueOutside.SetText(value.value.ToString());
+            _valueInside.SetText(NumberFormatting.Format(value.value));
+            _valueOutside.SetText(NumberFormatting.Format(value.value));
 
             _layoutElement.preferredWidth *= widthMultiplier;
 
