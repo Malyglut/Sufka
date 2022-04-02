@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sufka.Game.GameFlow;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sufka.Game.Colors
 {
@@ -25,6 +26,9 @@ namespace Sufka.Game.Colors
         [SerializeField]
         private GameController _gameController;
 
+        [SerializeField]
+        private ScrollRect _scrollRect;
+
         private readonly List<ColorDisplay> _displays = new List<ColorDisplay>();
 
         public void Initialize()
@@ -36,7 +40,7 @@ namespace Sufka.Game.Colors
                 var colorDisplay = Instantiate(_colorDisplayPrefab, _colorDisplaysRoot);
                 var unlocked = _gameController.UnlockedColorIds.Contains(colorScheme.ColorId);
 
-                colorDisplay.Initialize(colorScheme, unlocked);
+                colorDisplay.Initialize(colorScheme, unlocked, _scrollRect);
 
                 colorDisplay.OnColorPicked += ChangeColorScheme;
                 colorDisplay.OnUnlockRequested += RequestUnlockColorScheme;

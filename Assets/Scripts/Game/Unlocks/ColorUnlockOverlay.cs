@@ -1,5 +1,7 @@
 using System;
+using Sufka.Game.Utility;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sufka.Game.Unlocks
 {
@@ -10,10 +12,21 @@ namespace Sufka.Game.Unlocks
         [SerializeField]
         private UnlockOverlay _unlockOverlay;
 
-        public void Initialize()
+        [SerializeField]
+        private ClickableScrollElement _clickableScrollElement;
+
+        public void Initialize(ScrollRect scrollRect)
         {
             _unlockOverlay.Initialize();
             _unlockOverlay.OnClick += RequestColorUnlock;
+            
+            _clickableScrollElement.Initialize(scrollRect);
+            _clickableScrollElement.OnDragStarted += InterruptClick;
+        }
+
+        private void InterruptClick()
+        {
+            _unlockOverlay.InterruptClick();
         }
 
         private void RequestColorUnlock()

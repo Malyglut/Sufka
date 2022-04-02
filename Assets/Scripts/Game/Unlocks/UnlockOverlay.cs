@@ -12,7 +12,7 @@ namespace Sufka.Game.Unlocks
         [SerializeField]
         private ColorSchemeInitializer _colorSchemeInitializer;
         
-        private bool _pointerInside;
+        private bool _pointerOver;
 
         public void Enable()
         {
@@ -36,7 +36,7 @@ namespace Sufka.Game.Unlocks
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if(_pointerInside)
+            if(_pointerOver)
             {
                 OnClick.Invoke();
             }
@@ -44,12 +44,17 @@ namespace Sufka.Game.Unlocks
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _pointerInside = true;
+            _pointerOver = true;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _pointerInside = false;
+            _pointerOver = false;
+        }
+
+        public void InterruptClick()
+        {
+            _pointerOver = false;
         }
     }
 }

@@ -12,7 +12,6 @@ namespace Sufka.Game.Utility
             numberFormat.NumberGroupSeparator = " ";
             numberFormat.NumberGroupSizes = new[] {3};
 
-
             return number.ToString("N", numberFormat);
         }
     }
