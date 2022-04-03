@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: 76191ef8-4371-4de9-bbff-7c3b4e4fd0ee
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 0}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 5
   _title: "S\u0142owniczek"

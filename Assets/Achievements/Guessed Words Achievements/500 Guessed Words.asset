@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: 47f8a0cd-fee5-4231-9302-c5bcaaec0a64
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 11400000, guid: ac371100e9a08d04c93a11d6dedd0803, type: 2}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 500
   _title: Tezaurus

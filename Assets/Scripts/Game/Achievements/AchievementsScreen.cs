@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,13 +21,21 @@ namespace Sufka.Game.Achievements
         {
             foreach (var achievement in achievements)
             {
-                if (!achievement.Hidden && achievement.PrecedingAchievement == null /*|| preceding is unlocked*/)
+                if (!achievement.Hidden && (achievement.PrecedingAchievement == null || achievement.PrecedingAchievement.Completed))
                 {
                     var display = Instantiate(_displayPrefab, _parent);
                     display.Initialize(achievement);
 
                     _achievementDisplays.Add(achievement, display);
                 }
+            }
+        }
+
+        public void Refresh()
+        {
+            foreach (var achievementDisplay in _achievementDisplays.Values)
+            {
+                achievementDisplay.Refresh();
             }
         }
     }

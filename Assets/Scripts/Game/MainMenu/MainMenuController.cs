@@ -40,6 +40,9 @@ namespace Sufka.Game.MainMenu
         private StatisticsScreen _statisticsScreen;
 
         [SerializeField]
+        private AchievementsScreen _achievementsScreen;
+
+        [SerializeField]
         private ColorsScreen _colorsScreen;
 
         [SerializeField]
@@ -47,6 +50,9 @@ namespace Sufka.Game.MainMenu
         
         [SerializeField]
         private Button _tutorialButton;
+
+        [SerializeField]
+        private Button _achievementsButton;
 
         [SerializeField]
         private Button _exitButton;
@@ -73,10 +79,17 @@ namespace Sufka.Game.MainMenu
             _colorsButton.onClick.AddListener(ShowColorsScreen);
             _continueButton.onClick.AddListener(RequestContinueGame);
             _tutorialButton.onClick.AddListener(RequestTutorial);
+            _achievementsButton.onClick.AddListener(ShowAchievementsScreen);
 
             _exitButton.onClick.AddListener(ExitGame);
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void ShowAchievementsScreen()
+        {
+            ShowScreen(_achievementsScreen.gameObject);
+            _achievementsScreen.Refresh();
         }
 
         private void RequestTutorial()

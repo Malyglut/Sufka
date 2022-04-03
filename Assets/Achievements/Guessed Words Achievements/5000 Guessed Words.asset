@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: eaa6c509-f79e-429f-ac84-01811dc7a8d4
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 11400000, guid: 822218291f4bbbe4e983a5cc108e4cb5, type: 2}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 5000
   _title: "Chodz\u0105ca Encyklopedia"

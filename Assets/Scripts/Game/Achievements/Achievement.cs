@@ -1,6 +1,5 @@
 using System;
 using Sirenix.OdinInspector;
-using Sufka.Game.GameFlow;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -38,6 +37,7 @@ namespace Sufka.Game.Achievements
         public int TargetAmount => _targetAmount;
         public bool Hidden => _hidden;
         public AchievementType Type => _type;
+        public bool Completed => CurrentAmount >= _targetAmount;
         
         public void UpdateCurrentAmount(int amount)
         {

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: 0c8e57e8-659f-4424-9011-9e302fca6588
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 11400000, guid: 47a775793b1c72e468cbd28bfe3aa392, type: 2}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 1000
   _title: Wokabularz

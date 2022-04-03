@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: 562f01ce-9aa1-4bf6-8790-4c785ab9a512
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 11400000, guid: 8bb844b660a03e9459910b74ee3c5d6f, type: 2}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 50
   _title: Leksykon

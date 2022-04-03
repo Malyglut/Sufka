@@ -7,6 +7,7 @@ namespace Sufka.Game.Colors
         Disabled,
         FullCorrect,
         PartialCorrect,
-        Fail
+        Fail,
+        PositiveText
     }
 }

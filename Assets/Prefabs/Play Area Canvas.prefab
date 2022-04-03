@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 926365468560782714}
-  _schemeColor: 3
+  _schemeColor: 6
 --- !u!114 &931409646650513613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,8 +997,8 @@ RectTransform:
   m_Father: {fileID: 931409647329200093}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.03671706}
+  m_AnchorMax: {x: 1, y: 0.9492441}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 5493297511291454728}
-  _schemeColor: 3
+  _schemeColor: 6
 --- !u!1 &2212718188667008585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,7 +2865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 2751029022245589171}
-  _schemeColor: 3
+  _schemeColor: 6
 --- !u!1 &5380113401333088465
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,7 +3297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 4419236779642685854}
-  _schemeColor: 3
+  _schemeColor: 6
 --- !u!1 &7039729291263531824
 GameObject:
   m_ObjectHideFlags: 0

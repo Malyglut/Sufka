@@ -37,13 +37,36 @@ namespace Sufka.Game.Achievements
             _description.SetText(achievement.Description);
 
             _progressObject.SetActive(achievement.ShowProgress);
+        }
 
+        public void Refresh()
+        {
+            RefreshProgress(_achievement);
+
+            if (_achievement.Completed)
+            {
+                MarkCompleted();
+            }
+        }
+
+        private void MarkCompleted()
+        {
+            var color = ColorSchemeController.CurrentColorScheme.GetColor(ColorWeight.PositiveText);
+
+            _title.color = color;
+            _description.color = color;
+            _progressText.color = color;
+            _progressBar.color = color;
+        }
+
+        private void RefreshProgress(Achievement achievement)
+        {
             if (achievement.ShowProgress)
             {
                 var targetAmount = achievement.TargetAmount;
                 var clampedCurrent = Mathf.Min(achievement.CurrentAmount, targetAmount);
                 var progress = (float) clampedCurrent / targetAmount;
-                
+
                 _progressText.SetText($"{clampedCurrent}/{targetAmount}");
                 _progressBar.fillAmount = progress;
             }

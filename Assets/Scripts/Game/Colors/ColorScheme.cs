@@ -33,6 +33,9 @@ namespace Sufka.Game.Colors
 
         [SerializeField]
         private Color _failColor = Color.white;
+        
+        [SerializeField]
+        private Color _positiveTextColor = Color.white;
 
         public string Name => _name;
         public int UnlockCost => _unlockCost;
@@ -61,6 +64,9 @@ namespace Sufka.Game.Colors
                     break;
                 case ColorWeight.Fail:
                     color = _failColor;
+                    break;
+                case ColorWeight.PositiveText:
+                    color = _positiveTextColor;
                     break;
             }
 

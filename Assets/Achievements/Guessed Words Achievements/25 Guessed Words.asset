@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: 3a78cd38-8ada-4467-8e76-cbd8b6b71e80
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 11400000, guid: f4b79cace9cf7634a8c29733b4dbd32f, type: 2}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 25
   _title: "S\u0142ownik"

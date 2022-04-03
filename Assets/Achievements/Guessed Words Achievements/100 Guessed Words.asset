@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _achievementId: bd16a7a5-d17d-405e-a744-839ece364353
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _showTargetAmount: 1
+  _precedingAchievement: {fileID: 11400000, guid: 5780f2b5c2f0bb44e868419cec04fff3, type: 2}
+  _showProgress: 1
   _hidden: 0
   _targetAmount: 100
   _title: Glosariusz

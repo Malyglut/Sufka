@@ -21,3 +21,4 @@ MonoBehaviour:
   _fullCorrectColor: {r: 0.3372549, g: 0.7647059, b: 0.22745098, a: 1}
   _partialCorrectColor: {r: 1, g: 0.8, b: 0, a: 1}
   _failColor: {r: 0.5882353, g: 0.007843138, b: 0, a: 1}
+  _positiveTextColor: {r: 0.31921065, g: 0.6320754, b: 0.23553754, a: 1}
