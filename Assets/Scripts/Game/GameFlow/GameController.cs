@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sufka.Game.Achievements;
 using Sufka.Game.Ads;
 using Sufka.Game.Analytics;
 using Sufka.Game.Colors;
@@ -37,6 +38,9 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private TutorialController _tutorial;
+
+        [SerializeField]
+        private AchievementsController _achievements;
 
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
@@ -100,6 +104,8 @@ namespace Sufka.Game.GameFlow
             ShowMainMenu();
 
             _popup.Initialize();
+
+            _achievements.Initialize();
 
             if (!_saveData.tutorialCompleted)
             {
@@ -241,6 +247,7 @@ namespace Sufka.Game.GameFlow
         {
             HandleRoundOver();
 
+            _achievements.HandleWordGuessed(_playArea.GameMode);
             _statistics.HandleWordGuessed(_playArea.GameMode, attempt, _availableGameModes);
 
             _saveData.wordsUntilBonusPointsReward--;
@@ -402,5 +409,9 @@ namespace Sufka.Game.GameFlow
             IncreaseScore(points);
         }
 #endif
+        public WordStatistics GetOverallStatistics()
+        {
+            return _statistics.GetOverallStatistics();
+        }
     }
 }

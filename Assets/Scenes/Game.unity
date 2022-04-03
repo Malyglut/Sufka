@@ -144,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 211350629}
   - component: {fileID: 211350628}
+  - component: {fileID: 211350630}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -169,6 +170,7 @@ MonoBehaviour:
   _playArea: {fileID: 1324566818}
   _popup: {fileID: 16878661}
   _tutorial: {fileID: 931409647849001889, guid: adc2cce27740d2642bdb77100a7c4140, type: 3}
+  _achievements: {fileID: 211350630}
 --- !u!4 &211350629
 Transform:
   m_ObjectHideFlags: 0
@@ -183,6 +185,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &211350630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211350627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de03b333f11e4d4e8fb5627d74f25015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameController: {fileID: 211350628}
+  _database: {fileID: 11400000, guid: 1828cd04828e11a45bf9f71d2b7b2969, type: 2}
+  _achievementsScreen: {fileID: 359934522}
+  _guessedWords: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
 --- !u!1 &295871853
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +284,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &359934522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 608510053332090801, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+  m_PrefabInstance: {fileID: 235732950143840697}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb42f6bb408479e85b08a34b4aa5d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1008726744
 GameObject:
   m_ObjectHideFlags: 0
