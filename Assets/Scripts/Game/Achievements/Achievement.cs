@@ -16,7 +16,7 @@ namespace Sufka.Game.Achievements
         [SerializeField]
         private Achievement _precedingAchievement;
 
-        [FormerlySerializedAs("_showTargetAmount"),SerializeField]
+        [FormerlySerializedAs("_showTargetAmount"), SerializeField]
         private bool _showProgress = true;
 
         [SerializeField]
@@ -29,7 +29,7 @@ namespace Sufka.Game.Achievements
         private string _title;
 
         public int CurrentAmount { get; private set; }
-        
+
         public abstract string Description { get; }
         public Achievement PrecedingAchievement => _precedingAchievement;
         public string Title => _title;
@@ -45,7 +45,13 @@ namespace Sufka.Game.Achievements
             CurrentAmount = amount;
         }
 
+        public void Complete()
+        {
+            CurrentAmount = _targetAmount;
+        }
+
 #if UNITY_EDITOR
+
         [Button, ShowIf("@_achievementId == Guid.Empty.ToString()")]
         private void GenerateId()
         {

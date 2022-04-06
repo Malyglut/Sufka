@@ -1,17 +1,24 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sufka.Game.Colors;
 using Sufka.Game.GameFlow;
-using Sufka.Game.Statistics;
+using Sufka.Game.Utility;
 using UnityEngine;
+#if UNITY_EDITOR
+using Sirenix.OdinInspector;
+
+#endif
 
 namespace Sufka.Game.Achievements
 {
     public class AchievementsController : MonoBehaviour
     {
+        public event Action<Achievement> OnAchievementCompleted = EventUtility.Empty;
+
         [SerializeField]
         private GameController _gameController;
-        
+
         [SerializeField]
         private AchievementDatabase _database;
 
@@ -21,13 +28,24 @@ namespace Sufka.Game.Achievements
         [SerializeField]
         private AchievementType _guessedWords;
 
-        private Dictionary<AchievementType, List<Achievement>> _achievementTypes =
+        [SerializeField]
+        private AchievementType _hintsUsed;
+
+        [SerializeField]
+        private AchievementType _unlockedColorSchemes;
+
+        private readonly Dictionary<AchievementType, List<Achievement>> _achievementTypes =
             new Dictionary<AchievementType, List<Achievement>>();
         public IEnumerable<Achievement> CompletedAchievements =>
             _database.Achievements.Where(achievement => achievement.Completed);
 
-        public void Initialize()
+#if UNITY_EDITOR
+        [Button]
+#endif
+        public void Initialize(List<string> completedAchievementIds)
         {
+            _database.ResetProgress();
+
             foreach (var achievement in _database.Achievements)
             {
                 if (!_achievementTypes.ContainsKey(achievement.Type))
@@ -35,48 +53,94 @@ namespace Sufka.Game.Achievements
                     _achievementTypes.Add(achievement.Type, new List<Achievement>());
                 }
 
-                _achievementTypes[achievement.Type].Add(achievement);
-                UpdateCurrentAmount(achievement);
+                if (completedAchievementIds != null && completedAchievementIds.Contains(achievement.AchievementId))
+                {
+                    achievement.Complete();
+                }
+                else
+                {
+                    _achievementTypes[achievement.Type].Add(achievement);
+                    UpdateCurrentAmount(achievement);
+                }
             }
-            
+
             _achievementsScreen.RefreshAvailableAchievements(_database.Achievements);
         }
 
         private void UpdateCurrentAmount(Achievement achievement)
         {
-            if(!achievement.Completed)
+            if (!achievement.Completed)
             {
-                UpdateGuessedWordsAchievement(achievement);
+                if (achievement.Type == _guessedWords)
+                {
+                    UpdateGuessedWordsAchievement(achievement);
+                }
+                else if (achievement.Type == _hintsUsed)
+                {
+                    UpdateHintsUsedAchievement(achievement);
+                }
+                else if (achievement.Type == _unlockedColorSchemes)
+                {
+                    UpdateUnlockedColorSchemesAchievement(achievement);
+                }
             }
+        }
+
+        private void UpdateUnlockedColorSchemesAchievement(Achievement achievement)
+        {
+            var unlockedColorsCount = _gameController.UnlockedColorIds.Count;
+            achievement.UpdateCurrentAmount(unlockedColorsCount);
+        }
+
+        private void UpdateHintsUsedAchievement(Achievement achievement)
+        {
+            var overallStatistics = _gameController.GetOverallStatistics();
+            achievement.UpdateCurrentAmount(overallStatistics.hintsUsed);
         }
 
         private void UpdateGuessedWordsAchievement(Achievement achievement)
         {
-            if (achievement.Type == _guessedWords)
-            {
-                var guessedWordsAchievement = (GuessedWordsAchievement) achievement;
+            var guessedWordsAchievement = (GuessedWordsAchievement) achievement;
 
-                WordStatistics wordStatistics;
+            var wordStatistics = guessedWordsAchievement.GameMode == null ?
+                                     _gameController.GetOverallStatistics() :
+                                     _gameController.GetStatistics(guessedWordsAchievement.GameMode);
 
-                if (guessedWordsAchievement.GameMode == null)
-                {
-                    wordStatistics = _gameController.GetOverallStatistics();
-                }
-                else
-                {
-                    wordStatistics = _gameController.GetStatistics(guessedWordsAchievement.GameMode);
-                }
-
-                achievement.UpdateCurrentAmount(wordStatistics.guessedWords);
-            }
+            achievement.UpdateCurrentAmount(wordStatistics.guessedWords);
         }
 
         public void HandleWordGuessed(GameMode gameMode)
         {
-            foreach (var achievement in _achievementTypes[_guessedWords])
+            HandleAchievementProgressUpdated(_guessedWords, UpdateGuessedWordsAchievement);
+        }
+
+        public void HandleHintUsed()
+        {
+            HandleAchievementProgressUpdated(_hintsUsed, UpdateHintsUsedAchievement);
+        }
+
+        private void HandleAchievementProgressUpdated(AchievementType type, Action<Achievement> updateAction)
+        {
+            foreach (var achievement in _achievementTypes[type])
             {
-                UpdateGuessedWordsAchievement(achievement);
+                if (achievement.Completed)
+                {
+                    continue;
+                }
+
+                updateAction.Invoke(achievement);
+
+                if (achievement.Completed)
+                {
+                    _achievementsScreen.RefreshAvailableAchievements(_database.Achievements);
+                    OnAchievementCompleted.Invoke(achievement);
+                }
             }
+        }
+
+        public void HandleColorUnlocked()
+        {
+            HandleAchievementProgressUpdated(_unlockedColorSchemes, UpdateUnlockedColorSchemesAchievement);
         }
     }
 }

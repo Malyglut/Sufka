@@ -5,6 +5,7 @@ using Sufka.Game.Achievements;
 using Sufka.Game.Ads;
 using Sufka.Game.Analytics;
 using Sufka.Game.Colors;
+using Sufka.Game.InGameNotifications;
 using Sufka.Game.MainMenu;
 using Sufka.Game.Persistence;
 using Sufka.Game.Popup;
@@ -42,6 +43,9 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private AchievementsController _achievements;
 
+        [SerializeField]
+        private NotificationController _notifications;
+
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
 
@@ -52,7 +56,8 @@ namespace Sufka.Game.GameFlow
         private int _pointsForAd;
         private bool _gameInProgress;
 
-        public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes.First(color => color.ColorId == _saveData.selectedColorSchemeId);
+        public ColorScheme SelectedColorScheme =>
+            _colorSchemeDatabase.ColorSchemes.First(color => color.ColorId == _saveData.selectedColorSchemeId);
         public List<string> UnlockedGameModeIds => _saveData.unlockedGameModeIds;
         public List<string> UnlockedColorIds => _saveData.unlockedColorIds;
         public int PointsSpent => _saveData.pointsSpentOnUnlocks;
@@ -106,9 +111,9 @@ namespace Sufka.Game.GameFlow
 
             _popup.Initialize();
 
-            _achievements.Initialize();
-            
-            
+            _achievements.OnAchievementCompleted += HandleAchievementCompleted;
+            _achievements.Initialize(_saveData.completedAchievements);
+
             if (_saveData.completedAchievements == null)
             {
                 _saveData.completedAchievements = new List<string>();
@@ -123,6 +128,13 @@ namespace Sufka.Game.GameFlow
             {
                 StartTutorial();
             }
+        }
+
+        private void HandleAchievementCompleted(Achievement achievement)
+        {
+            _saveData.completedAchievements.Add(achievement.AchievementId);
+            _notifications.ShowAchievementNotification(achievement);
+            SaveGame();
         }
 
         private void UpdateGameInProgress()
@@ -206,6 +218,8 @@ namespace Sufka.Game.GameFlow
             _saveData.pointsSpentOnColors += colorScheme.UnlockCost;
             _saveData.pointsSpentOnUnlocks += colorScheme.UnlockCost;
 
+            _achievements.HandleColorUnlocked();
+            
             SaveGame();
 
             _mainMenu.RefreshColorSchemes();
@@ -249,7 +263,7 @@ namespace Sufka.Game.GameFlow
             _saveData.score += points;
             _saveData.bonusPointsReward += points;
 
-            var gameMode = _playArea.GameMode == null ? _availableGameModes.GameModes[0] : _playArea.GameMode; 
+            var gameMode = _playArea.GameMode == null ? _availableGameModes.GameModes[0] : _playArea.GameMode;
             _statistics.HandlePointsGained(points, gameMode, _availableGameModes);
 
             SaveGame();
@@ -291,6 +305,7 @@ namespace Sufka.Game.GameFlow
 
             _saveData.availableHints--;
             _statistics.HandleHintUsed(_playArea.GameMode, _availableGameModes);
+            _achievements.HandleHintUsed();
             SaveGame();
         }
 
@@ -414,16 +429,24 @@ namespace Sufka.Game.GameFlow
             }
         }
 
+        public WordStatistics GetOverallStatistics()
+        {
+            return _statistics.GetOverallStatistics();
+        }
+
 #if UNITY_EDITOR
         [Button]
         private void AddPoints(int points)
         {
             IncreaseScore(points);
         }
-#endif
-        public WordStatistics GetOverallStatistics()
+
+        [Button]
+        private void IncreaseHintsUsed(int amount)
         {
-            return _statistics.GetOverallStatistics();
+            _statistics.WordStatistics[0].hintsUsed += amount;
+            SaveGame();
         }
+#endif
     }
 }

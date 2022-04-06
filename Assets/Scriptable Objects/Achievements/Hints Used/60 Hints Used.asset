@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66c9521b47c4a1c9615906e1bf841ab, type: 3}
+  m_Name: 60 Hints Used
+  m_EditorClassIdentifier: 
+  _achievementId: a4fec45f-2ffb-4b40-9155-745b0192a7ca
+  _type: {fileID: 11400000, guid: 9764fced621a11f4e9facbf98a930876, type: 2}
+  _precedingAchievement: {fileID: 11400000, guid: 03ae6b0f0434e29429a4e68b7029145c, type: 2}
+  _showProgress: 1
+  _hidden: 0
+  _targetAmount: 60
+  _title: "Dwunastopak Pomocnych D\u0142oni"
