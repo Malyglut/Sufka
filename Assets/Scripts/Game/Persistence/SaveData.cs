@@ -34,6 +34,7 @@ namespace Sufka.Game.Persistence
 
         public List<string> unlockedColorIds = new List<string> {DEFAULT_COLOR_ID};
         public List<string> unlockedGameModeIds = new List<string> {DEFAULT_GAME_MODE_ID};
+        public List<string> completedAchievements = new List<string>();
 
         public void ResetWordsUntilHintReward()
         {

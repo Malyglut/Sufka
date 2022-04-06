@@ -8,6 +8,9 @@ namespace Sufka.Game.Achievements
     public class AchievementDisplay : MonoBehaviour
     {
         [SerializeField]
+        private Image _icon;
+    
+        [SerializeField]
         private TextMeshProUGUI _title;
         
         [SerializeField]
@@ -25,13 +28,13 @@ namespace Sufka.Game.Achievements
         [SerializeField]
         private ColorSchemeInitializer _colorSchemeInitializer;
 
-        private Achievement _achievement;
+        public Achievement Achievement { get; private set; }
 
         public void Initialize(Achievement achievement)
         {
             _colorSchemeInitializer.Initialize();
             
-            _achievement = achievement;
+            Achievement = achievement;
             
             _title.SetText(achievement.Title);
             _description.SetText(achievement.Description);
@@ -41,9 +44,9 @@ namespace Sufka.Game.Achievements
 
         public void Refresh()
         {
-            RefreshProgress(_achievement);
+            RefreshProgress(Achievement);
 
-            if (_achievement.Completed)
+            if (Achievement.Completed)
             {
                 MarkCompleted();
             }
@@ -57,6 +60,7 @@ namespace Sufka.Game.Achievements
             _description.color = color;
             _progressText.color = color;
             _progressBar.color = color;
+            _icon.color = color;
         }
 
         private void RefreshProgress(Achievement achievement)

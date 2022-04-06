@@ -61,6 +61,7 @@ namespace Sufka.Game.GameFlow
         public int Score => _saveData.score;
         public int AvailableHints => _saveData.availableHints;
         public bool HintUsed => _gameInProgressSaveData.hintUsed;
+        public int UnlockedAchievements => _saveData.completedAchievements?.Count ?? 0;
 
         private void StartTutorial()
         {
@@ -106,6 +107,17 @@ namespace Sufka.Game.GameFlow
             _popup.Initialize();
 
             _achievements.Initialize();
+            
+            
+            if (_saveData.completedAchievements == null)
+            {
+                _saveData.completedAchievements = new List<string>();
+
+                foreach (var achievement in _achievements.CompletedAchievements)
+                {
+                    _saveData.completedAchievements.Add(achievement.AchievementId);
+                }
+            }
 
             if (!_saveData.tutorialCompleted)
             {
@@ -247,8 +259,8 @@ namespace Sufka.Game.GameFlow
         {
             HandleRoundOver();
 
-            _achievements.HandleWordGuessed(_playArea.GameMode);
             _statistics.HandleWordGuessed(_playArea.GameMode, attempt, _availableGameModes);
+            _achievements.HandleWordGuessed(_playArea.GameMode);
 
             _saveData.wordsUntilBonusPointsReward--;
 

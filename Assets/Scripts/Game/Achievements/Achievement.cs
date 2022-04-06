@@ -38,7 +38,8 @@ namespace Sufka.Game.Achievements
         public bool Hidden => _hidden;
         public AchievementType Type => _type;
         public bool Completed => CurrentAmount >= _targetAmount;
-        
+        public string AchievementId => _achievementId;
+
         public void UpdateCurrentAmount(int amount)
         {
             CurrentAmount = amount;

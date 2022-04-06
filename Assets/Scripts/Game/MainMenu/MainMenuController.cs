@@ -89,7 +89,7 @@ namespace Sufka.Game.MainMenu
         private void ShowAchievementsScreen()
         {
             ShowScreen(_achievementsScreen.gameObject);
-            _achievementsScreen.Refresh();
+            _achievementsScreen.RefreshAchievementProgress();
         }
 
         private void RequestTutorial()
