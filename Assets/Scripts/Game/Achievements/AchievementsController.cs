@@ -40,7 +40,9 @@ namespace Sufka.Game.Achievements
 #endif
         public void Initialize(List<string> completedAchievementIds)
         {
+#if UNITY_EDITOR
             _database.ResetProgress();
+#endif
 
             foreach (var achievement in _database.Achievements)
             {

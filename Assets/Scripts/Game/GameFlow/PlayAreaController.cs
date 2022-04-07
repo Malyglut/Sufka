@@ -26,6 +26,7 @@ namespace Sufka.Game.GameFlow
         public event Action OnHintUsed = EventUtility.Empty;
         public event Action OnHintAdRequested = EventUtility.Empty;
         public event Action OnBackToMenuPopupRequested = EventUtility.Empty;
+        public event Action OnDailyTasksScreenRequested = EventUtility.Empty;
 
         [SerializeField]
         private GameObject _playAreaScreen;
@@ -52,6 +53,9 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private Button _backToMenuButton;
+        
+        [SerializeField]
+        private Button _dailyTasksButton;
 
         private GameSetup _currentGameSetup;
         private bool _initialized;
@@ -135,6 +139,7 @@ namespace Sufka.Game.GameFlow
                 _keyboard.OnHintAdPress += RequestHintAd;
 
                 _backToMenuButton.onClick.AddListener(RequestBackToMenuPopup);
+                _dailyTasksButton.onClick.AddListener(RequestDailyTasksScreen);
 
                 _scoreDisplay.Initialize();
 
@@ -143,6 +148,11 @@ namespace Sufka.Game.GameFlow
 
                 _initialized = true;
             }
+        }
+
+        private void RequestDailyTasksScreen()
+        {
+            OnDailyTasksScreenRequested.Invoke();
         }
 
         private void RequestBackToMenuPopup()

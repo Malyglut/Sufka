@@ -21,23 +21,35 @@ namespace Sufka.Game.DailyTasks
         
         public abstract string Description { get; }
         
-        public bool RewardCollected { get; private set; }
+        public bool RewardClaimed { get; private set; }
         public string DailyTaskId => _dailyTaskId;
         public int CurrentAmount { get; private set; }
 
         public TaskType Type => _type;
         public int TargetAmount => _targetAmount;
         public bool Completed => CurrentAmount >= _targetAmount;
+        public int PointsReward => _pointsReward;
+
+        public void Load(DailyTaskData taskData)
+        {
+            CurrentAmount = taskData.currentAmount;
+            RewardClaimed = taskData.rewardCollected;
+        }
 
         public void IncreaseCurrentAmount(int amount)
         {
             CurrentAmount += amount;
         }
-        
-        public void Load(DailyTaskData taskData)
+
+        public void ClaimReward()
         {
-            CurrentAmount = taskData.currentAmount;
-            RewardCollected = taskData.rewardCollected;
+            RewardClaimed = true;
+        }
+
+        public void ResetProgress()
+        {
+            RewardClaimed = false;
+            CurrentAmount = 0;
         }
 
 #if UNITY_EDITOR

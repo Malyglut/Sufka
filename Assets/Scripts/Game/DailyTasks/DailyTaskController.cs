@@ -15,6 +15,7 @@ namespace Sufka.Game.DailyTasks
         public event Action<List<DailyTask>, List<string>, DateTime> OnDailyTasksGenerated = EventUtility.Empty;
         public event Action<DailyTask> OnDailyTaskCompleted = EventUtility.Empty;
         public event Action<List<DailyTask>> OnDailyTasksUpdated = EventUtility.Empty;
+        public event Action<int, List<DailyTask>> OnRewardClaimed = EventUtility.Empty;
         
         private const int TASKS_PER_DAY = 3;
         private const int TASK_GENERATION_HOUR = 7;
@@ -38,6 +39,8 @@ namespace Sufka.Game.DailyTasks
 
         public void Initialize(DateTime newTasksDateTime, List<DailyTaskData> dailyTasksData, List<string> previousTasksIds)
         {
+            _screen.OnRequestClaimReward += ClaimReward;
+            
             _previousTasksIds = previousTasksIds;
             _newTasksDateTime = newTasksDateTime;
             
@@ -82,6 +85,11 @@ namespace Sufka.Game.DailyTasks
         [Button]
         private void GenerateDailyTasks()
         {
+#if UNITY_EDITOR
+            _database.ResetProgress();
+#endif
+
+            
             if (_previousTasksIds.Count >= PREVIOUS_TASKS_TO_KEEP)
             {
                 _previousTasksIds.RemoveRange(0,TASKS_PER_DAY);
@@ -168,6 +176,16 @@ namespace Sufka.Game.DailyTasks
             }
 
             OnDailyTasksUpdated.Invoke(_currentTasks);
+        }
+
+        private void ClaimReward(DailyTask task)
+        {
+            if (task.Completed && !task.RewardClaimed)
+            {
+                task.ClaimReward();
+
+                OnRewardClaimed.Invoke(task.PointsReward, _currentTasks);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Sufka.Game.DailyTasks
         {
             dailyTaskId = task.DailyTaskId;
             currentAmount = task.CurrentAmount;
-            rewardCollected = task.RewardCollected;
+            rewardCollected = task.RewardClaimed;
         }
     }
 }

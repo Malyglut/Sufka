@@ -137,8 +137,19 @@ namespace Sufka.Game.GameFlow
             _dailyTasks.OnDailyTasksGenerated += SaveDailyTasksData;
             _dailyTasks.OnDailyTaskCompleted += HandleDailyTaskCompleted;
             _dailyTasks.OnDailyTasksUpdated += UpdateDailyTaskProgress;
+            _dailyTasks.OnRewardClaimed += ClaimDailyTaskReward;
             
             _dailyTasks.Initialize(nextDailyTasksDateTime, _saveData.dailyTasksData, _saveData.previousDailyTasks);
+        }
+
+        private void ClaimDailyTaskReward(int pointsReward, List<DailyTask> currentTasks)
+        {
+            _saveData.score += pointsReward;
+            _saveData.pointsGainedFromTasks += pointsReward;
+
+            UpdateDailyTaskProgress(currentTasks);
+            
+            SaveGame();
         }
 
         private void HandleDailyTaskCompleted(DailyTask dailyTask)
@@ -191,6 +202,7 @@ namespace Sufka.Game.GameFlow
             _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
             _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
             _mainMenu.OnTutorialRequested += StartTutorial;
+            
             _mainMenu.Initialize();
 
             ShowMainMenu();
@@ -207,6 +219,12 @@ namespace Sufka.Game.GameFlow
             _playArea.OnRoundOver += HandleRoundOver;
             _playArea.OnLetterStatisticsUpdated += HandleLetterStatisticsUpdated;
             _playArea.OnRoundStarted += UpdateGameInProgress;
+            _playArea.OnDailyTasksScreenRequested += ShowDailyTasksScreen;
+        }
+
+        private void ShowDailyTasksScreen()
+        {
+            _mainMenu.ShowDailyTasksScreenInGame();
         }
 
         private void HandleAchievementCompleted(Achievement achievement)

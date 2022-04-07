@@ -80,6 +80,7 @@ namespace Sufka.Game.MainMenu
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
             _buttonsScreen.OnRequestUnlockGameMode += RequestUnlockGameMode;
 
+            _dailyTasksScreen.OnCloseInMainMenu += Back;
             _dailyTasksScreen.Initialize();
             
             _playButton.onClick.AddListener(ShowPlayButtons);
@@ -99,6 +100,7 @@ namespace Sufka.Game.MainMenu
         private void ShowDailyTasksScreen()
         {
             ShowScreen(_dailyTasksScreen.ScreenObject);
+            _dailyTasksScreen.ShowFromMainMenu();
             _dailyTasksScreen.RefreshTaskProgress();
         }
 
@@ -226,6 +228,12 @@ namespace Sufka.Game.MainMenu
         public void RefreshColors()
         {
             _colorsScreen.RefreshColors();
+        }
+
+        public void ShowDailyTasksScreenInGame()
+        {
+            _dailyTasksScreen.RefreshTaskProgress();
+            _dailyTasksScreen.Show();
         }
     }
 }

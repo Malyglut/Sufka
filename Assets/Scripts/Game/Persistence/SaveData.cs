@@ -41,6 +41,7 @@ namespace Sufka.Game.Persistence
         public List<DailyTaskData> dailyTasksData = new List<DailyTaskData>();
         public List<string> previousDailyTasks = new List<string>();
         public DateTimeSaveData nextDailyTasksGenerationDateTime;
+        public int pointsGainedFromTasks;
 
         public void ResetWordsUntilHintReward()
         {

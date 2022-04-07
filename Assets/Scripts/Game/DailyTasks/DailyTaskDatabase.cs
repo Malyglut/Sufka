@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,5 +10,13 @@ namespace Sufka.Game.DailyTasks
         [SerializeField]
         private List<DailyTask> _tasks = new List<DailyTask>();
         public List<DailyTask> Tasks => _tasks;
+
+        public void ResetProgress()
+        {
+            foreach (var task in _tasks)
+            {
+                task.ResetProgress();
+            }
+        }
     }
 }
