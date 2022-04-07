@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -5,6 +6,7 @@ using Sufka.Game.Achievements;
 using Sufka.Game.Ads;
 using Sufka.Game.Analytics;
 using Sufka.Game.Colors;
+using Sufka.Game.DailyTasks;
 using Sufka.Game.InGameNotifications;
 using Sufka.Game.MainMenu;
 using Sufka.Game.Persistence;
@@ -12,6 +14,7 @@ using Sufka.Game.Popup;
 using Sufka.Game.Statistics;
 using Sufka.Game.Tutorial;
 using Sufka.Game.Unlocks;
+using Sufka.Game.Utility;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -45,6 +48,9 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private NotificationController _notifications;
+
+        [SerializeField]
+        private DailyTaskController _dailyTasks;
 
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
@@ -88,29 +94,69 @@ namespace Sufka.Game.GameFlow
         private void Start()
         {
             LoadGame();
-
-            _playArea.OnHintUsed += HandleHintUsed;
-            _playArea.OnWordGuessed += HandleWordGuessed;
-            _playArea.OnPointsAwarded += IncreaseScore;
-            _playArea.OnHintAdRequested += ShowHintPopup;
-            _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
-            _playArea.OnGameProgressUpdated += SaveGameProgress;
-            _playArea.OnRoundOver += HandleRoundOver;
-            _playArea.OnLetterStatisticsUpdated += HandleLetterStatisticsUpdated;
-            _playArea.OnRoundStarted += UpdateGameInProgress;
-
-            _mainMenu.OnRequestGameStart += StartGame;
-            _mainMenu.OnContinueRequested += ContinueGame;
-            _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
-            _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
-            _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
-            _mainMenu.OnTutorialRequested += StartTutorial;
-            _mainMenu.Initialize();
-
-            ShowMainMenu();
+            InitializePlayArea();
+            InitializeMainMenu();
+            InitializeAchievements();
+            InitializeDailyTasks();
 
             _popup.Initialize();
 
+            if (!_saveData.tutorialCompleted)
+            {
+                StartTutorial();
+            }
+        }
+
+        private void InitializeDailyTasks()
+        {
+            if (_saveData.previousDailyTasks == null)
+            {
+                _saveData.previousDailyTasks = new List<string>();
+            }
+
+            if (_saveData.dailyTasksData == null)
+            {
+                _saveData.dailyTasksData = new List<DailyTaskData>();
+            }
+
+            if (_saveData.nextDailyTasksGenerationDateTime == null)
+            {
+                _saveData.nextDailyTasksGenerationDateTime = new DateTimeSaveData(DateTime.Now);
+            }
+
+            var dateTimeData = _saveData.nextDailyTasksGenerationDateTime;
+
+            var nextDailyTasksDateTime = new DateTime(
+                                                      dateTimeData.year, 
+                                                      dateTimeData.month,
+                                                      dateTimeData.day,
+                                                      dateTimeData.hour,
+                                                      dateTimeData.minute,
+                                                      dateTimeData.second);
+
+            _dailyTasks.OnDailyTasksGenerated += SaveDailyTasksData;
+            
+            _dailyTasks.Initialize(nextDailyTasksDateTime, _saveData.dailyTasksData, _saveData.previousDailyTasks);
+        }
+
+        private void SaveDailyTasksData(List<DailyTask> currentDailyTasks, List<string> previousTasksIds, DateTime nextDailyTaskGeneration)
+        {
+            var taskData= new List<DailyTaskData>();
+
+            foreach (var task in currentDailyTasks)
+            {
+                taskData.Add(new DailyTaskData(task));
+            }
+
+            _saveData.dailyTasksData = taskData;
+            _saveData.previousDailyTasks = previousTasksIds;
+            _saveData.nextDailyTasksGenerationDateTime = new DateTimeSaveData(nextDailyTaskGeneration);
+            
+            SaveGame();
+        }
+
+        private void InitializeAchievements()
+        {
             _achievements.OnAchievementCompleted += HandleAchievementCompleted;
             _achievements.Initialize(_saveData.completedAchievements);
 
@@ -123,11 +169,32 @@ namespace Sufka.Game.GameFlow
                     _saveData.completedAchievements.Add(achievement.AchievementId);
                 }
             }
+        }
 
-            if (!_saveData.tutorialCompleted)
-            {
-                StartTutorial();
-            }
+        private void InitializeMainMenu()
+        {
+            _mainMenu.OnRequestGameStart += StartGame;
+            _mainMenu.OnContinueRequested += ContinueGame;
+            _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
+            _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
+            _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
+            _mainMenu.OnTutorialRequested += StartTutorial;
+            _mainMenu.Initialize();
+
+            ShowMainMenu();
+        }
+
+        private void InitializePlayArea()
+        {
+            _playArea.OnHintUsed += HandleHintUsed;
+            _playArea.OnWordGuessed += HandleWordGuessed;
+            _playArea.OnPointsAwarded += IncreaseScore;
+            _playArea.OnHintAdRequested += ShowHintPopup;
+            _playArea.OnBackToMenuPopupRequested += ShowBackToMenuPopup;
+            _playArea.OnGameProgressUpdated += SaveGameProgress;
+            _playArea.OnRoundOver += HandleRoundOver;
+            _playArea.OnLetterStatisticsUpdated += HandleLetterStatisticsUpdated;
+            _playArea.OnRoundStarted += UpdateGameInProgress;
         }
 
         private void HandleAchievementCompleted(Achievement achievement)

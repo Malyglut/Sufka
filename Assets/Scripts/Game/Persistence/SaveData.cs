@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Sufka.Game.DailyTasks;
 using Sufka.Game.Statistics;
+using Sufka.Game.Utility;
 
 namespace Sufka.Game.Persistence
 {
@@ -35,6 +37,10 @@ namespace Sufka.Game.Persistence
         public List<string> unlockedColorIds = new List<string> {DEFAULT_COLOR_ID};
         public List<string> unlockedGameModeIds = new List<string> {DEFAULT_GAME_MODE_ID};
         public List<string> completedAchievements = new List<string>();
+
+        public List<DailyTaskData> dailyTasksData = new List<DailyTaskData>();
+        public List<string> previousDailyTasks = new List<string>();
+        public DateTimeSaveData nextDailyTasksGenerationDateTime;
 
         public void ResetWordsUntilHintReward()
         {

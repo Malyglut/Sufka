@@ -26,16 +26,16 @@ namespace Sufka.Game.Achievements
         private AchievementsScreen _achievementsScreen;
 
         [SerializeField]
-        private AchievementType _guessedWords;
+        private TaskType _guessedWords;
 
         [SerializeField]
-        private AchievementType _hintsUsed;
+        private TaskType _hintsUsed;
 
         [SerializeField]
-        private AchievementType _unlockedColorSchemes;
+        private TaskType _unlockedColorSchemes;
 
-        private readonly Dictionary<AchievementType, List<Achievement>> _achievementTypes =
-            new Dictionary<AchievementType, List<Achievement>>();
+        private readonly Dictionary<TaskType, List<Achievement>> _achievementTypes =
+            new Dictionary<TaskType, List<Achievement>>();
         public IEnumerable<Achievement> CompletedAchievements =>
             _database.Achievements.Where(achievement => achievement.Completed);
 
@@ -119,7 +119,7 @@ namespace Sufka.Game.Achievements
             HandleAchievementProgressUpdated(_hintsUsed, UpdateHintsUsedAchievement);
         }
 
-        private void HandleAchievementProgressUpdated(AchievementType type, Action<Achievement> updateAction)
+        private void HandleAchievementProgressUpdated(TaskType type, Action<Achievement> updateAction)
         {
             foreach (var achievement in _achievementTypes[type])
             {

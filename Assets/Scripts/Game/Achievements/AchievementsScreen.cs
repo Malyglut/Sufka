@@ -23,7 +23,7 @@ namespace Sufka.Game.Achievements
 
         public void RefreshAvailableAchievements(List<Achievement> achievements)
         {
-            var sortedAchievements = achievements.OrderBy(achievement => achievement.Type.AchievementListOrder)
+            var sortedAchievements = achievements.OrderBy(achievement => achievement.Type.ListOrder)
                                                  .ThenBy(achievement => achievement.TargetAmount);
             
             foreach (var achievement in sortedAchievements)

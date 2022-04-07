@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9924cc24bd014b3ca481624a02cdc03b, type: 3}
-  m_Name: ACHAC
+  m_Script: {fileID: 11500000, guid: 4bf1932a64094e609507154ede605b02, type: 3}
+  m_Name: Guess 6 Words
   m_EditorClassIdentifier: 
-  _achievementId: 00000000-0000-0000-0000-000000000000
+  _dailyTaskId: 45fc4aca-2945-4563-a41f-d5fecebed420
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _precedingAchievement: {fileID: 0}
-  _showProgress: 1
-  _hidden: 0
-  _targetAmount: 0
-  _title: "A C H A \u0106"
-  _gameMode: {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
+  _targetAmount: 6
+  _pointsReward: 20

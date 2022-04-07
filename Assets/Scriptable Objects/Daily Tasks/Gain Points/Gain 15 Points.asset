@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14210f4303c14e4bbc5138f4938ba9d7, type: 3}
+  m_Name: Gain 15 Points
+  m_EditorClassIdentifier: 
+  _dailyTaskId: e4c0933c-3fc8-43ea-9f4c-c7f655d57471
+  _type: {fileID: 11400000, guid: 9c4f9f3f5b8f7be468b5c3b60da621dc, type: 2}
+  _targetAmount: 15
+  _pointsReward: 30

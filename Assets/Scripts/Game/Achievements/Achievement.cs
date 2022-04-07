@@ -11,7 +11,7 @@ namespace Sufka.Game.Achievements
         private string _achievementId = Guid.Empty.ToString();
 
         [SerializeField]
-        private AchievementType _type;
+        private TaskType _type;
 
         [SerializeField]
         private Achievement _precedingAchievement;
@@ -36,7 +36,7 @@ namespace Sufka.Game.Achievements
         public bool ShowProgress => _showProgress;
         public int TargetAmount => _targetAmount;
         public bool Hidden => _hidden;
-        public AchievementType Type => _type;
+        public TaskType Type => _type;
         public bool Completed => CurrentAmount >= _targetAmount;
         public string AchievementId => _achievementId;
 
