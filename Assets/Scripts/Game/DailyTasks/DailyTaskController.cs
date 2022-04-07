@@ -134,11 +134,31 @@ namespace Sufka.Game.DailyTasks
 
         public void HandleHintUsed()
         {
+            UpdateTasksProgress(_taskTypeDatabase.HintsUsed,1);
+        }
+
+        public void HandleGamePlayed()
+        {
+            UpdateTasksProgress(_taskTypeDatabase.GamesPlayed,1);
+        }
+
+        public void HandleWordGuessed()
+        {
+            UpdateTasksProgress(_taskTypeDatabase.GuessedWords,1);
+        }
+
+        public void HandlePointsGained(int points)
+        {
+            UpdateTasksProgress(_taskTypeDatabase.PointsGained,points);
+        }
+
+        private void UpdateTasksProgress(TaskType type, int amount)
+        {
             foreach (var task in _currentTasks)
             {
-                if (!task.Completed && task.Type == _taskTypeDatabase.HintsUsed)
+                if (!task.Completed && task.Type == type)
                 {
-                    task.IncreaseCurrentAmount();
+                    task.IncreaseCurrentAmount(amount);
 
                     if (task.Completed)
                     {

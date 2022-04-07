@@ -707,6 +707,7 @@ MonoBehaviour:
   _displayPrefab: {fileID: 2649146769646757405, guid: 822fb18e2ca93094499472f3c49713dc, type: 3}
   _parent: {fileID: 8270432654850136311}
   _timer: {fileID: 865584484}
+  _closeButton: {fileID: 7473205079169029111}
 --- !u!1 &7583981786272611569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,6 +1391,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8511172107253713943, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
   m_PrefabInstance: {fileID: 6846452097396940852}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7473205079169029111 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4086264063990002627, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
+  m_PrefabInstance: {fileID: 6846452097396940852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5939046010931504620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2847005515311059769 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8683471721357062925, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}

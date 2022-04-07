@@ -80,6 +80,8 @@ namespace Sufka.Game.MainMenu
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
             _buttonsScreen.OnRequestUnlockGameMode += RequestUnlockGameMode;
 
+            _dailyTasksScreen.Initialize();
+            
             _playButton.onClick.AddListener(ShowPlayButtons);
             _backButton.onClick.AddListener(Back);
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);

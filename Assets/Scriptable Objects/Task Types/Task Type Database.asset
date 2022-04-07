@@ -16,3 +16,4 @@ MonoBehaviour:
   _wordsGuessed: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
   _gamesPlayed: {fileID: 11400000, guid: 5d946136f5d78424cb692ba71d632093, type: 2}
   _unlockedColorSchemes: {fileID: 11400000, guid: 99b0e8d8f0ce123408f25ff25c037d34, type: 2}
+  _pointsGained: {fileID: 11400000, guid: 9c4f9f3f5b8f7be468b5c3b60da621dc, type: 2}

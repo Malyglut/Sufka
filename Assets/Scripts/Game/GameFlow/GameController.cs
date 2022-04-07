@@ -136,23 +136,9 @@ namespace Sufka.Game.GameFlow
 
             _dailyTasks.OnDailyTasksGenerated += SaveDailyTasksData;
             _dailyTasks.OnDailyTaskCompleted += HandleDailyTaskCompleted;
-            _dailyTasks.OnDailyTasksUpdated += SaveDailyTaskProgress;
+            _dailyTasks.OnDailyTasksUpdated += UpdateDailyTaskProgress;
             
             _dailyTasks.Initialize(nextDailyTasksDateTime, _saveData.dailyTasksData, _saveData.previousDailyTasks);
-        }
-
-        private void SaveDailyTaskProgress(List<DailyTask> currentDailyTasks)
-        {
-            var taskData= new List<DailyTaskData>();
-
-            foreach (var task in currentDailyTasks)
-            {
-                taskData.Add(new DailyTaskData(task));
-            }
-
-            _saveData.dailyTasksData = taskData;
-            
-            SaveGame();
         }
 
         private void HandleDailyTaskCompleted(DailyTask dailyTask)
@@ -162,6 +148,15 @@ namespace Sufka.Game.GameFlow
 
         private void SaveDailyTasksData(List<DailyTask> currentDailyTasks, List<string> previousTasksIds, DateTime nextDailyTaskGeneration)
         {
+            UpdateDailyTaskProgress(currentDailyTasks);
+            _saveData.previousDailyTasks = previousTasksIds;
+            _saveData.nextDailyTasksGenerationDateTime = new DateTimeSaveData(nextDailyTaskGeneration);
+            
+            SaveGame();
+        }
+
+        private void UpdateDailyTaskProgress(List<DailyTask> currentDailyTasks)
+        {
             var taskData= new List<DailyTaskData>();
 
             foreach (var task in currentDailyTasks)
@@ -170,10 +165,6 @@ namespace Sufka.Game.GameFlow
             }
 
             _saveData.dailyTasksData = taskData;
-            _saveData.previousDailyTasks = previousTasksIds;
-            _saveData.nextDailyTasksGenerationDateTime = new DateTimeSaveData(nextDailyTaskGeneration);
-            
-            SaveGame();
         }
 
         private void InitializeAchievements()
@@ -250,6 +241,8 @@ namespace Sufka.Game.GameFlow
 
             _saveData.wordsUntilHintReward--;
 
+            _dailyTasks.HandleGamePlayed();
+            
             if (_saveData.wordsUntilHintReward <= 0)
             {
                 AnalyticsEvents.HintForPlaying(_saveData.availableHints);
@@ -353,6 +346,7 @@ namespace Sufka.Game.GameFlow
 
             var gameMode = _playArea.GameMode == null ? _availableGameModes.GameModes[0] : _playArea.GameMode;
             _statistics.HandlePointsGained(points, gameMode, _availableGameModes);
+            _dailyTasks.HandlePointsGained(points);
 
             SaveGame();
         }
@@ -363,6 +357,7 @@ namespace Sufka.Game.GameFlow
 
             _statistics.HandleWordGuessed(_playArea.GameMode, attempt, _availableGameModes);
             _achievements.HandleWordGuessed(_playArea.GameMode);
+            _dailyTasks.HandleWordGuessed();
 
             _saveData.wordsUntilBonusPointsReward--;
 

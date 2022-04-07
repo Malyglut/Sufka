@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sufka.Game.DailyTasks
 {
@@ -18,8 +19,21 @@ namespace Sufka.Game.DailyTasks
         [SerializeField]
         private DailyTaskTimer _timer;
 
+        [SerializeField]
+        private Button _closeButton;
+
         private List<DailyTaskDisplay> _displays = new List<DailyTaskDisplay>();
         public GameObject ScreenObject => _screenObject;
+
+        public void Initialize()
+        {
+            _closeButton.onClick.AddListener(Close);
+        }
+
+        private void Close()
+        {
+            _screenObject.SetActive(false);
+        }
 
         public void RefreshAvailableTasks(List<DailyTask> currentTasks, DateTime newTasksDateTime)
         {

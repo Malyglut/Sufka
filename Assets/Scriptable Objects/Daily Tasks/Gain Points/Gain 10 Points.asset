@@ -15,4 +15,4 @@ MonoBehaviour:
   _dailyTaskId: 8733230a-c2e1-426a-b268-0edaa0b4efa8
   _type: {fileID: 11400000, guid: 9c4f9f3f5b8f7be468b5c3b60da621dc, type: 2}
   _targetAmount: 10
-  _pointsReward: 20
+  _pointsReward: 15

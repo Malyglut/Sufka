@@ -16,10 +16,14 @@ namespace Sufka.Game.TaskTypes
         
         [SerializeField]
         private TaskType _unlockedColorSchemes;
+        
+        [SerializeField]
+        private TaskType _pointsGained;
 
         public TaskType GuessedWords => _wordsGuessed;
         public TaskType HintsUsed => _hintsUsed;
         public TaskType UnlockedColorSchemes => _unlockedColorSchemes;
         public TaskType GamesPlayed => _gamesPlayed;
+        public TaskType PointsGained => _pointsGained;
     }
 }

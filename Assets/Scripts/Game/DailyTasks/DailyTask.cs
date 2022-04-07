@@ -29,9 +29,9 @@ namespace Sufka.Game.DailyTasks
         public int TargetAmount => _targetAmount;
         public bool Completed => CurrentAmount >= _targetAmount;
 
-        public void IncreaseCurrentAmount()
+        public void IncreaseCurrentAmount(int amount)
         {
-            CurrentAmount++;
+            CurrentAmount += amount;
         }
         
         public void Load(DailyTaskData taskData)
