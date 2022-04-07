@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 977fbbc7ffcc43659a449a71a3a575e2, type: 3}
-  m_Name: Unlocked Color Schemes
+  m_Name: Tutorial
   m_EditorClassIdentifier: 
-  _listOrder: 4
+  _listOrder: 0

@@ -17,3 +17,5 @@ MonoBehaviour:
   _gamesPlayed: {fileID: 11400000, guid: 5d946136f5d78424cb692ba71d632093, type: 2}
   _unlockedColorSchemes: {fileID: 11400000, guid: 99b0e8d8f0ce123408f25ff25c037d34, type: 2}
   _pointsGained: {fileID: 11400000, guid: 9c4f9f3f5b8f7be468b5c3b60da621dc, type: 2}
+  _tutorial: {fileID: 11400000, guid: d315af77a3c03a343a668035b740bb54, type: 2}
+  _completedDailyTasks: {fileID: 11400000, guid: d2f4e82f5d9854240827907bfba0795a, type: 2}

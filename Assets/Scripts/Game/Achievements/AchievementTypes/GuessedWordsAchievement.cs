@@ -1,7 +1,7 @@
 using Sufka.Game.GameFlow;
 using UnityEngine;
 
-namespace Sufka.Game.Achievements
+namespace Sufka.Game.Achievements.AchievementTypes
 {
     [CreateAssetMenu(fileName = "New Guessed Words Achievement", menuName = "Sufka/Achievements/Types/Guessed Words",
                      order = 0)]

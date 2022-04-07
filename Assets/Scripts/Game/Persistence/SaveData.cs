@@ -30,6 +30,7 @@ namespace Sufka.Game.Persistence
         public int bonusPointsReward;
 
         public bool tutorialCompleted;
+        public int tutorialCompletionsCount;
 
         public List<bool> unlockedColors;
         public List<bool> unlockedGameModes;
@@ -41,6 +42,7 @@ namespace Sufka.Game.Persistence
         public List<DailyTaskData> dailyTasksData = new List<DailyTaskData>();
         public List<string> previousDailyTasks = new List<string>();
         public DateTimeSaveData nextDailyTasksGenerationDateTime;
+        public int completedDailyTasksCount;
         public int pointsGainedFromTasks;
 
         public void ResetWordsUntilHintReward()

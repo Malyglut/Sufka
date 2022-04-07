@@ -72,7 +72,8 @@ namespace Sufka.Game.GameFlow
         public int Score => _saveData.score;
         public int AvailableHints => _saveData.availableHints;
         public bool HintUsed => _gameInProgressSaveData.hintUsed;
-        public int UnlockedAchievements => _saveData.completedAchievements?.Count ?? 0;
+        public int TutorialCompletionsCount => _saveData.tutorialCompletionsCount;
+        public int CompletedDailyTasks => _saveData.completedDailyTasksCount;
 
         private void StartTutorial()
         {
@@ -88,6 +89,8 @@ namespace Sufka.Game.GameFlow
             _mainMenu.gameObject.SetActive(true);
 
             _saveData.tutorialCompleted = true;
+            _saveData.tutorialCompletionsCount++;
+            _achievements.HandleTutorialCompleted();
             SaveGame();
         }
 
@@ -146,6 +149,7 @@ namespace Sufka.Game.GameFlow
         {
             _saveData.score += pointsReward;
             _saveData.pointsGainedFromTasks += pointsReward;
+            _playArea.RefreshPoints(pointsReward);
 
             UpdateDailyTaskProgress(currentTasks);
             
@@ -155,6 +159,9 @@ namespace Sufka.Game.GameFlow
         private void HandleDailyTaskCompleted(DailyTask dailyTask)
         {
             _notifications.ShowDailyTaskNotification(dailyTask);
+            _saveData.completedDailyTasksCount++;
+            _achievements.HandleDailyTaskCompleted();
+            SaveGame();
         }
 
         private void SaveDailyTasksData(List<DailyTask> currentDailyTasks, List<string> previousTasksIds, DateTime nextDailyTaskGeneration)

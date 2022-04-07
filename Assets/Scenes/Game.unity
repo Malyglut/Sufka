@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 211350630}
   - component: {fileID: 211350631}
   m_Layer: 0
-  m_Name: Game Controller
+  m_Name: Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,6 +822,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3223984411554163202, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: _dailyTasksScreen
+      value: 
+      objectReference: {fileID: 1059781475}
+    - target: {fileID: 3223984411554163202, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: _dailyTaskController
+      value: 
+      objectReference: {fileID: 211350631}
     - target: {fileID: 3804348711055375478, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1126,6 +1134,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8578725639130284082, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: _achievementsScreen
+      value: 
+      objectReference: {fileID: 359934522}
+    - target: {fileID: 8578725639130284082, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
+      propertyPath: _achievementsController
+      value: 
+      objectReference: {fileID: 211350630}
     - target: {fileID: 8676611741673597879, guid: 6e79568da8f734a4cbe825f89c61108b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1747,6 +1763,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8082727302719630808, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
+      propertyPath: _dailyTasksScreen
+      value: 
+      objectReference: {fileID: 1059781475}
+    - target: {fileID: 8082727302719630808, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
+      propertyPath: _dailyTaskController
+      value: 
+      objectReference: {fileID: 211350631}
     - target: {fileID: 8513388091747078543, guid: 341b0af780583384a9689a40f5085bb2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

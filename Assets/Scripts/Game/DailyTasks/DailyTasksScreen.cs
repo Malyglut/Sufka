@@ -10,6 +10,7 @@ namespace Sufka.Game.DailyTasks
     {
         public event Action<DailyTask> OnRequestClaimReward = EventUtility.Empty;
         public event Action OnCloseInMainMenu = EventUtility.Empty;
+        public event Action OnOpen = EventUtility.Empty;
         
         [SerializeField]
         private GameObject _screenObject;
@@ -87,11 +88,13 @@ namespace Sufka.Game.DailyTasks
         public void ShowFromMainMenu()
         {
             _shownFromMainMenu = true;
+            OnOpen.Invoke();
         }
 
         public void Show()
         {
             _screenObject.SetActive(true);
+            OnOpen.Invoke();
         }
     }
 }

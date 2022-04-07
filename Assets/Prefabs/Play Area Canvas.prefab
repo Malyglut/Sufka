@@ -2463,6 +2463,8 @@ GameObject:
   - component: {fileID: 4771649598538527502}
   - component: {fileID: 597681142823263463}
   - component: {fileID: 4655545086068463780}
+  - component: {fileID: 8082727302719630808}
+  - component: {fileID: 6844406609747772579}
   m_Layer: 5
   m_Name: Daily Tasks Button
   m_TagString: Untagged
@@ -2606,6 +2608,34 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &8082727302719630808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971789767919129271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dce1541efd84b47bb6ea7ea9b60b025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dailyTaskController: {fileID: 0}
+  _dailyTasksScreen: {fileID: 0}
+  _notification: {fileID: 6844406609747772579}
+--- !u!114 &6844406609747772579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971789767919129271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee0101524494f839e4b48d3516df7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _notificationGameObject: {fileID: 1700046251264429217}
 --- !u!1 &1700046251264429217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,7 +2654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4064930775751255248
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3887,11 +3917,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
---- !u!224 &8184926330081933435 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8511172107253713943, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
-  m_PrefabInstance: {fileID: 543654410364154988}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4557116476313896879 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4086264063990002627, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
@@ -3903,6 +3928,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &8184926330081933435 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8511172107253713943, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
+  m_PrefabInstance: {fileID: 543654410364154988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &931409646958508885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4064,6 +4094,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
+--- !u!1 &109714949844123277 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 966234368753747416, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
+  m_PrefabInstance: {fileID: 931409646958508885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8389339302268913752 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8683471721357062925, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
@@ -4089,11 +4124,6 @@ MonoBehaviour:
 --- !u!224 &8858802346663573314 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8511172107253713943, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
-  m_PrefabInstance: {fileID: 931409646958508885}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &109714949844123277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 966234368753747416, guid: 19dda493359e5e042bf52ceb9e7a857d, type: 3}
   m_PrefabInstance: {fileID: 931409646958508885}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &931409647134907600

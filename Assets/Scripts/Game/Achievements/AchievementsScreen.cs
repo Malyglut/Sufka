@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sufka.Game.Achievements.AchievementTypes;
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +10,8 @@ namespace Sufka.Game.Achievements
 {
     public class AchievementsScreen : MonoBehaviour
     {
+        public event Action OnOpen = EventUtility.Empty;
+        
         [SerializeField]
         private TextMeshProUGUI _achievementCount;
 
@@ -23,16 +28,7 @@ namespace Sufka.Game.Achievements
 
         public void RefreshAvailableAchievements(List<Achievement> achievements)
         {
-            var sortedAchievements = achievements
-                                    .OrderBy(achievement => achievement.Type.ListOrder).ThenBy(achievement =>
-                                         achievement is GuessedWordsAchievement
-                                             guessedWordsAchievement &&
-                                         guessedWordsAchievement.GameMode != null ?
-                                             guessedWordsAchievement.GameMode.OrderInList :
-                                             0)
-                                    .ThenBy(achievement => achievement.TargetAmount);
-
-            foreach (var achievement in sortedAchievements)
+            foreach (var achievement in achievements)
             {
                 if (_achievementDisplays.ContainsKey(achievement))
                 {
@@ -53,6 +49,25 @@ namespace Sufka.Game.Achievements
                     _displays.Add(display);
                 }
             }
+
+            SortDisplays();
+        }
+
+        private void SortDisplays()
+        {
+            var sortedDisplays = _displays
+                                .OrderBy(display => display.Achievement.Type.ListOrder).ThenBy(display =>
+                                     display.Achievement is GuessedWordsAchievement
+                                         guessedWordsAchievement &&
+                                     guessedWordsAchievement.GameMode != null ?
+                                         guessedWordsAchievement.GameMode.OrderInList :
+                                         0)
+                                .ThenBy(display => display.Achievement.TargetAmount).ToList();
+
+            for (int i = 0; i < sortedDisplays.Count; i++)
+            {
+                sortedDisplays[i].transform.SetSiblingIndex(i);
+            }
         }
 
         public void RefreshAchievementProgress()
@@ -64,6 +79,8 @@ namespace Sufka.Game.Achievements
             {
                 achievementDisplay.Refresh();
             }
+            
+            OnOpen.Invoke();
         }
     }
 }

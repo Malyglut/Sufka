@@ -10,7 +10,7 @@ namespace Sufka.Game.DailyTasks.DailyTaskTypes
 
         private string GenerateDescription()
         {
-            var pointsString = PointsTextUtility.GetProperPointsString(_targetAmount);
+            var pointsString = PolishTextUtility.GetProperPointsString(_targetAmount);
 
             return $"Zdobądź {_targetAmount} {pointsString} za odgadnięte słówka";
         }

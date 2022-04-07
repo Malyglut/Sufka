@@ -1390,6 +1390,7 @@ MonoBehaviour:
   _scoreDisplay: {fileID: 5200563746498762862}
   _currentWord: 
   _backToMenuButton: {fileID: 5200563744703111868}
+  _dailyTasksButton: {fileID: 5200563744703111868}
 --- !u!114 &931409647849001889
 MonoBehaviour:
   m_ObjectHideFlags: 0

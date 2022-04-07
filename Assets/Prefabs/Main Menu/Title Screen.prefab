@@ -317,6 +317,8 @@ GameObject:
   - component: {fileID: 8839523589559708554}
   - component: {fileID: 2262256537105785140}
   - component: {fileID: 7650572539944313318}
+  - component: {fileID: 8679025041746603496}
+  - component: {fileID: 8618454644368044991}
   m_Layer: 5
   m_Name: Achievements Button
   m_TagString: Untagged
@@ -460,6 +462,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8679025041746603496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407449344384530585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae9b6f4be8245bba8fd4bb046c4f9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _achievementsController: {fileID: 0}
+  _achievementsScreen: {fileID: 0}
+  _notification: {fileID: 8618454644368044991}
+--- !u!114 &8618454644368044991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2407449344384530585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee0101524494f839e4b48d3516df7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _notificationGameObject: {fileID: 8046003376976322725}
 --- !u!1 &3331236680460274420
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8939524162719634540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -886,6 +916,8 @@ GameObject:
   - component: {fileID: 2805073035344125601}
   - component: {fileID: 3901467991735912968}
   - component: {fileID: 9198275375166200955}
+  - component: {fileID: 2576677406982408152}
+  - component: {fileID: 6089444097409667056}
   m_Layer: 5
   m_Name: Daily Tasks Button
   m_TagString: Untagged
@@ -1029,6 +1061,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2576677406982408152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6803913774559355300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dce1541efd84b47bb6ea7ea9b60b025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dailyTaskController: {fileID: 0}
+  _dailyTasksScreen: {fileID: 0}
+  _notification: {fileID: 6089444097409667056}
+--- !u!114 &6089444097409667056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6803913774559355300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee0101524494f839e4b48d3516df7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _notificationGameObject: {fileID: 5042075640144657803}
 --- !u!1 &7191084063357791383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6614535903707236331
 RectTransform:
   m_ObjectHideFlags: 0

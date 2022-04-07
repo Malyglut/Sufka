@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a46c34f70840e78524554a4b5b1c6f, type: 3}
+  m_Name: Complete Tutotrial
+  m_EditorClassIdentifier: 
+  _achievementId: 1157bbd1-c699-4afc-ba78-269dc70936d2
+  _type: {fileID: 11400000, guid: d315af77a3c03a343a668035b740bb54, type: 2}
+  _precedingAchievement: {fileID: 0}
+  _showProgress: 1
+  _hidden: 0
+  _targetAmount: 1
+  _title: "Pilny  Ucze\u0144"

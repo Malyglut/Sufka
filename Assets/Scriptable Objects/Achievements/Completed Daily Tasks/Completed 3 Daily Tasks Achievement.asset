@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeec77f9438441938e1b4e264c75ed29, type: 3}
+  m_Name: Completed 3 Daily Tasks Achievement
+  m_EditorClassIdentifier: 
+  _achievementId: 06150b2e-ecbd-4c11-85a5-b6a8389e9cf0
+  _type: {fileID: 11400000, guid: d2f4e82f5d9854240827907bfba0795a, type: 2}
+  _precedingAchievement: {fileID: 0}
+  _showProgress: 1
+  _hidden: 0
+  _targetAmount: 3
+  _title: "Pracowity Dzie\u0144"

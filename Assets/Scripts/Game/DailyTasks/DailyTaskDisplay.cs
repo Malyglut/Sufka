@@ -42,7 +42,7 @@ namespace Sufka.Game.DailyTasks
 
             _task = task;
             _description.SetText(task.Description);
-            var pointsString = PointsTextUtility.GetProperPointsString(_task.PointsReward);
+            var pointsString = PolishTextUtility.GetProperPointsString(_task.PointsReward);
             _rewardText.SetText($"Nagroda: {_task.PointsReward} {pointsString}");
             
             Refresh();

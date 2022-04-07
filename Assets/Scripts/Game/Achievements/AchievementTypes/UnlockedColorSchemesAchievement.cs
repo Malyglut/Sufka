@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Sufka.Game.Achievements
+namespace Sufka.Game.Achievements.AchievementTypes
 {
     [CreateAssetMenu(fileName = "Unlocked Color Schemes", menuName = "Sufka/Achievements/Types/Unlocked Color Schemes",
                      order = 0)]

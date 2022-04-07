@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sufka.Game.Achievements.AchievementTypes;
 using Sufka.Game.Colors;
 using Sufka.Game.GameFlow;
 using Sufka.Game.TaskTypes;
@@ -81,12 +82,25 @@ namespace Sufka.Game.Achievements
                 {
                     UpdateUnlockedColorSchemesAchievement(achievement);
                 }
+                else if (achievement.Type == _taskTypeDatabase.Tutorial)
+                {
+                    UpdateTutorialAchievement(achievement);
+                }
+                else if (achievement.Type == _taskTypeDatabase.CompletedDailyTasks)
+                {
+                    UpdateCompletedDailyTasksAchievement(achievement);
+                }
             }
+        }
+
+        private void UpdateCompletedDailyTasksAchievement(Achievement achievement)
+        {
+            achievement.UpdateCurrentAmount(_gameController.CompletedDailyTasks);
         }
 
         private void UpdateUnlockedColorSchemesAchievement(Achievement achievement)
         {
-            var unlockedColorsCount = _gameController.UnlockedColorIds.Count;
+            var unlockedColorsCount = _gameController.UnlockedColorIds.Count - 1;
             achievement.UpdateCurrentAmount(unlockedColorsCount);
         }
 
@@ -107,6 +121,11 @@ namespace Sufka.Game.Achievements
             achievement.UpdateCurrentAmount(wordStatistics.guessedWords);
         }
 
+        private void UpdateTutorialAchievement(Achievement achievement)
+        {
+            achievement.UpdateCurrentAmount(_gameController.TutorialCompletionsCount);
+        }
+
         public void HandleWordGuessed(GameMode gameMode)
         {
             HandleAchievementProgressUpdated(_taskTypeDatabase.GuessedWords, UpdateGuessedWordsAchievement);
@@ -120,6 +139,16 @@ namespace Sufka.Game.Achievements
         public void HandleColorUnlocked()
         {
             HandleAchievementProgressUpdated(_taskTypeDatabase.UnlockedColorSchemes, UpdateUnlockedColorSchemesAchievement);
+        }
+
+        public void HandleTutorialCompleted()
+        {
+            HandleAchievementProgressUpdated(_taskTypeDatabase.Tutorial, UpdateTutorialAchievement);
+        }
+
+        public void HandleDailyTaskCompleted()
+        {
+            HandleAchievementProgressUpdated(_taskTypeDatabase.CompletedDailyTasks, UpdateCompletedDailyTasksAchievement);
         }
 
         private void HandleAchievementProgressUpdated(TaskType type, Action<Achievement> updateAction)
