@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
+using Sufka.Game.TaskTypes;
 using UnityEngine;
 using UnityEngine.Serialization;
 

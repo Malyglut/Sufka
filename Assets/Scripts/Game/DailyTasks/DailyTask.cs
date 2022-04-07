@@ -1,6 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
-using Sufka.Game.Achievements;
+using Sufka.Game.TaskTypes;
 using UnityEngine;
 
 namespace Sufka.Game.DailyTasks
@@ -27,7 +27,13 @@ namespace Sufka.Game.DailyTasks
 
         public TaskType Type => _type;
         public int TargetAmount => _targetAmount;
+        public bool Completed => CurrentAmount >= _targetAmount;
 
+        public void IncreaseCurrentAmount()
+        {
+            CurrentAmount++;
+        }
+        
         public void Load(DailyTaskData taskData)
         {
             CurrentAmount = taskData.currentAmount;

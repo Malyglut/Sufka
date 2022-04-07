@@ -135,8 +135,29 @@ namespace Sufka.Game.GameFlow
                                                       dateTimeData.second);
 
             _dailyTasks.OnDailyTasksGenerated += SaveDailyTasksData;
+            _dailyTasks.OnDailyTaskCompleted += HandleDailyTaskCompleted;
+            _dailyTasks.OnDailyTasksUpdated += SaveDailyTaskProgress;
             
             _dailyTasks.Initialize(nextDailyTasksDateTime, _saveData.dailyTasksData, _saveData.previousDailyTasks);
+        }
+
+        private void SaveDailyTaskProgress(List<DailyTask> currentDailyTasks)
+        {
+            var taskData= new List<DailyTaskData>();
+
+            foreach (var task in currentDailyTasks)
+            {
+                taskData.Add(new DailyTaskData(task));
+            }
+
+            _saveData.dailyTasksData = taskData;
+            
+            SaveGame();
+        }
+
+        private void HandleDailyTaskCompleted(DailyTask dailyTask)
+        {
+            _notifications.ShowDailyTaskNotification(dailyTask);
         }
 
         private void SaveDailyTasksData(List<DailyTask> currentDailyTasks, List<string> previousTasksIds, DateTime nextDailyTaskGeneration)
@@ -373,6 +394,7 @@ namespace Sufka.Game.GameFlow
             _saveData.availableHints--;
             _statistics.HandleHintUsed(_playArea.GameMode, _availableGameModes);
             _achievements.HandleHintUsed();
+            _dailyTasks.HandleHintUsed();
             SaveGame();
         }
 

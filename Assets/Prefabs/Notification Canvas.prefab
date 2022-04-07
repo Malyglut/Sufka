@@ -1188,6 +1188,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _achievementIcon: {fileID: 21300000, guid: c29839c37035cbb4a8e76c1be941f683, type: 3}
+  _dailyTaskIcon: {fileID: 21300000, guid: b753f4b6618e9fd4795ebff60e8c5bf4, type: 3}
   _lingerTime: 2.5
   _disappearDuration: 0.25
 --- !u!1 &1119295698770715899

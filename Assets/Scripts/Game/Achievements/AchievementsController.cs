@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sufka.Game.Colors;
 using Sufka.Game.GameFlow;
+using Sufka.Game.TaskTypes;
 using Sufka.Game.Utility;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -25,14 +26,9 @@ namespace Sufka.Game.Achievements
         [SerializeField]
         private AchievementsScreen _achievementsScreen;
 
-        [SerializeField]
-        private TaskType _guessedWords;
 
         [SerializeField]
-        private TaskType _hintsUsed;
-
-        [SerializeField]
-        private TaskType _unlockedColorSchemes;
+        private TaskTypeDatabase _taskTypeDatabase;
 
         private readonly Dictionary<TaskType, List<Achievement>> _achievementTypes =
             new Dictionary<TaskType, List<Achievement>>();
@@ -71,15 +67,15 @@ namespace Sufka.Game.Achievements
         {
             if (!achievement.Completed)
             {
-                if (achievement.Type == _guessedWords)
+                if (achievement.Type == _taskTypeDatabase.GuessedWords)
                 {
                     UpdateGuessedWordsAchievement(achievement);
                 }
-                else if (achievement.Type == _hintsUsed)
+                else if (achievement.Type == _taskTypeDatabase.HintsUsed)
                 {
                     UpdateHintsUsedAchievement(achievement);
                 }
-                else if (achievement.Type == _unlockedColorSchemes)
+                else if (achievement.Type == _taskTypeDatabase.UnlockedColorSchemes)
                 {
                     UpdateUnlockedColorSchemesAchievement(achievement);
                 }
@@ -111,12 +107,17 @@ namespace Sufka.Game.Achievements
 
         public void HandleWordGuessed(GameMode gameMode)
         {
-            HandleAchievementProgressUpdated(_guessedWords, UpdateGuessedWordsAchievement);
+            HandleAchievementProgressUpdated(_taskTypeDatabase.GuessedWords, UpdateGuessedWordsAchievement);
         }
 
         public void HandleHintUsed()
         {
-            HandleAchievementProgressUpdated(_hintsUsed, UpdateHintsUsedAchievement);
+            HandleAchievementProgressUpdated(_taskTypeDatabase.HintsUsed, UpdateHintsUsedAchievement);
+        }
+
+        public void HandleColorUnlocked()
+        {
+            HandleAchievementProgressUpdated(_taskTypeDatabase.UnlockedColorSchemes, UpdateUnlockedColorSchemesAchievement);
         }
 
         private void HandleAchievementProgressUpdated(TaskType type, Action<Achievement> updateAction)
@@ -136,11 +137,6 @@ namespace Sufka.Game.Achievements
                     OnAchievementCompleted.Invoke(achievement);
                 }
             }
-        }
-
-        public void HandleColorUnlocked()
-        {
-            HandleAchievementProgressUpdated(_unlockedColorSchemes, UpdateUnlockedColorSchemesAchievement);
         }
     }
 }

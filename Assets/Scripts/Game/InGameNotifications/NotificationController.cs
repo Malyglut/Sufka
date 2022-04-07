@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sufka.Game.Achievements;
+using Sufka.Game.DailyTasks;
 using UnityEngine;
 
 namespace Sufka.Game.InGameNotifications
@@ -9,6 +10,7 @@ namespace Sufka.Game.InGameNotifications
     public class NotificationController : MonoBehaviour
     {
         private const string ACHIEVEMENT_NOTIFICATION_TITLE = "Osiągnięcie zdobyte!";
+        private const string DAILY_TASK_NOTIFICATION_TITLE = "Zadanie wykonane!";
         
         [SerializeField]
         private Transform _idlePoint;
@@ -27,6 +29,9 @@ namespace Sufka.Game.InGameNotifications
 
         [SerializeField]
         private Sprite _achievementIcon;
+        
+        [SerializeField]
+        private Sprite _dailyTaskIcon;
 
         private readonly Queue<NotificationData> _notificationQueue = new Queue<NotificationData>();
 
@@ -37,7 +42,20 @@ namespace Sufka.Game.InGameNotifications
         private float _disappearDuration = 2f;
 
         private bool _showingNotification;
-        
+
+        public void ShowDailyTaskNotification(DailyTask dailyTask)
+        {
+            var notificationData = new NotificationData
+                                   {
+                                       title = DAILY_TASK_NOTIFICATION_TITLE,
+                                       primaryText =  dailyTask.Description,
+                                       secondaryText = string.Empty,
+                                       icon = _dailyTaskIcon
+                                   };
+
+            ShowNotification(notificationData);
+        }
+
         public void ShowAchievementNotification(Achievement achievement)
         {
             var notificationData = new NotificationData

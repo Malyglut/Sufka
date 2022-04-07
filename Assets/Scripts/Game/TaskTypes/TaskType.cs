@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Sufka.Game.Achievements
+namespace Sufka.Game.TaskTypes
 {
-    [CreateAssetMenu(fileName = "Task Type", menuName = "Sufka/Task Type", order = 0)]
+    [CreateAssetMenu(fileName = "Task Type", menuName = "Sufka/Task Types/Task Type", order = 0)]
     public class TaskType : ScriptableObject
     {
         [FormerlySerializedAs("_achievementListOrder"),SerializeField]

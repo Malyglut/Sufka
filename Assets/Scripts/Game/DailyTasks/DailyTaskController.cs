@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sufka.Game.TaskTypes;
 using Sufka.Game.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,6 +13,8 @@ namespace Sufka.Game.DailyTasks
     public class DailyTaskController : MonoBehaviour
     {
         public event Action<List<DailyTask>, List<string>, DateTime> OnDailyTasksGenerated = EventUtility.Empty;
+        public event Action<DailyTask> OnDailyTaskCompleted = EventUtility.Empty;
+        public event Action<List<DailyTask>> OnDailyTasksUpdated = EventUtility.Empty;
         
         private const int TASKS_PER_DAY = 3;
         private const int TASK_GENERATION_HOUR = 7;
@@ -23,6 +26,9 @@ namespace Sufka.Game.DailyTasks
 
         [SerializeField]
         private DailyTasksScreen _screen;
+
+        [SerializeField]
+        private TaskTypeDatabase _taskTypeDatabase;
 
         private DateTime _newTasksDateTime;
 
@@ -124,6 +130,24 @@ namespace Sufka.Game.DailyTasks
             _newTasksDateTime = DateTime.Now;
             _newTasksDateTime = _newTasksDateTime.AddDays(1);
             _newTasksDateTime = _newTasksDateTime.Date + new TimeSpan(TASK_GENERATION_HOUR, 0, 0);
+        }
+
+        public void HandleHintUsed()
+        {
+            foreach (var task in _currentTasks)
+            {
+                if (!task.Completed && task.Type == _taskTypeDatabase.HintsUsed)
+                {
+                    task.IncreaseCurrentAmount();
+
+                    if (task.Completed)
+                    {
+                        OnDailyTaskCompleted.Invoke(task);
+                    }
+                }
+            }
+
+            OnDailyTasksUpdated.Invoke(_currentTasks);
         }
     }
 }
