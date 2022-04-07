@@ -16,15 +16,19 @@ namespace Sufka.Game.DailyTasks
         private const int TASKS_PER_DAY = 3;
         private const int TASK_GENERATION_HOUR = 7;
         private const int PREVIOUS_TASKS_TO_KEEP = 6;
-        private const int MAX_TASKS_OF_SAME_TYPE = 2;
+        private const int MAX_TASKS_OF_SAME_TYPE = 1;
         
         [SerializeField]
         private DailyTaskDatabase _database;
+
+        [SerializeField]
+        private DailyTasksScreen _screen;
 
         private DateTime _newTasksDateTime;
 
         private List<DailyTask> _currentTasks = new List<DailyTask>();
         private List<string> _previousTasksIds;
+        private Coroutine _waitCoroutine;
 
         public void Initialize(DateTime newTasksDateTime, List<DailyTaskData> dailyTasksData, List<string> previousTasksIds)
         {
@@ -45,9 +49,21 @@ namespace Sufka.Game.DailyTasks
 
                     _currentTasks.Add(loadedTask);
                 }
+                
+                _screen.RefreshAvailableTasks(_currentTasks, _newTasksDateTime);
+                
+                StartWaiting();
+            }
+        }
+
+        private void StartWaiting()
+        {
+            if (_waitCoroutine != null)
+            {
+                StopCoroutine(_waitCoroutine);
             }
             
-            StartCoroutine(AwaitTaskGeneration());
+            _waitCoroutine = StartCoroutine(AwaitTaskGeneration());
         }
 
         private IEnumerator AwaitTaskGeneration()
@@ -95,17 +111,19 @@ namespace Sufka.Game.DailyTasks
             }
             
             CalculateNewTasksGenerationDateTime();
-            
-            //refresh daily task screen
+
+            _screen.RefreshAvailableTasks(_currentTasks, _newTasksDateTime);
 
             OnDailyTasksGenerated.Invoke(_currentTasks, _previousTasksIds, _newTasksDateTime);
+            
+            StartWaiting();
         }
 
         private void CalculateNewTasksGenerationDateTime()
         {
             _newTasksDateTime = DateTime.Now;
             _newTasksDateTime = _newTasksDateTime.AddDays(1);
-            _newTasksDateTime += new TimeSpan(TASK_GENERATION_HOUR, 0, 0);
+            _newTasksDateTime = _newTasksDateTime.Date + new TimeSpan(TASK_GENERATION_HOUR, 0, 0);
         }
     }
 }

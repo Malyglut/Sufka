@@ -573,7 +573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4147273789815189646}
   - component: {fileID: 2111762799825246347}
-  - component: {fileID: 2526275864446619336}
+  - component: {fileID: 2649146769646757405}
   - component: {fileID: 7715024198890951347}
   m_Layer: 5
   m_Name: Daily Task Display
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &2526275864446619336
+--- !u!114 &2649146769646757405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -638,13 +638,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6146025571591357767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe3bd8af98e54f51b72a52a902f04ebb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0221b88d428449379f511b8884e61986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 8907053173673146204}
-  _title: {fileID: 7609816236102032905}
-  _description: {fileID: 0}
-  _progressObject: {fileID: 8043645440640019916}
+  _description: {fileID: 7609816236102032905}
   _progressText: {fileID: 6566325601002668592}
   _progressBar: {fileID: 6774664859423408891}
   _colorSchemeInitializer: {fileID: 7715024198890951347}
@@ -662,7 +659,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorSchemeTargets:
   - {fileID: 1570498924904631318}
-  - {fileID: 0}
   - {fileID: 2404475024316824945}
   - {fileID: 1570694127574574462}
   - {fileID: 1750566544428747539}

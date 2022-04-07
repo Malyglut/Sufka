@@ -26,6 +26,7 @@ namespace Sufka.Game.DailyTasks
         public int CurrentAmount { get; private set; }
 
         public TaskType Type => _type;
+        public int TargetAmount => _targetAmount;
 
         public void Load(DailyTaskData taskData)
         {

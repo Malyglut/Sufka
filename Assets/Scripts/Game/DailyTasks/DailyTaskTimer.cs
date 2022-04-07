@@ -11,11 +11,9 @@ namespace Sufka.Game.DailyTasks
 
         private DateTime _targetDateTime;
 
-        private void Start()
+        public void SetFor(DateTime newTasksDateTime)
         {
-            _targetDateTime = DateTime.Today;
-            _targetDateTime = _targetDateTime.AddDays(1);
-            _targetDateTime = _targetDateTime.Date + new TimeSpan(7, 0, 0);
+            _targetDateTime = newTasksDateTime;
         }
 
         private void Update()

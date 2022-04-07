@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bf1932a64094e609507154ede605b02, type: 3}
-  m_Name: Guess 3 Words
+  m_Name: Guess 12 Words
   m_EditorClassIdentifier: 
   _dailyTaskId: a90ffee6-a78b-495b-a565-893402515e60
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _targetAmount: 3
-  _pointsReward: 10
+  _targetAmount: 12
+  _pointsReward: 40
