@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
+  m_Name: Migdalowy Baklazan
+  m_EditorClassIdentifier: 
+  _colorId: ce413c4d-9b61-4093-8a7e-9633bdd51abf
+  _unlockCost: 50
+  _name: "Migda\u0142owy Bak\u0142a\u017Can"
+  _primaryColor: {r: 0.9019608, g: 0.85882354, b: 0.8156863, a: 1}
+  _secondaryColor: {r: 0.45882353, g: 0.30980393, b: 0.35686275, a: 1}
+  _disabledColor: {r: 0.7529412, g: 0.6392157, b: 0.5294118, a: 1}
+  _fullCorrectColor: {r: 0.70980394, g: 0.8352941, b: 0.44705883, a: 1}
+  _partialCorrectColor: {r: 0.99607843, g: 0.92941177, b: 0.44705883, a: 1}
+  _failColor: {r: 0.98039216, g: 0.13725491, b: 0.05882353, a: 1}
+  _positiveTextColor: {r: 0.5071262, g: 0.6792453, b: 0.14417945, a: 1}

@@ -113,7 +113,7 @@ namespace Sufka.Game.Popup
 
         private string GetProperPointsString(int value)
         {
-            return PointsTextUtility.GetProperPointsString(value);
+            return PolishTextUtility.GetProperPointsString(value);
         }
 
         public void UnlockGameModePopup(string gameModeName, int gameModeCost, int availablePoints, Action yesCallback)

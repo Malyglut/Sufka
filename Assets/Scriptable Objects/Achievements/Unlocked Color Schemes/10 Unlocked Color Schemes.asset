@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4db88d8c304c81a05791f4f2f435d7, type: 3}
+  m_Name: 10 Unlocked Color Schemes
+  m_EditorClassIdentifier: 
+  _achievementId: 818c739d-0a01-4c98-9e0c-4c025168c8da
+  _type: {fileID: 11400000, guid: 99b0e8d8f0ce123408f25ff25c037d34, type: 2}
+  _precedingAchievement: {fileID: 11400000, guid: 454679c34fc09734db0dd2d95843df29, type: 2}
+  _showProgress: 1
+  _hidden: 0
+  _targetAmount: 10
+  _title: Sztaluga

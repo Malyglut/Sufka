@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Sufka.Game.Achievements;
 using Sufka.Game.Analytics;
 using Sufka.Game.Colors;
+using Sufka.Game.DailyTasks;
 using Sufka.Game.GameFlow;
 using Sufka.Game.Statistics;
 using UnityEngine;
@@ -39,6 +41,12 @@ namespace Sufka.Game.MainMenu
         private StatisticsScreen _statisticsScreen;
 
         [SerializeField]
+        private AchievementsScreen _achievementsScreen;
+
+        [SerializeField]
+        private DailyTasksScreen _dailyTasksScreen;
+
+        [SerializeField]
         private ColorsScreen _colorsScreen;
 
         [SerializeField]
@@ -46,6 +54,12 @@ namespace Sufka.Game.MainMenu
         
         [SerializeField]
         private Button _tutorialButton;
+
+        [SerializeField]
+        private Button _achievementsButton;
+        
+        [SerializeField]
+        private Button _dailyTasksButton;
 
         [SerializeField]
         private Button _exitButton;
@@ -66,16 +80,34 @@ namespace Sufka.Game.MainMenu
             _buttonsScreen.OnRequestShowStatistics += ShowStatistics;
             _buttonsScreen.OnRequestUnlockGameMode += RequestUnlockGameMode;
 
+            _dailyTasksScreen.OnCloseInMainMenu += Back;
+            _dailyTasksScreen.Initialize();
+            
             _playButton.onClick.AddListener(ShowPlayButtons);
             _backButton.onClick.AddListener(Back);
             _statisticsButton.onClick.AddListener(ShowStatisticsButtons);
             _colorsButton.onClick.AddListener(ShowColorsScreen);
             _continueButton.onClick.AddListener(RequestContinueGame);
             _tutorialButton.onClick.AddListener(RequestTutorial);
+            _achievementsButton.onClick.AddListener(ShowAchievementsScreen);
+            _dailyTasksButton.onClick.AddListener(ShowDailyTasksScreen);
 
             _exitButton.onClick.AddListener(ExitGame);
 
             _backStack.Push(_titleScreen);
+        }
+
+        private void ShowDailyTasksScreen()
+        {
+            ShowScreen(_dailyTasksScreen.ScreenObject);
+            _dailyTasksScreen.ShowFromMainMenu();
+            _dailyTasksScreen.RefreshTaskProgress();
+        }
+
+        private void ShowAchievementsScreen()
+        {
+            ShowScreen(_achievementsScreen.gameObject);
+            _achievementsScreen.RefreshAchievementProgress();
         }
 
         private void RequestTutorial()
@@ -196,6 +228,12 @@ namespace Sufka.Game.MainMenu
         public void RefreshColors()
         {
             _colorsScreen.RefreshColors();
+        }
+
+        public void ShowDailyTasksScreenInGame()
+        {
+            _dailyTasksScreen.RefreshTaskProgress();
+            _dailyTasksScreen.Show();
         }
     }
 }

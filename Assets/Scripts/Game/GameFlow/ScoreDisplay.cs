@@ -1,5 +1,6 @@
 using System.Collections;
 using Sirenix.OdinInspector;
+using Sufka.Game.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -35,7 +36,15 @@ namespace Sufka.Game.GameFlow
         private void RefreshInternal(int pointsAwarded)
         {
             var startingPoints = Score - pointsAwarded;
-            StartCoroutine(CountUp(startingPoints, pointsAwarded));
+            
+            if(gameObject.activeInHierarchy)
+            {
+                StartCoroutine(CountUp(startingPoints, pointsAwarded));
+            }
+            else
+            {
+                DisplayScore(Score);
+            }
         }
 
         public void Refresh()
@@ -45,7 +54,7 @@ namespace Sufka.Game.GameFlow
 
         private void DisplayScore(int score)
         {
-            _score.SetText(score.ToString());
+            _score.SetText(NumberFormatting.Format(score));
         }
 
         private IEnumerator CountUp(int startingAmount, int pointsToAdd)

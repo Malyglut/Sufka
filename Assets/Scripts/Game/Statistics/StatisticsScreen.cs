@@ -136,27 +136,7 @@ namespace Sufka.Game.Statistics
                 _previousSelected.Revert();
             }
 
-            var overallStatistics = new WordStatistics(-1);
-
-            foreach (var controller in _gameModeStatisticsControllers)
-            {
-                var gameModeStatistics = _gameController.GetStatistics(controller.GameMode);
-
-                overallStatistics.guessedWords += gameModeStatistics.guessedWords;
-                overallStatistics.hintsUsed += gameModeStatistics.hintsUsed;
-                overallStatistics.scoreGained += gameModeStatistics.scoreGained;
-
-                overallStatistics.firstAttemptGuesses += gameModeStatistics.firstAttemptGuesses;
-                overallStatistics.secondAttemptGuesses += gameModeStatistics.secondAttemptGuesses;
-                overallStatistics.thirdAttemptGuesses += gameModeStatistics.thirdAttemptGuesses;
-                overallStatistics.fourthAttemptGuesses += gameModeStatistics.fourthAttemptGuesses;
-                overallStatistics.fifthAttemptGuesses += gameModeStatistics.fifthAttemptGuesses;
-
-                overallStatistics.typedLetters += gameModeStatistics.typedLetters;
-                overallStatistics.correctLetters += gameModeStatistics.correctLetters;
-                overallStatistics.lettersInCorrectSpot += gameModeStatistics.lettersInCorrectSpot;
-                overallStatistics.removedLetters += gameModeStatistics.removedLetters;
-            }
+            var overallStatistics = _gameController.GetOverallStatistics();
 
             _pointsSpent.Refresh(_gameController.PointsSpent);
             _pointsSpentOnColors.Refresh(_gameController.PointsSpentOnColors);

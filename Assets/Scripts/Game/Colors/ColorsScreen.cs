@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sufka.Game.GameFlow;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sufka.Game.Colors
 {
@@ -9,13 +10,13 @@ namespace Sufka.Game.Colors
     {
         public event Action<ColorScheme> OnUnlockColorSchemeRequested;
         public event Action<ColorScheme> OnColorSchemeChanged;
-        
+
         [SerializeField]
         private ColorSchemeController _colorSchemeController;
-        
+
         [SerializeField]
         private ColorSchemeDatabase _colors;
-        
+
         [SerializeField]
         private Transform _colorDisplaysRoot;
 
@@ -25,19 +26,21 @@ namespace Sufka.Game.Colors
         [SerializeField]
         private GameController _gameController;
 
-        private List<ColorDisplay> _displays = new List<ColorDisplay>();
-        
+        [SerializeField]
+        private ScrollRect _scrollRect;
+
+        private readonly List<ColorDisplay> _displays = new List<ColorDisplay>();
+
         public void Initialize()
         {
             _colorSchemeController.Initialize();
 
-            for (var i = 0; i < _colors.ColorSchemeCount; i++)
+            foreach (var colorScheme in _colors.ColorSchemes)
             {
-                var colorScheme = _colors.ColorSchemes[i];
                 var colorDisplay = Instantiate(_colorDisplayPrefab, _colorDisplaysRoot);
-                var unlocked = _gameController.UnlockedColors[i];
+                var unlocked = _gameController.UnlockedColorIds.Contains(colorScheme.ColorId);
 
-                colorDisplay.Initialize(colorScheme, unlocked);
+                colorDisplay.Initialize(colorScheme, unlocked, _scrollRect);
 
                 colorDisplay.OnColorPicked += ChangeColorScheme;
                 colorDisplay.OnUnlockRequested += RequestUnlockColorScheme;
@@ -59,9 +62,9 @@ namespace Sufka.Game.Colors
 
         public void RefreshAvailableColorSchemes()
         {
-            for (var i = 0; i < _colors.ColorSchemeCount; i++)
+            for (var i = 0; i < _colors.ColorSchemes.Count; i++)
             {
-                var unlocked = _gameController.UnlockedColors[i];
+                var unlocked = _gameController.UnlockedColorIds.Contains(_colors.ColorSchemes[i].ColorId);
                 _displays[i].RefreshAvailability(unlocked);
             }
         }

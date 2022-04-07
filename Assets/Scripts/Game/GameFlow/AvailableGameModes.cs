@@ -11,6 +11,5 @@ namespace Sufka.Game.Unlocks
         private List<GameMode> _gameModes = new List<GameMode>();
 
         public List<GameMode> GameModes => new List<GameMode>(_gameModes);
-        public int GameModesCount => _gameModes.Count;
     }
 }

@@ -73,5 +73,30 @@ namespace Sufka.Game.Statistics
        {
            GetStatistics(gameMode, gameModes).scoreGained += points;
        }
+
+       public WordStatistics GetOverallStatistics()
+       {
+           var overallStatistics = new WordStatistics(-1);
+
+           foreach (var modeStatistics in _wordLengthStatistics.Values)
+           {
+               overallStatistics.guessedWords += modeStatistics.guessedWords;
+               overallStatistics.hintsUsed += modeStatistics.hintsUsed;
+               overallStatistics.scoreGained += modeStatistics.scoreGained;
+
+               overallStatistics.firstAttemptGuesses += modeStatistics.firstAttemptGuesses;
+               overallStatistics.secondAttemptGuesses += modeStatistics.secondAttemptGuesses;
+               overallStatistics.thirdAttemptGuesses += modeStatistics.thirdAttemptGuesses;
+               overallStatistics.fourthAttemptGuesses += modeStatistics.fourthAttemptGuesses;
+               overallStatistics.fifthAttemptGuesses += modeStatistics.fifthAttemptGuesses;
+
+               overallStatistics.typedLetters += modeStatistics.typedLetters;
+               overallStatistics.correctLetters += modeStatistics.correctLetters;
+               overallStatistics.lettersInCorrectSpot += modeStatistics.lettersInCorrectSpot;
+               overallStatistics.removedLetters += modeStatistics.removedLetters;
+           }
+
+           return overallStatistics;
+       }
     }
 }

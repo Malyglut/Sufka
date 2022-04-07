@@ -15,7 +15,7 @@ namespace Sufka.Game.GameFlow
         public void Refresh(int pointsGained)
         {
             _pointsGained.SetText(pointsGained.ToString());
-            _pointsText.SetText(PointsTextUtility.GetProperPointsString(pointsGained));
+            _pointsText.SetText(PolishTextUtility.GetProperPointsString(pointsGained));
         }
     }
 }

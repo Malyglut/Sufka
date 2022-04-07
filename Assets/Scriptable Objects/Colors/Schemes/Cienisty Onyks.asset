@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240170ef1961447b89ca5007585a516d, type: 3}
+  m_Name: Cienisty Onyks
+  m_EditorClassIdentifier: 
+  _colorId: 11316ab9-d2eb-4189-b50e-daf255eed2d6
+  _unlockCost: 50
+  _name: Cienisty Onyks
+  _primaryColor: {r: 0.7019608, g: 0.6627451, b: 0.65882355, a: 1}
+  _secondaryColor: {r: 0.27058825, g: 0.27058825, b: 0.27058825, a: 1}
+  _disabledColor: {r: 0.5921569, g: 0.53333336, b: 0.5294118, a: 1}
+  _fullCorrectColor: {r: 0.70980394, g: 0.8352941, b: 0.44705883, a: 1}
+  _partialCorrectColor: {r: 0.99607843, g: 0.92941177, b: 0.44705883, a: 1}
+  _failColor: {r: 0.85882354, g: 0.22745098, b: 0.20392157, a: 1}
+  _positiveTextColor: {r: 0.42313564, g: 0.5849056, b: 0.08552865, a: 1}

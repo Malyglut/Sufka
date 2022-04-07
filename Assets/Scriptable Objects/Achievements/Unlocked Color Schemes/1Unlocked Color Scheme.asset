@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4db88d8c304c81a05791f4f2f435d7, type: 3}
+  m_Name: 1Unlocked Color Scheme
+  m_EditorClassIdentifier: 
+  _achievementId: 4ae276dd-9626-4b1c-b145-1986f776cae8
+  _type: {fileID: 11400000, guid: 99b0e8d8f0ce123408f25ff25c037d34, type: 2}
+  _precedingAchievement: {fileID: 0}
+  _showProgress: 1
+  _hidden: 0
+  _targetAmount: 1
+  _title: "P\u0119dzel"

@@ -1,13 +1,20 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Sirenix.OdinInspector;
+using Sufka.Game.Achievements;
 using Sufka.Game.Ads;
 using Sufka.Game.Analytics;
 using Sufka.Game.Colors;
+using Sufka.Game.DailyTasks;
+using Sufka.Game.InGameNotifications;
 using Sufka.Game.MainMenu;
 using Sufka.Game.Persistence;
 using Sufka.Game.Popup;
 using Sufka.Game.Statistics;
 using Sufka.Game.Tutorial;
 using Sufka.Game.Unlocks;
+using Sufka.Game.Utility;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -36,6 +43,15 @@ namespace Sufka.Game.GameFlow
         [SerializeField]
         private TutorialController _tutorial;
 
+        [SerializeField]
+        private AchievementsController _achievements;
+
+        [SerializeField]
+        private NotificationController _notifications;
+
+        [SerializeField]
+        private DailyTaskController _dailyTasks;
+
         private readonly StatisticsController _statistics = new StatisticsController();
         private readonly AdsController _ads = new AdsController();
 
@@ -46,15 +62,18 @@ namespace Sufka.Game.GameFlow
         private int _pointsForAd;
         private bool _gameInProgress;
 
-        public ColorScheme SelectedColorScheme => _colorSchemeDatabase.ColorSchemes[_saveData.selectedColorSchemeIdx];
-        public List<bool> UnlockedGameModes => _saveData.unlockedGameModes;
-        public List<bool> UnlockedColors => _saveData.unlockedColors;
+        public ColorScheme SelectedColorScheme =>
+            _colorSchemeDatabase.ColorSchemes.First(color => color.ColorId == _saveData.selectedColorSchemeId);
+        public List<string> UnlockedGameModeIds => _saveData.unlockedGameModeIds;
+        public List<string> UnlockedColorIds => _saveData.unlockedColorIds;
         public int PointsSpent => _saveData.pointsSpentOnUnlocks;
         public int PointsSpentOnColors => _saveData.pointsSpentOnColors;
-        public int ColorsUnlocked => _saveData.unlockedColorCount;
+        public int ColorsUnlocked => _saveData.unlockedColorIds.Count;
         public int Score => _saveData.score;
         public int AvailableHints => _saveData.availableHints;
         public bool HintUsed => _gameInProgressSaveData.hintUsed;
+        public int TutorialCompletionsCount => _saveData.tutorialCompletionsCount;
+        public int CompletedDailyTasks => _saveData.completedDailyTasksCount;
 
         private void StartTutorial()
         {
@@ -70,13 +89,134 @@ namespace Sufka.Game.GameFlow
             _mainMenu.gameObject.SetActive(true);
 
             _saveData.tutorialCompleted = true;
+            _saveData.tutorialCompletionsCount++;
+            _achievements.HandleTutorialCompleted();
             SaveGame();
         }
 
         private void Start()
         {
             LoadGame();
+            InitializePlayArea();
+            InitializeMainMenu();
+            InitializeAchievements();
+            InitializeDailyTasks();
 
+            _popup.Initialize();
+
+            if (!_saveData.tutorialCompleted)
+            {
+                StartTutorial();
+            }
+        }
+
+        private void InitializeDailyTasks()
+        {
+            if (_saveData.previousDailyTasks == null)
+            {
+                _saveData.previousDailyTasks = new List<string>();
+            }
+
+            if (_saveData.dailyTasksData == null)
+            {
+                _saveData.dailyTasksData = new List<DailyTaskData>();
+            }
+
+            if (_saveData.nextDailyTasksGenerationDateTime == null)
+            {
+                _saveData.nextDailyTasksGenerationDateTime = new DateTimeSaveData(DateTime.Now);
+            }
+
+            var dateTimeData = _saveData.nextDailyTasksGenerationDateTime;
+
+            var nextDailyTasksDateTime = new DateTime(
+                                                      dateTimeData.year, 
+                                                      dateTimeData.month,
+                                                      dateTimeData.day,
+                                                      dateTimeData.hour,
+                                                      dateTimeData.minute,
+                                                      dateTimeData.second);
+
+            _dailyTasks.OnDailyTasksGenerated += SaveDailyTasksData;
+            _dailyTasks.OnDailyTaskCompleted += HandleDailyTaskCompleted;
+            _dailyTasks.OnDailyTasksUpdated += UpdateDailyTaskProgress;
+            _dailyTasks.OnRewardClaimed += ClaimDailyTaskReward;
+            
+            _dailyTasks.Initialize(nextDailyTasksDateTime, _saveData.dailyTasksData, _saveData.previousDailyTasks);
+        }
+
+        private void ClaimDailyTaskReward(int pointsReward, List<DailyTask> currentTasks)
+        {
+            _saveData.score += pointsReward;
+            _saveData.pointsGainedFromTasks += pointsReward;
+            _playArea.RefreshPoints(pointsReward);
+
+            UpdateDailyTaskProgress(currentTasks);
+            
+            SaveGame();
+        }
+
+        private void HandleDailyTaskCompleted(DailyTask dailyTask)
+        {
+            _notifications.ShowDailyTaskNotification(dailyTask);
+            _saveData.completedDailyTasksCount++;
+            _achievements.HandleDailyTaskCompleted();
+            SaveGame();
+        }
+
+        private void SaveDailyTasksData(List<DailyTask> currentDailyTasks, List<string> previousTasksIds, DateTime nextDailyTaskGeneration)
+        {
+            UpdateDailyTaskProgress(currentDailyTasks);
+            _saveData.previousDailyTasks = previousTasksIds;
+            _saveData.nextDailyTasksGenerationDateTime = new DateTimeSaveData(nextDailyTaskGeneration);
+            
+            SaveGame();
+        }
+
+        private void UpdateDailyTaskProgress(List<DailyTask> currentDailyTasks)
+        {
+            var taskData= new List<DailyTaskData>();
+
+            foreach (var task in currentDailyTasks)
+            {
+                taskData.Add(new DailyTaskData(task));
+            }
+
+            _saveData.dailyTasksData = taskData;
+        }
+
+        private void InitializeAchievements()
+        {
+            _achievements.OnAchievementCompleted += HandleAchievementCompleted;
+            _achievements.Initialize(_saveData.completedAchievements);
+
+            if (_saveData.completedAchievements == null)
+            {
+                _saveData.completedAchievements = new List<string>();
+
+                foreach (var achievement in _achievements.CompletedAchievements)
+                {
+                    _saveData.completedAchievements.Add(achievement.AchievementId);
+                }
+            }
+        }
+
+        private void InitializeMainMenu()
+        {
+            _mainMenu.OnRequestGameStart += StartGame;
+            _mainMenu.OnContinueRequested += ContinueGame;
+            _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
+            _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
+            _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
+            _mainMenu.OnTutorialRequested += StartTutorial;
+            
+            _mainMenu.Initialize();
+
+            ShowMainMenu();
+        }
+
+        private void InitializePlayArea()
+        {
             _playArea.OnHintUsed += HandleHintUsed;
             _playArea.OnWordGuessed += HandleWordGuessed;
             _playArea.OnPointsAwarded += IncreaseScore;
@@ -86,23 +226,19 @@ namespace Sufka.Game.GameFlow
             _playArea.OnRoundOver += HandleRoundOver;
             _playArea.OnLetterStatisticsUpdated += HandleLetterStatisticsUpdated;
             _playArea.OnRoundStarted += UpdateGameInProgress;
+            _playArea.OnDailyTasksScreenRequested += ShowDailyTasksScreen;
+        }
 
-            _mainMenu.OnRequestGameStart += StartGame;
-            _mainMenu.OnContinueRequested += ContinueGame;
-            _mainMenu.OnRequestUnlockColorScheme += ShowUnlockColorSchemePopup;
-            _mainMenu.OnNotifyColorSchemeChanged += UpdateSelectedColorScheme;
-            _mainMenu.OnRequestUnlockGameMode += ShowUnlockGameModePopup;
-            _mainMenu.OnTutorialRequested += StartTutorial;
-            _mainMenu.Initialize();
+        private void ShowDailyTasksScreen()
+        {
+            _mainMenu.ShowDailyTasksScreenInGame();
+        }
 
-            ShowMainMenu();
-
-            _popup.Initialize();
-
-            if (!_saveData.tutorialCompleted)
-            {
-                StartTutorial();
-            }
+        private void HandleAchievementCompleted(Achievement achievement)
+        {
+            _saveData.completedAchievements.Add(achievement.AchievementId);
+            _notifications.ShowAchievementNotification(achievement);
+            SaveGame();
         }
 
         private void UpdateGameInProgress()
@@ -130,6 +266,8 @@ namespace Sufka.Game.GameFlow
 
             _saveData.wordsUntilHintReward--;
 
+            _dailyTasks.HandleGamePlayed();
+            
             if (_saveData.wordsUntilHintReward <= 0)
             {
                 AnalyticsEvents.HintForPlaying(_saveData.availableHints);
@@ -153,8 +291,7 @@ namespace Sufka.Game.GameFlow
         private void UnlockGameMode(GameMode gameMode)
         {
             _saveData.score -= gameMode.UnlockCost;
-            var gameModeIdx = GetGameModeIdx(gameMode);
-            _saveData.unlockedGameModes[gameModeIdx] = true;
+            _saveData.unlockedGameModeIds.Add(gameMode.GameModeId);
             _saveData.pointsSpentOnUnlocks += gameMode.UnlockCost;
             SaveGame();
 
@@ -165,8 +302,7 @@ namespace Sufka.Game.GameFlow
 
         private void UpdateSelectedColorScheme(ColorScheme colorScheme)
         {
-            var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
-            _saveData.selectedColorSchemeIdx = colorSchemeIdx;
+            _saveData.selectedColorSchemeId = colorScheme.ColorId;
             SaveGame();
 
             AnalyticsEvents.ColorSchemeSelected(colorScheme.Name);
@@ -183,14 +319,13 @@ namespace Sufka.Game.GameFlow
         private void UnlockColorScheme(ColorScheme colorScheme)
         {
             _saveData.score -= colorScheme.UnlockCost;
-
-            var colorSchemeIdx = _colorSchemeDatabase.ColorSchemes.IndexOf(colorScheme);
-            _saveData.unlockedColors[colorSchemeIdx] = true;
+            _saveData.unlockedColorIds.Add(colorScheme.ColorId);
 
             _saveData.pointsSpentOnColors += colorScheme.UnlockCost;
             _saveData.pointsSpentOnUnlocks += colorScheme.UnlockCost;
-            _saveData.unlockedColorCount++;
 
+            _achievements.HandleColorUnlocked();
+            
             SaveGame();
 
             _mainMenu.RefreshColorSchemes();
@@ -234,7 +369,9 @@ namespace Sufka.Game.GameFlow
             _saveData.score += points;
             _saveData.bonusPointsReward += points;
 
-            _statistics.HandlePointsGained(points, _playArea.GameMode, _availableGameModes);
+            var gameMode = _playArea.GameMode == null ? _availableGameModes.GameModes[0] : _playArea.GameMode;
+            _statistics.HandlePointsGained(points, gameMode, _availableGameModes);
+            _dailyTasks.HandlePointsGained(points);
 
             SaveGame();
         }
@@ -244,6 +381,8 @@ namespace Sufka.Game.GameFlow
             HandleRoundOver();
 
             _statistics.HandleWordGuessed(_playArea.GameMode, attempt, _availableGameModes);
+            _achievements.HandleWordGuessed(_playArea.GameMode);
+            _dailyTasks.HandleWordGuessed();
 
             _saveData.wordsUntilBonusPointsReward--;
 
@@ -274,6 +413,8 @@ namespace Sufka.Game.GameFlow
 
             _saveData.availableHints--;
             _statistics.HandleHintUsed(_playArea.GameMode, _availableGameModes);
+            _achievements.HandleHintUsed();
+            _dailyTasks.HandleHintUsed();
             SaveGame();
         }
 
@@ -315,16 +456,36 @@ namespace Sufka.Game.GameFlow
 
             _gameInProgressSaveData = SaveSystem.LoadGameInProgress();
 
-            if (_saveData.unlockedColors.Count < _colorSchemeDatabase.ColorSchemeCount)
+            if (_saveData.unlockedColorIds == null)
             {
-                _saveData.UpdateColorUnlocksCount(_colorSchemeDatabase.ColorSchemeCount);
-                SaveGame();
+                _saveData.unlockedColorIds = new List<string>();
+
+                for (var i = 0; i < _saveData.unlockedColors.Count; i++)
+                {
+                    if (_saveData.unlockedColors[i])
+                    {
+                        _saveData.unlockedColorIds.Add(_colorSchemeDatabase.ColorSchemes[i].ColorId);
+                    }
+                }
             }
 
-            if (_saveData.unlockedGameModes.Count < _availableGameModes.GameModesCount)
+            if (_saveData.unlockedGameModeIds == null)
             {
-                _saveData.UpdateGameModeUnlocksCount(_availableGameModes.GameModesCount);
-                SaveGame();
+                _saveData.unlockedGameModeIds = new List<string>();
+
+                for (var i = 0; i < _saveData.unlockedGameModes.Count; i++)
+                {
+                    if (_saveData.unlockedGameModes[i])
+                    {
+                        _saveData.unlockedGameModeIds.Add(_availableGameModes.GameModes[i].GameModeId);
+                    }
+                }
+            }
+
+            if (_saveData.selectedColorSchemeId == null)
+            {
+                _saveData.selectedColorSchemeId =
+                    _colorSchemeDatabase.ColorSchemes[_saveData.selectedColorSchemeIdx].ColorId;
             }
         }
 
@@ -377,9 +538,24 @@ namespace Sufka.Game.GameFlow
             }
         }
 
-        public int GetGameModeIdx(GameMode gameMode)
+        public WordStatistics GetOverallStatistics()
         {
-            return _availableGameModes.GameModes.IndexOf(gameMode);
+            return _statistics.GetOverallStatistics();
         }
+
+#if UNITY_EDITOR
+        [Button]
+        private void AddPoints(int points)
+        {
+            IncreaseScore(points);
+        }
+
+        [Button]
+        private void IncreaseHintsUsed(int amount)
+        {
+            _statistics.WordStatistics[0].hintsUsed += amount;
+            SaveGame();
+        }
+#endif
     }
 }

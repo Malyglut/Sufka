@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244716032a454213b7750f75d1a44fa2, type: 3}
+  m_Name: Play 20 Games
+  m_EditorClassIdentifier: 
+  _dailyTaskId: 2de6023a-2a85-402e-86f4-c74a3085018d
+  _type: {fileID: 11400000, guid: 5d946136f5d78424cb692ba71d632093, type: 2}
+  _targetAmount: 20
+  _pointsReward: 15

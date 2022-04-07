@@ -9,43 +9,42 @@ namespace Sufka.Game.MainMenu
 {
     public class GameModeButtonsScreen : MonoBehaviour
     {
-        public event Action<GameMode> OnRequestGameStart;
-        public event Action<GameMode> OnRequestShowStatistics;
-        public event Action<GameMode> OnRequestUnlockGameMode;
-        public event Action OnRequestShowOverallStatistics;
-        
         private enum ButtonMode
         {
             Play,
             Statistics
         }
-        
+
         private const string PLAY_BUTTONS_LABEL = "graj";
         private const string STATISTICS_BUTTONS_LABEL = "statystyki";
+        public event Action<GameMode> OnRequestGameStart;
+        public event Action<GameMode> OnRequestShowStatistics;
+        public event Action<GameMode> OnRequestUnlockGameMode;
+        public event Action OnRequestShowOverallStatistics;
 
         [SerializeField]
         private GameController _gameController;
-        
+
         [SerializeField]
         private TextMeshProUGUI _buttonsLabel;
-        
+
         [SerializeField]
         private Button _overallStatisticsButton;
-        
+
         [SerializeField]
         private List<GameModeButton> _buttons = new List<GameModeButton>();
-        
+
         private ButtonMode _currentButtonMode = ButtonMode.Play;
 
         public void Initialize()
         {
             _overallStatisticsButton.onClick.AddListener(HandleOverallStatisticsSelected);
-            
+
             foreach (var button in _buttons)
             {
                 button.OnGameModeSelected += HandleGameModeSelected;
                 button.OnUnlockRequested += RequestUnlockGameMode;
-                
+
                 button.Initialize();
             }
         }
@@ -77,11 +76,10 @@ namespace Sufka.Game.MainMenu
             _overallStatisticsButton.gameObject.SetActive(false);
             _buttonsLabel.SetText(PLAY_BUTTONS_LABEL);
             _currentButtonMode = ButtonMode.Play;
-            
+
             foreach (var button in _buttons)
             {
-                var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
-                var unlocked = _gameController.UnlockedGameModes[gameModeIdx];
+                var unlocked = _gameController.UnlockedGameModeIds.Contains(button.GameMode.GameModeId);
                 button.gameObject.SetActive(true);
                 button.RefreshAvailability(unlocked);
             }
@@ -95,8 +93,7 @@ namespace Sufka.Game.MainMenu
 
             foreach (var button in _buttons)
             {
-                var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
-                var unlocked = _gameController.UnlockedGameModes[gameModeIdx];
+                var unlocked = _gameController.UnlockedGameModeIds.Contains(button.GameMode.GameModeId);
                 button.RefreshAvailability(true);
                 button.gameObject.SetActive(unlocked);
             }
@@ -106,8 +103,7 @@ namespace Sufka.Game.MainMenu
         {
             foreach (var button in _buttons)
             {
-                var gameModeIdx = _gameController.GetGameModeIdx(button.GameMode);
-                var unlocked = _gameController.UnlockedGameModes[gameModeIdx];
+                var unlocked = _gameController.UnlockedGameModeIds.Contains(button.GameMode.GameModeId);
                 button.RefreshAvailability(unlocked);
             }
         }
