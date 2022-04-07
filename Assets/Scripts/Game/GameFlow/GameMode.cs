@@ -15,9 +15,14 @@ namespace Sufka.Game.GameFlow
 
         [SerializeField]
         private int _unlockCost;
+
+        [SerializeField]
+        private int _orderInList;
+        
         public string Name => _name;
         public int UnlockCost => _unlockCost;
         public string GameModeId => _gameModeId;
+        public int OrderInList => _orderInList;
 
 #if UNITY_EDITOR
         [Button, ShowIf("@_gameModeId == Guid.Empty.ToString()")]

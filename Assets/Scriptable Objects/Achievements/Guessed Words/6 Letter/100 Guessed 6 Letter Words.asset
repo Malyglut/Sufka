@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9924cc24bd014b3ca481624a02cdc03b, type: 3}
-  m_Name: KLAWO
+  m_Name: 100 Guessed 6 Letter Words
   m_EditorClassIdentifier: 
-  _achievementId: 00000000-0000-0000-0000-000000000000
+  _achievementId: 8f4974b3-9d83-45b1-bc93-009891d94663
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _precedingAchievement: {fileID: 0}
+  _precedingAchievement: {fileID: 11400000, guid: f937495f0efa0024699754553abe284f, type: 2}
   _showProgress: 1
   _hidden: 0
-  _targetAmount: 0
-  _title: K L A W O
-  _gameMode: {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
+  _targetAmount: 100
+  _title: C U D N I E
+  _gameMode: {fileID: 11400000, guid: 1640c2b6710d9f444939fc39a48cfeda, type: 2}

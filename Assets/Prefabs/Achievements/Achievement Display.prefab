@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3642678915026412265}
   - component: {fileID: 3302398418786348483}
   - component: {fileID: 6630500067257432281}
+  - component: {fileID: 8923805655628731594}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -149,6 +150,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 3302398418786348483}
   _schemeColor: 1
+--- !u!114 &8923805655628731594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780413554916491814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1226131251998848653
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +443,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
@@ -441,6 +462,7 @@ GameObject:
   - component: {fileID: 3845972239369425042}
   - component: {fileID: 8218273724666105517}
   - component: {fileID: 4731965571195616634}
+  - component: {fileID: 6311041205828841022}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -578,6 +600,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 8218273724666105517}
   _schemeColor: 1
+--- !u!114 &6311041205828841022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097899070312163518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 600
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 0
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &3165963160218181126
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9924cc24bd014b3ca481624a02cdc03b, type: 3}
-  m_Name: ACHAC
+  m_Name: 100 Guessed 4 Letter Words
   m_EditorClassIdentifier: 
-  _achievementId: 00000000-0000-0000-0000-000000000000
+  _achievementId: ce5443c8-328e-41d7-9a2b-21577b3a8c65
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _precedingAchievement: {fileID: 0}
+  _precedingAchievement: {fileID: 11400000, guid: e8d6759989da9d84c87f0b28e55c3628, type: 2}
   _showProgress: 1
   _hidden: 0
-  _targetAmount: 0
-  _title: "A C H A \u0106"
-  _gameMode: {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
+  _targetAmount: 100
+  _title: D U M A
+  _gameMode: {fileID: 11400000, guid: 9c3280bfd6001d241af80aff9a3d3059, type: 2}

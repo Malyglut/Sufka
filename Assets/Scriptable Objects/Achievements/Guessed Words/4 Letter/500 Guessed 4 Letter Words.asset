@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9924cc24bd014b3ca481624a02cdc03b, type: 3}
-  m_Name: MISCZ
+  m_Name: 500 Guessed 4 Letter Words
   m_EditorClassIdentifier: 
-  _achievementId: 00000000-0000-0000-0000-000000000000
+  _achievementId: 6694be36-9cda-43fd-8b8d-40d4ff259f70
   _type: {fileID: 11400000, guid: 25851ade2555f824086a7dda0652545b, type: 2}
-  _precedingAchievement: {fileID: 0}
+  _precedingAchievement: {fileID: 11400000, guid: e5afd85042d8f154da157925ef621890, type: 2}
   _showProgress: 1
   _hidden: 0
-  _targetAmount: 0
-  _title: M I S C Z
-  _gameMode: {fileID: 11400000, guid: 0398ab0ebc971ef4e85fb57fb3d427b4, type: 2}
+  _targetAmount: 500
+  _title: "D U \u017B O"
+  _gameMode: {fileID: 11400000, guid: 9c3280bfd6001d241af80aff9a3d3059, type: 2}

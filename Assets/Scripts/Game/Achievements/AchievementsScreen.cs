@@ -23,9 +23,15 @@ namespace Sufka.Game.Achievements
 
         public void RefreshAvailableAchievements(List<Achievement> achievements)
         {
-            var sortedAchievements = achievements.OrderBy(achievement => achievement.Type.ListOrder)
-                                                 .ThenBy(achievement => achievement.TargetAmount);
-            
+            var sortedAchievements = achievements
+                                    .OrderBy(achievement => achievement.Type.ListOrder).ThenBy(achievement =>
+                                         achievement is GuessedWordsAchievement
+                                             guessedWordsAchievement &&
+                                         guessedWordsAchievement.GameMode != null ?
+                                             guessedWordsAchievement.GameMode.OrderInList :
+                                             0)
+                                    .ThenBy(achievement => achievement.TargetAmount);
+
             foreach (var achievement in sortedAchievements)
             {
                 if (_achievementDisplays.ContainsKey(achievement))
