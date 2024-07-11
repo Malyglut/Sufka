@@ -1,1 +1,1 @@
-A WORDLE inspired game in polish.
+A Wordle inspired game in polish.
